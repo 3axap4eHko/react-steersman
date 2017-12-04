@@ -1,6 +1,6 @@
 {
-  "name": "@react-steersman/steersman",
-  "version": "0.1.5",
+  "name": "react-steersman",
+  "version": "0.1.6",
   "description": "",
   "main": "index.js",
   "scripts": {
