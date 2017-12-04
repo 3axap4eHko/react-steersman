@@ -17,6 +17,9 @@
   "bugs": {
     "url": "https://github.com/3axap4eHko/react-steersman/issues"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "homepage": "https://github.com/3axap4eHko/react-steersman#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
