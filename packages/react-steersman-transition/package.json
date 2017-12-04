@@ -1,0 +1,23 @@
+{
+  "name": "@react-steersman/transition",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src --out-dir . --ignore __tests__",
+    "prepublish": "NODE_ENV=production npm run build"
+  },
+  "repository": "https://github.com/3axap4eHko/react-steersman/tree/master/packages/react-steersman-transition",
+  "author": "Ivan (3axap4eHko@gmail.com) Zakharchanka",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^16.2.0"
+  },
+  "dependencies": {
+    "history": "^4.7.2",
+    "prop-types": "^15.6.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0"
+  }
+}
