@@ -1,6 +1,6 @@
 {
   "name": "@react-steersman/steersman",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -14,8 +14,8 @@
     "react": "^16.2.0"
   },
   "dependencies": {
-    "@react-steersman/transition": "^0.1.1",
-    "@react-steersman/url": "^0.1.1",
+    "@react-steersman/transition": "^0.1.2",
+    "@react-steersman/url": "^0.1.2",
     "prop-types": "^15.6.0"
   },
   "devDependencies": {
