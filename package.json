@@ -1,5 +1,6 @@
 {
   "name": "react-steersman",
+  "private": true,
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
@@ -16,9 +17,6 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/3axap4eHko/react-steersman/issues"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "homepage": "https://github.com/3axap4eHko/react-steersman#readme",
   "devDependencies": {
