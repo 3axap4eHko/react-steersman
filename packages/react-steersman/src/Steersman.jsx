@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import { object, func } from 'prop-types';
+import { object, func, oneOf } from 'prop-types';
 
 export default class Steersman extends Component {
 
   static propTypes = {
+    history: object.isRequired,
     onLocationChanged: func,
     onRouteUpdated: func,
-    history: object.isRequired,
+  };
+
+  static defaultProps = {
+    onLocationChanged: () => {},
+    onRouteUpdated: () => {},
   };
 
   static childContextTypes = {

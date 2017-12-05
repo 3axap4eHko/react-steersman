@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "NODE_ENV=production lerna build",
+    "build": "NODE_ENV=production lerna run build",
     "test": "NODE_ENV=test jest"
   },
   "repository": {

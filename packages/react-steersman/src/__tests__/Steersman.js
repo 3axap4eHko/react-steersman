@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import createMemoryHistory from 'history/createMemoryHistory';
+import { createMemoryHistory } from '../history';
 import Route from '../Route';
 import Steersman from '../Steersman';
 
@@ -55,7 +55,7 @@ test('Route matched path', done => {
       (routePath, match) => {
         expect(routePath).toBe('/');
         expect(match).toBe(null);
-        expect(context.component.toJSON()).toBe('route-none');
+        expect(context.component.toJSON()).toBe('route-exiting');
       },
       (routePath, match) => {
         expect(routePath).toBe('/test');
