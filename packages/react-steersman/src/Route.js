@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { string, object, func } from 'prop-types';
-import Pattern from '@react-steersman/url/Pattern';
+import Pattern from 'react-steersman-url/Pattern';
 import Transition, { STATUS_NONE, STATUS_ENTER, STATUS_EXIT } from '@react-steersman/transition/Transition';
 
 function DefaultTransition({ children, ...props }) {

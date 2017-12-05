@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { object, string, func, bool, oneOfType } from 'prop-types';
-import Pattern from '@react-steersman/url/Pattern';
+import Pattern from 'react-steersman-url/Pattern';
 
 export default class Match extends Component {
 
