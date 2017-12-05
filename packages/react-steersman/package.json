@@ -14,8 +14,8 @@
     "react": "^16.2.0"
   },
   "dependencies": {
-    "@react-steersman/transition": "^0.1.5",
-    "@react-steersman/url": "^0.1.5",
+    "react-steersman-transition": "^0.1.5",
+    "react-steersman-url": "^0.1.5",
     "prop-types": "^15.6.0"
   },
   "devDependencies": {
