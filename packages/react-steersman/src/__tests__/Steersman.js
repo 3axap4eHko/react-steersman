@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { createMemoryHistory } from '../history';
+import createMemoryHistory from '../createMemoryHistory';
 import Route from '../Route';
 import Steersman from '../Steersman';
 
