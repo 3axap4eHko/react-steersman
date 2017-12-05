@@ -1,6 +1,6 @@
 {
   "name": "react-steersman",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -14,9 +14,9 @@
     "react": "^16.2.0"
   },
   "dependencies": {
-    "react-steersman-transition": "^0.1.5",
-    "react-steersman-url": "^0.1.5",
-    "prop-types": "^15.6.0"
+    "prop-types": "^15.6.0",
+    "react-steersman-transition": "^0.1.8",
+    "react-steersman-url": "^0.1.8"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0"
