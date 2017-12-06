@@ -5,33 +5,56 @@ import Pattern from 'react-steersman-url/Pattern';
 export default class Match extends Component {
 
   static propTypes = {
-    to: string,
+    path: string,
+    exact: bool,
+    strict: bool,
   };
 
   static defaultProps = {
-    to: '/',
+    path: '/',
+    exact: true,
+    strict: false,
   };
 
   static contextTypes = {
     history: object,
   };
 
-  pattern = new Pattern(this.props.to);
+  constructor(props, context) {
+    super(props, context);
+    if (!context.history) {
+      console.error('Make sure your Route has Steersman component at a parent level');
+    }
+    const { history } = context;
 
-  state = {
-    match: this.pattern.match(this.context.location.pathname),
-  };
+    this.pattern = Pattern.fromString(props.path, {
+      exact: props.exact,
+      strict: props.strict,
+    });
 
-  componentWillMount() {
-    const { history } = this.context;
-    this.unlisten = history.listen((location) => {
+    this.state = {
+      pathname: history.location.pathname,
+      match: this.pattern.match(history.location.pathname),
+      timestamp: Date.now(),
+    };
+
+    this.unlisten = history.listen(location => {
       const match = this.pattern.match(location.pathname);
-      this.setState({ match });
+      if (JSON.stringify(this.state.match) !== JSON.stringify(match)) {
+        this.setState({
+          match,
+          timestamp: Date.now(),
+          pathname: location.pathname,
+        });
+      }
     });
   }
 
-  componentWillReceiveProps({ to }) {
-    this.pattern = new Pattern(to);
+  componentWillReceiveProps({ path, exact, strict }) {
+    this.pattern = Pattern.fromString(path, {
+      exact,
+      strict,
+    });
   }
 
   componentWillUnmount() {
@@ -40,8 +63,8 @@ export default class Match extends Component {
 
   render() {
     const { children } = this.props;
-    const { match } = this.state;
+    const { match, pathname } = this.state;
 
-    return children(match);
+    return children({ match, pathname });
   }
 }

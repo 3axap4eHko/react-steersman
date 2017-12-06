@@ -1,94 +1,96 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { func, object } from 'prop-types';
 import renderer from 'react-test-renderer';
 import createMemoryHistory from '../createMemoryHistory';
-import Route from '../Route';
 import Steersman from '../Steersman';
 
-test('Steersman onLocationChanged', done => {
+test('Steersman defaults', () => {
   const context = {};
   const history = createMemoryHistory();
 
   context.component = renderer.create(
-    <Steersman history={history} onLocationChanged={() => done()}>
-      {null}
+    <Steersman history={history}>
+      {'defaults'}
     </Steersman>,
   );
   context.tree = context.component.toTree();
-  expect(context.component.toJSON()).toBe(null);
-  history.push('/');
+  expect(context.component.toJSON()).toBe('defaults');
 });
 
-test('Route matched path', done => {
+test('Steersman events', done => {
   const context = {};
   const history = createMemoryHistory();
 
-  const testCases = {
-    '/': [
-      () => {
-        expect(context.component.toJSON()).toBe('route-none');
-        history.push('/test');
-      },
-      (routePath, match) => {
-        if (routePath === '/') {
-          expect(match).toMatchObject({});
-        } else {
-          expect(match).toBe(null);
-        }
-        expect(context.component.toJSON().length).toBe(2);
-      },
-      (routePath, match) => {
-        if (routePath === '/') {
-          expect(match).toMatchObject({});
-        } else {
-          expect(match).toBe(null);
-        }
-        expect(context.component.toJSON().length).toBe(2);
-      },
-      (routePath, match) => {
-        expect(routePath).toBe('/test');
-        expect(match).toBe(null);
-        expect(context.component.toJSON()).toMatch(/route-enter/);
-        done();
-      },
-    ],
-    '/test': [
-      (routePath, match) => {
-        expect(routePath).toBe('/');
-        expect(match).toBe(null);
-        expect(context.component.toJSON()).toBe('route-exiting');
-      },
-      (routePath, match) => {
-        expect(routePath).toBe('/test');
-        expect(match).toMatchObject({});
-        expect(context.component.toJSON().length).toBe(2);
-      },
-      (routePath, match) => {
-        expect(routePath).toBe('/');
-        expect(match).toBe(null);
-        expect(context.component.toJSON()).toMatch(/route-test-enter/);
-        history.push('/');
-      },
-    ],
+  const expectedEvents = {
+    'enter': 1,
+    'entering': 1,
+    'entered': 1,
+    'exit': 1,
+    'exiting': 1,
+    'exited': 1,
+    'updated': 1,
   };
 
-  function executeCase(routePath, match, pathname) {
-    const cases = testCases[pathname];
-    if (cases.length) {
-      cases.shift()(routePath, match, pathname);
-    } else {
-      throw new Error('Unexpected call executeCase');
+  class EventTest extends Component {
+    static contextTypes = {
+      history: object,
+      routeTransition: func,
+      onRouteEnter: func,
+      onRouteEntering: func,
+      onRouteEntered: func,
+      onRouteExit: func,
+      onRouteExiting: func,
+      onRouteExited: func,
+      onRouteUpdated: func,
+    };
+
+    componentDidMount() {
+      const { history, onRouteEnter, onRouteEntering, onRouteEntered, onRouteExit, onRouteExiting, onRouteExited, onRouteUpdated } = this.context;
+      expect(typeof history).toBe('object');
+      expect(typeof onRouteEnter).toBe('function');
+      expect(typeof onRouteEntering).toBe('function');
+      expect(typeof onRouteEntered).toBe('function');
+      expect(typeof onRouteExit).toBe('function');
+      expect(typeof onRouteExiting).toBe('function');
+      expect(typeof onRouteExited).toBe('function');
+      expect(typeof onRouteUpdated).toBe('function');
+      onRouteEnter('enter');
+      onRouteEntering('entering');
+      onRouteEntered('entered');
+      onRouteExit('exit');
+      onRouteExiting('exiting');
+      onRouteExited('exited');
+      onRouteUpdated('updated');
+    }
+
+    render() {
+      return null;
+    }
+  }
+
+  function event(name) {
+    delete expectedEvents[name];
+    if (Object.keys(expectedEvents).length) {
+      done();
     }
   }
 
   context.component = renderer.create(
-    <Steersman history={history} onRouteUpdated={executeCase}>
-      <Route path="/" render={(match, status) => `route-${status}`} />
-      <Route path="/test" render={(match, status) => `route-test-${status}`} />
+    <Steersman
+      history={history}
+      onRouteUpdated={event}
+      onRouteEnter={event}
+      onRouteEntering={event}
+      onRouteEntered={event}
+      onRouteExit={event}
+      onRouteExiting={event}
+      onRouteExited={event}
+    >
+      <EventTest />
     </Steersman>,
   );
-
   context.tree = context.component.toTree();
-
-  executeCase(null, null, '/');
+  expect(context.component.toJSON()).toBe(null);
 });
+
 

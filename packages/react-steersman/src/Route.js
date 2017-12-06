@@ -1,97 +1,45 @@
 import React, { Component } from 'react';
 import { string, object, func } from 'prop-types';
-import Pattern from 'react-steersman-url/Pattern';
-import Transition, { STATUS_NONE, STATUS_ENTER, STATUS_EXIT } from 'react-steersman-transition/Transition';
+import Match from './Match';
+import MatchTransition from './MatchTransition';
 
-function DefaultTransition({ children, ...props }) {
-  return (
-    <Transition {...props} timeout={0}>
-      {status => children(status)}
-    </Transition>
-  );
-}
+const nop = () => {};
 
 export default class Route extends Component {
 
   static propTypes = {
     render: func.isRequired,
-    transition: func.isRequired,
     path: string,
+    onEnter: func,
+    onEntering: func,
+    onEntered: func,
+    onExit: func,
+    onExiting: func,
+    onExited: func,
+    transition: func,
   };
 
   static defaultProps = {
     path: '/',
-    transition: DefaultTransition,
-  };
-
-  static contextTypes = {
-    history: object,
-    onRouteUpdated: func,
-  };
-
-  match = pathname => {
-    return this.pattern.match(pathname);
-  };
-
-  constructor(props, context) {
-    super(props, context);
-    this.pattern = Pattern.fromString(props.path);
-    const match = this.match(context.history.location.pathname);
-
-    this.state = {
-      match: match,
-      status: STATUS_NONE,
-      pathname: context.history.location.pathname,
-      rendered: !!match,
-      timestamp: Date.now(),
-    };
-  }
-
-  componentWillMount() {
-    if (!this.context.history) {
-      console.error('Make sure your Route has Steersman component at a parent level');
-    }
-    const { history } = this.context;
-    this.unlisten = history.listen((location, action) => {
-      const match = this.match(location.pathname);
-      if (JSON.stringify(this.state.match) !== JSON.stringify(match)) {
-        this.setState({
-          match,
-          pathname: location.pathname,
-          timestamp: Date.now(),
-          rendered: this.state.rendered || !!match,
-          status: [STATUS_ENTER, STATUS_EXIT][(!match) | 0],
-        });
-      }
-    });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { onRouteUpdated } = this.context;
-    const { path } = this.props;
-    const { match, pathname, timestamp } = this.state;
-    if (prevState.timestamp !== timestamp) {
-      onRouteUpdated(path, match, pathname);
-    }
-  }
-
-  componentWillUnmount() {
-    this.unlisten();
-  }
-
-  onExited = () => {
-    this.setState({
-      rendered: false,
-      timestamp: Date.now(),
-    });
+    onEnter: nop,
+    onEntering: nop,
+    onEntered: nop,
+    onExit: nop,
+    onExiting: nop,
+    onExited: nop,
   };
 
   render() {
-    const { render, transition: TransitionComponent } = this.props;
-    const { match, timestamp, status, pathname, rendered } = this.state;
-    if (!rendered) {
-      return null;
-    }
-    return <TransitionComponent status={status} key={pathname} onExited={this.onExited}>{status => render(match, status)}</TransitionComponent>;
+    const { render, path, exact, strict, ...props } = this.props;
+    return (
+      <Match path={path} exact={exact} strict={strict}>
+        {({ match, pathname }) =>  (
+          <MatchTransition match={match} pathname={pathname} {...props}>
+            {({ match, direction, status }) => render({ match, pathname, direction, status })}
+          </MatchTransition>
+        )}
+      </Match>
+
+    );
   }
 }

@@ -8,7 +8,8 @@ function mapChildren(nextChildren, prevChildren = [], onExited) {
       children[child.key] = {
         idx,
         child: cloneElement(child, {
-          status: 'exit',
+          direction: 'exit',
+          force: Date.now() + Math.random(),
           onExited: () => onExited(child.key, child.props.onExited),
         }),
       };
@@ -17,6 +18,8 @@ function mapChildren(nextChildren, prevChildren = [], onExited) {
   return Object.values(children).sort((a, b) => a.idx - b.idx).map(({ child }) => child);
 }
 
+const nop = () => {};
+
 export default class GroupTransition extends Component {
 
   static propTypes = {
@@ -24,25 +27,29 @@ export default class GroupTransition extends Component {
   };
 
   static defaultProps = {
-    onUpdated() {},
+    onUpdated: nop,
   };
 
   state = {
     children: mapChildren(Children.toArray(this.props.children), [], this.onExited),
   };
 
-  onExited = (childKey, onExited) => {
+  setStateAsync = state => {
+    return new Promise((resolve) => this.setState(state, resolve));
+  };
+
+  onExited = async (childKey, onExited) => {
     onExited();
     const children = this.state.children.slice();
     const deleteIndex = children.findIndex(child => child.key === childKey);
     children.splice(deleteIndex, 1);
-    this.setState({ children });
+    await this.setStateAsync({ children });
     this.props.onUpdated();
   };
 
-  componentWillReceiveProps(nextProps) {
+  async componentWillReceiveProps(nextProps) {
     const children = mapChildren(Children.toArray(nextProps.children), this.state.children, this.onExited);
-    this.setState({ children });
+    await this.setStateAsync({ children });
   }
 
   render() {

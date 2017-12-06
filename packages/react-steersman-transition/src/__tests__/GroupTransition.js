@@ -30,10 +30,10 @@ class Wrapper extends Component {
 
   render() {
     const { items } = this.state;
-    const { onUpdated, onExit, onExited } = this.props;
+    const { onUpdated, onExit, onExiting, onExited } = this.props;
     return (
       <GroupTransition onUpdated={onUpdated}>
-        {items.map(id => <Transition key={id} timeout={NO_TIMEOUT} onExit={onExit} onExited={onExited}>{status => status}</Transition>)}
+        {items.map(id => <Transition key={id} timeout={NO_TIMEOUT} onExit={onExit} onExiting={onExiting} onExited={onExited}>{({ direction, status }) => `${direction}:${status}`}</Transition>)}
       </GroupTransition>
     );
   }
@@ -54,17 +54,20 @@ test('GroupTransition', done => {
     context.exited = true;
   }
 
-  function onExit() {
+  function onExiting() {
     const pendingState = context.component.toJSON();
     expect(pendingState.length).toBe(initSize);
-    expect(pendingState[initSize - 1]).toBe('exiting');
+    expect(pendingState[initSize - 1]).toBe('exit:doing');
   }
 
-  context.component = renderer.create(<Wrapper initSize={initSize} onUpdated={onUpdated} onExit={onExit} onExited={onExited} />);
+  function onExit() {
+  }
+
+  context.component = renderer.create(<Wrapper initSize={initSize} onUpdated={onUpdated} onExit={onExit} onExiting={onExiting} onExited={onExited} />);
   context.tree = context.component.toTree();
 
   const initialState = context.component.toJSON();
   expect(initialState.length).toBe(initSize);
-  expect(initialState[initSize - 1]).toBe('none');
+  expect(initialState[initSize - 1]).toBe('enter:done');
   context.tree.instance.onRemove(initSize - 1);
 });

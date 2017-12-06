@@ -10,6 +10,8 @@ const _patternPlaceholder = Symbol('URL pattern placeholder');
 const _names = Symbol('URL names');
 const _casts = Symbol('URL cast');
 
+const selfRef = {};
+
 function getPH(name) {
   return `:${name}`;
 }
@@ -58,7 +60,7 @@ function compile(pattern) {
 function buildRegexp(patternRegexp, options) {
   const { strict = true, exact = true } = options;
   if (!strict) {
-    patternRegexp = `${patternRegexp.replace(/(?!^)\/$/,'')}\\/?`;
+    patternRegexp = `${patternRegexp.replace(/(?!^)\/$/, '')}\\/?`;
   }
   if (exact) {
     patternRegexp = `${patternRegexp}$`;
@@ -84,6 +86,13 @@ function buildRegexp(patternRegexp, options) {
  * console.log(params) // { userId: 4520 }
  */
 export default class Pattern {
+
+  constructor(ref) {
+    if (ref !== selfRef) {
+      throw new Error('Pattern constructor does not accept arguments');
+    }
+  }
+
   /**
    * Parses string pattern and returns instance of `Pattern`
    * @param {String} pattern
@@ -103,7 +112,7 @@ export default class Pattern {
   static fromString(pattern, options) {
 
     const { patternRegexp, patternPlaceholder, names, casts } = compile(pattern);
-    const compiled = new Pattern();
+    const compiled = new Pattern(selfRef);
 
     compiled[_pattern] = pattern;
     compiled[_patternRegexp] = buildRegexp(patternRegexp, options || {});

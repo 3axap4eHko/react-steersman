@@ -1,26 +1,24 @@
 import React, { Component } from 'react';
-import { string, object, func } from 'prop-types';
+import { bool, string, object, func } from 'prop-types';
 import { DIRECTION_ENTER, DIRECTION_EXIT } from 'react-steersman-transition/Transition';
-import Match from './Match';
 
 const nop = () => {};
 
-export default class Route extends Component {
+export default class MatchTransition extends Component {
 
   static propTypes = {
-    render: func.isRequired,
-    transition: func,
-    path: string,
+    children: func.isRequired,
+    match: object,
     onEnter: func,
     onEntering: func,
     onEntered: func,
     onExit: func,
     onExiting: func,
     onExited: func,
+    transition: func,
   };
 
   static defaultProps = {
-    path: '/',
     onEnter: nop,
     onEntering: nop,
     onEntered: nop,
@@ -31,6 +29,7 @@ export default class Route extends Component {
 
   static contextTypes = {
     history: object,
+    isMounted: func,
     routeTransition: func,
     onRouteEnter: func,
     onRouteEntering: func,
@@ -46,83 +45,77 @@ export default class Route extends Component {
   };
 
   onEnter = async () => {
-    console.log(`route ${this.props.path} enter`);
     await this.props.onEnter();
     await this.context.onRouteEnter(this.props, this.state);
   };
 
   onEntering = async () => {
-    console.log(`route ${this.props.path} entering`);
     await this.props.onEntering();
     await this.context.onRouteEntering(this.props, this.state);
   };
 
   onEntered = async () => {
-    console.log(`route ${this.props.path} entered`);
     await this.props.onEntered();
     await this.context.onRouteEntered(this.props, this.state);
   };
 
   onExit = async () => {
-    console.log(`route ${this.props.path} exit`);
     await this.props.onExit();
     await this.context.onRouteExit(this.props, this.state);
   };
 
   onExiting = async () => {
-    console.log(`route ${this.props.path} exiting`);
     await this.props.onExiting();
     await this.context.onRouteExiting(this.props, this.state);
   };
 
   onExited = async () => {
-    console.log(`route ${this.props.path} exited`);
     await this.setStateAsync({ rendered: false, timestamp: Date.now() });
     await this.props.onExited();
     await this.context.onRouteExited(this.props, this.state);
   };
 
-  onRouteUpdated = async ({ timestamp, match, pathname }) => {
+  state = {
+    match: this.props.match,
+    direction: [DIRECTION_EXIT, DIRECTION_ENTER][(!!this.props.match) | 0],
+    rendered: !!this.props.match,
+    timestamp: Date.now(),
+  };
+
+  async componentWillReceiveProps({ match }) {
+    const rendered = !!match;
     await this.setStateAsync({
-      timestamp,
-      match,
-      pathname,
-      direction: [DIRECTION_EXIT, DIRECTION_ENTER][(!match) | 0],
-      rendered: !!match || this.state.rendered,
+      match: match || this.state.match,
+      direction: [DIRECTION_EXIT, DIRECTION_ENTER][(rendered) | 0],
+      rendered: rendered || this.state.rendered,
+      timestamp: Date.now(),
     });
     await this.context.onRouteUpdated(this.props, this.state);
-  };
-
-  state = {
-    direction: DIRECTION_ENTER,
-  };
+  }
 
   render() {
-    const { direction, pathname, rendered } = this.state;
+    const { direction, rendered, timestamp, match } = this.state;
     if (!rendered) {
       return null;
     }
-    const { render, transition, path, exact, strict } = this.props;
-    const TransitionComponent = transition || this.context.routeTransition;
+    const { routeTransition, isMounted } = this.context;
+    const { transition, children, startOnMount } = this.props;
+    const TransitionComponent = transition || routeTransition;
 
     return (
-      <Match path={path} exact={exact} strict={strict}>
-        {({ match, pathname }) => (
-          <TransitionComponent
-            key={pathname}
-            direction={direction}
-            onEnter={this.onEnter}
-            onEntering={this.onEntering}
-            onEntered={this.onEntered}
-            onExit={this.onExit}
-            onExiting={this.onExiting}
-            onExited={this.onExited}
-          >
-            {({ direction, status }) => render({ match, direction, status })}
-          </TransitionComponent>
-        )}
-      </Match>
-
+      <TransitionComponent
+        key={timestamp}
+        direction={direction}
+        onEnter={this.onEnter}
+        onEntering={this.onEntering}
+        onEntered={this.onEntered}
+        onExit={this.onExit}
+        onExiting={this.onExiting}
+        onExited={this.onExited}
+        startOnMount={isMounted() || startOnMount}
+      >
+        {({ direction, status }) => children({ direction, status, match })}
+      </TransitionComponent>
     );
   }
 }

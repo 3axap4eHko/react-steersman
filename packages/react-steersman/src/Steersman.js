@@ -1,51 +1,83 @@
 import React, { Component } from 'react';
-import { object, func, oneOf } from 'prop-types';
+import { bool, object, func, oneOf } from 'prop-types';
+import Transition from 'react-steersman-transition/Transition';
+
+function DefaultTransition({ children, ...props }) {
+  return (
+    <Transition {...props} timeout={0}>
+      {transition => children(transition)}
+    </Transition>
+  );
+}
+
+const nop = () => {};
 
 export default class Steersman extends Component {
 
   static propTypes = {
     history: object.isRequired,
-    onLocationChanged: func,
+    routeTransition: func,
     onRouteUpdated: func,
+    onRouteEnter: func,
+    onRouteEntering: func,
+    onRouteEntered: func,
+    onRouteExit: func,
+    onRouteExiting: func,
+    onRouteExited: func,
   };
 
   static defaultProps = {
-    onLocationChanged: () => {},
-    onRouteUpdated: () => {},
+    routeTransition: DefaultTransition,
+    onRouteUpdated: nop,
+    onRouteEnter: nop,
+    onRouteEntering: nop,
+    onRouteEntered: nop,
+    onRouteExit: nop,
+    onRouteExiting: nop,
+    onRouteExited: nop,
   };
 
   static childContextTypes = {
     history: object,
+    isMounted: func,
+    routeTransition: func,
     onRouteUpdated: func,
+    onRouteEnter: func,
+    onRouteEntering: func,
+    onRouteEntered: func,
+    onRouteExit: func,
+    onRouteExiting: func,
+    onRouteExited: func,
   };
 
-  onLocationChanged = (location, action) => {
-    const { onLocationChanged } = this.props;
-    if (onLocationChanged) {
-      onLocationChanged(location, action);
-    }
-  };
+  mounted = false;
 
-  onRouteUpdated = (routePath, match, pathname) => {
+  onRouteUpdated = (routeProps, routeState) => {
     const { onRouteUpdated } = this.props;
-    if (onRouteUpdated) {
-      onRouteUpdated(routePath, match, pathname);
-    }
+    onRouteUpdated(routeProps, routeState);
   };
 
   getChildContext() {
     return {
       history: this.props.history,
-      onRouteUpdated: this.onRouteUpdated,
+      isMounted: () => this.mounted,
+      routeTransition: this.props.routeTransition,
+      onRouteUpdated: this.props.onRouteUpdated,
+      onRouteEnter: this.props.onRouteEnter,
+      onRouteEntering: this.props.onRouteEntering,
+      onRouteEntered: this.props.onRouteEntered,
+      onRouteExit: this.props.onRouteExit,
+      onRouteExiting: this.props.onRouteExiting,
+      onRouteExited: this.props.onRouteExited,
     };
   }
 
-  componentWillMount() {
-    this.unlisten = this.props.history.listen(this.onLocationChanged);
+  componentDidMount() {
+    this.mounted = true;
   }
 
   componentWillUnmount() {
-    this.unlisten();
+    this.mounted = false;
   }
 
   render() {
