@@ -76,20 +76,20 @@ export default class Transition extends Component {
     await this.setStateAsync({ direction, status: STATUS_INIT });
     await this.props[propsMap[direction][STATUS_INIT]]();
 
-    if (canceled && !this.unmounted) {
+    if (canceled || this.unmounted) {
       return;
     }
 
     await this.setStateAsync({ direction, status: STATUS_DOING });
     await this.props[propsMap[direction][STATUS_DOING]]();
 
-    if (canceled && !this.unmounted) {
+    if (canceled || this.unmounted) {
       return;
     }
 
     await time(this.props.timeout);
 
-    if (canceled && !this.unmounted) {
+    if (canceled || this.unmounted) {
       return;
     }
 
