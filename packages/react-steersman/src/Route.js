@@ -30,12 +30,12 @@ export default class Route extends Component {
   };
 
   render() {
-    const { render, path, exact, strict, ...props } = this.props;
+    const { render: Component, path, exact, strict, ...props } = this.props;
     return (
       <Match path={path} exact={exact} strict={strict}>
-        {({ match, pathname }) =>  (
+        {({ match, pathname }) => (
           <MatchTransition match={match} pathname={pathname} {...props}>
-            {({ match, direction, status }) => render({ match, pathname, direction, status })}
+            {props => <Component pathname={pathname} {...props} />}
           </MatchTransition>
         )}
       </Match>

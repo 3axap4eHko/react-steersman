@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import renderer from 'react-test-renderer';
 import Transition from '../../../react-steersman-transition/src/Transition';
 import createMemoryHistory from '../createMemoryHistory';
@@ -12,6 +12,56 @@ function TestTransition({ children, ...props }) {
     </Transition>
   );
 }
+
+class TestClassComponent extends Component {
+  render() {
+    return 'test';
+  }
+}
+
+function TestFnComponent() {
+  return 'test';
+}
+
+test('Steersman render class as component', () => {
+  const context = {};
+  const history = createMemoryHistory();
+
+  context.component = renderer.create(
+    <Steersman history={history}>
+      <Route path="/" render={TestClassComponent} />
+    </Steersman>,
+  );
+  context.tree = context.component.toTree();
+  expect(context.component.toJSON()).toBe('test');
+
+});
+
+test('Steersman render function as component', () => {
+  const context = {};
+  const history = createMemoryHistory();
+
+  context.component = renderer.create(
+    <Steersman history={history}>
+      <Route path="/" render={TestFnComponent} />
+    </Steersman>,
+  );
+  context.tree = context.component.toTree();
+  expect(context.component.toJSON()).toBe('test');
+});
+
+test('Steersman render callback as component', () => {
+  const context = {};
+  const history = createMemoryHistory();
+
+  context.component = renderer.create(
+    <Steersman history={history}>
+      <Route path="/" render={() => 'test'} />
+    </Steersman>,
+  );
+  context.tree = context.component.toTree();
+  expect(context.component.toJSON()).toBe('test');
+});
 
 test('Steersman onRouteUpdated', done => {
   const context = {};
@@ -33,7 +83,7 @@ test('Steersman onRouteUpdated', done => {
   history.push('/test');
 });
 
-test.only('Route matched path', done => {
+test('Route matched path', done => {
   const context = {
     counter: 0,
     events: {},
