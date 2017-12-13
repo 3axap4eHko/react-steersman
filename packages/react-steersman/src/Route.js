@@ -29,13 +29,18 @@ export default class Route extends Component {
     onExited: nop,
   };
 
+  static contextTypes = {
+    history: object.isRequired,
+  };
+
   render() {
     const { render: Component, path, exact, strict, ...props } = this.props;
+    const { history } = this.context;
     return (
       <Match path={path} exact={exact} strict={strict}>
         {({ match, pathname }) => (
           <MatchTransition match={match} pathname={pathname} {...props}>
-            {props => <Component pathname={pathname} {...props} />}
+            {props => <Component pathname={pathname} history={history} {...props} />}
           </MatchTransition>
         )}
       </Match>

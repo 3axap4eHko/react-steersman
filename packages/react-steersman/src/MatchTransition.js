@@ -114,7 +114,7 @@ export default class MatchTransition extends Component {
         onExited={this.onExited}
         startOnMount={isMounted() || startOnMount}
       >
-        {({ direction, status }) => children({ direction, status, match })}
+        {({ direction, status }) => children({ direction, status ,match })}
       </TransitionComponent>
     );
   }
