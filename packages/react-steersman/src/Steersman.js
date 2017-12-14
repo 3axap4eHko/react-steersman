@@ -4,7 +4,7 @@ import Transition from 'react-steersman-transition/Transition';
 
 function DefaultTransition({ children, ...props }) {
   return (
-    <Transition {...props} timeout={0}>
+    <Transition {...props} timeout={375}>
       {transition => children(transition)}
     </Transition>
   );

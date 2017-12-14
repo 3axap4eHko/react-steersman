@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { bool, string, object, func } from 'prop-types';
-import { DIRECTION_ENTER, DIRECTION_EXIT } from 'react-steersman-transition/Transition';
+import { DIRECTION_ENTER, DIRECTION_EXIT } from 'react-steersman-transition/constants';
 
 const nop = () => {};
 
@@ -114,7 +114,7 @@ export default class MatchTransition extends Component {
         onExited={this.onExited}
         startOnMount={isMounted() || startOnMount}
       >
-        {({ direction, status }) => children({ direction, status ,match })}
+        {transition => children({ ...transition, match })}
       </TransitionComponent>
     );
   }

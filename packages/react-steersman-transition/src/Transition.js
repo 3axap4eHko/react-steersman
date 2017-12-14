@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 import { number, string, func, bool, any, oneOf } from 'prop-types';
+import { DIRECTION_ENTER, DIRECTION_EXIT, STATUS_INIT, STATUS_DOING, STATUS_DONE } from './constants';
+import { transitionPropTypes, transitionDefaultProps } from './propTypes';
 
 function time(timeout) {
   return new Promise(resolve => setTimeout(resolve, timeout));
 }
-
-const nop = () => {};
-
-export const DIRECTION_ENTER = 'enter';
-export const DIRECTION_EXIT = 'exit';
-
-export const STATUS_INIT = 'init';
-export const STATUS_DOING = 'doing';
-export const STATUS_DONE = 'done';
 
 const propsMap = {
   [DIRECTION_ENTER]: {
@@ -29,31 +22,9 @@ const propsMap = {
 
 export default class Transition extends Component {
 
-  static propTypes = {
-    timeout: number.isRequired,
-    children: func.isRequired,
-    direction: oneOf([DIRECTION_ENTER, DIRECTION_EXIT]),
-    startOnMount: bool,
-    force: any,
-    onEnter: func,
-    onEntering: func,
-    onEntered: func,
-    onExit: func,
-    onExiting: func,
-    onExited: func,
-  };
+  static propTypes = transitionPropTypes;
 
-  static defaultProps = {
-    direction: DIRECTION_ENTER,
-    startOnMount: false,
-    force: any,
-    onEnter: nop,
-    onEntering: nop,
-    onEntered: nop,
-    onExit: nop,
-    onExiting: nop,
-    onExited: nop,
-  };
+  static defaultProps = transitionDefaultProps;
 
   state = {
     direction: this.props.direction,
@@ -62,7 +33,7 @@ export default class Transition extends Component {
 
   unmounted = false;
 
-  cancel = nop;
+  cancel = () => {};
 
   setStateAsync = state => {
     return new Promise((resolve) => this.setState(state, resolve));
@@ -74,14 +45,14 @@ export default class Transition extends Component {
     this.cancel = () => canceled = true;
 
     await this.setStateAsync({ direction, status: STATUS_INIT });
-    await this.props[propsMap[direction][STATUS_INIT]]();
+    await this.props[propsMap[direction][STATUS_INIT]](direction, STATUS_INIT);
 
     if (canceled || this.unmounted) {
       return;
     }
 
     await this.setStateAsync({ direction, status: STATUS_DOING });
-    await this.props[propsMap[direction][STATUS_DOING]]();
+    await this.props[propsMap[direction][STATUS_DOING]](direction, STATUS_DOING);
 
     if (canceled || this.unmounted) {
       return;
@@ -94,7 +65,7 @@ export default class Transition extends Component {
     }
 
     await this.setStateAsync({ direction, status: STATUS_DONE });
-    await this.props[propsMap[direction][STATUS_DONE]]();
+    await this.props[propsMap[direction][STATUS_DONE]](direction, STATUS_DONE);
   };
 
   componentDidMount() {

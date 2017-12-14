@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Transition, { DIRECTION_ENTER, DIRECTION_EXIT, STATUS_INIT, STATUS_DOING, STATUS_DONE } from '../Transition';
+import Transition from '../Transition';
+import { DIRECTION_ENTER, DIRECTION_EXIT, STATUS_INIT, STATUS_DOING, STATUS_DONE } from '../constants';
 
 const NO_TIMEOUT = 0;
 const TIMEOUT = 1000;
@@ -29,7 +30,7 @@ test('Transition enter', () => {
   const context = {};
 
   function noExecution() {
-    expect(() => {throw new Error}).not.toThrowError();
+    expect(() => {throw new Error;}).not.toThrowError();
   }
 
   context.component = renderer.create(
@@ -37,23 +38,23 @@ test('Transition enter', () => {
       {({ direction, status }) => `${direction}:${status}`}
     </Transition>,
   );
-  expect(context.component.toJSON()).toBe('enter:done');
+  expect(context.component.toJSON()).toBe(`${DIRECTION_ENTER}:${STATUS_DONE}`);
 });
 
 test('Transition enter startOnMount', done => {
   const context = {};
 
   function onEnter() {
-    expect(context.component.toJSON()).toBe('enter:init');
+    expect(context.component.toJSON()).toBe(`${DIRECTION_ENTER}:${STATUS_INIT}`);
     context.time = Date.now();
   }
 
   function onEntering() {
-    expect(context.component.toJSON()).toBe('enter:doing');
+    expect(context.component.toJSON()).toBe(`${DIRECTION_ENTER}:${STATUS_DOING}`);
   }
 
   function onEntered() {
-    expect(context.component.toJSON()).toBe('enter:done');
+    expect(context.component.toJSON()).toBe(`${DIRECTION_ENTER}:${STATUS_DONE}`);
     expect(Date.now() - context.time).toBeAroundTo(TIMEOUT);
     done();
   }
@@ -64,38 +65,39 @@ test('Transition enter startOnMount', done => {
     </Transition>,
   );
 
-  expect(context.component.toJSON()).toBe('enter:init');
+  expect(context.component.toJSON()).toBe(`${DIRECTION_ENTER}:${STATUS_INIT}`);
 });
 
 test('Transition exit', () => {
   const context = {};
 
   function noExecution() {
-    expect(() => {throw new Error}).not.toThrowError();
+    expect(() => {throw new Error;}).not.toThrowError();
   }
+
   context.component = renderer.create(
     <Transition timeout={NO_TIMEOUT} direction={DIRECTION_EXIT} onEnter={noExecution} onEntering={noExecution} onEntered={noExecution}>
       {({ direction, status }) => `${direction}:${status}`}
     </Transition>,
   );
-  expect(context.component.toJSON()).toBe('exit:done');
+  expect(context.component.toJSON()).toBe(`${DIRECTION_EXIT}:${STATUS_DONE}`);
 });
 
 test('Transition exit startOnMount', done => {
   const context = {};
 
   function onExit() {
-    expect(context.component.toJSON()).toBe('exit:init');
+    expect(context.component.toJSON()).toBe(`${DIRECTION_EXIT}:${STATUS_INIT}`);
     context.time = Date.now();
   }
 
   function onExiting() {
-    expect(context.component.toJSON()).toBe('exit:doing');
+    expect(context.component.toJSON()).toBe(`${DIRECTION_EXIT}:${STATUS_DOING}`);
     context.time = Date.now();
   }
 
   function onExited() {
-    expect(context.component.toJSON()).toBe('exit:done');
+    expect(context.component.toJSON()).toBe(`${DIRECTION_EXIT}:${STATUS_DONE}`);
     expect(Date.now() - context.time).toBeAroundTo(TIMEOUT);
     done();
   }
@@ -106,5 +108,5 @@ test('Transition exit startOnMount', done => {
     </Transition>,
   );
 
-  expect(context.component.toJSON()).toBe('exit:init');
+  expect(context.component.toJSON()).toBe(`${DIRECTION_EXIT}:${STATUS_INIT}`);
 });
