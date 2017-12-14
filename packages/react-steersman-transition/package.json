@@ -1,6 +1,6 @@
 {
   "name": "react-steersman-transition",
-  "version": "0.1.22",
+  "version": "0.1.23",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,6 @@
     "react": "^16.2.0"
   },
   "dependencies": {
-    "history": "^4.7.2",
     "prop-types": "^15.6.0"
   },
   "devDependencies": {
