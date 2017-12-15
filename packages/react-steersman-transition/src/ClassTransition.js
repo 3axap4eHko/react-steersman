@@ -13,7 +13,7 @@ function defaultClassNameGenerator({ direction, status }) {
   return `transition-${direction}-${status}`;
 }
 
-export default class TransitionClass extends Component {
+export default class ClassTransition extends Component {
   static propTypes = {
     classNameGenerator: func,
     ...transitionPropTypes,

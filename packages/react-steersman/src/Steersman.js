@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { bool, object, func, oneOf } from 'prop-types';
 import Transition from 'react-steersman-transition/Transition';
+import { routeEventsPropTypes, routeEventsDefaultProps } from './propTypes';
 
 function DefaultTransition({ children, ...props }) {
   return (
@@ -10,44 +11,24 @@ function DefaultTransition({ children, ...props }) {
   );
 }
 
-const nop = () => {};
-
 export default class Steersman extends Component {
 
   static propTypes = {
     history: object.isRequired,
     routeTransition: func,
-    onRouteUpdated: func,
-    onRouteEnter: func,
-    onRouteEntering: func,
-    onRouteEntered: func,
-    onRouteExit: func,
-    onRouteExiting: func,
-    onRouteExited: func,
+    ...routeEventsPropTypes,
   };
 
   static defaultProps = {
     routeTransition: DefaultTransition,
-    onRouteUpdated: nop,
-    onRouteEnter: nop,
-    onRouteEntering: nop,
-    onRouteEntered: nop,
-    onRouteExit: nop,
-    onRouteExiting: nop,
-    onRouteExited: nop,
+    ...routeEventsDefaultProps,
   };
 
   static childContextTypes = {
     history: object,
     isMounted: func,
     routeTransition: func,
-    onRouteUpdated: func,
-    onRouteEnter: func,
-    onRouteEntering: func,
-    onRouteEntered: func,
-    onRouteExit: func,
-    onRouteExiting: func,
-    onRouteExited: func,
+    ...routeEventsPropTypes,
   };
 
   mounted = false;

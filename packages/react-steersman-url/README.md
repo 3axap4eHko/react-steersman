@@ -5,6 +5,8 @@ Tiny URL utils
 ## Usage
 
 ```javascript
+import Pattern from 'react-steersman-url/Pattern';
+
 const compiled = Pattern.fromString('/user/:userId(\\d+)|int');
 const userId = 4520;
 const url = compiled.build({ userId });

@@ -2,31 +2,20 @@ import React, { Component } from 'react';
 import { string, object, func } from 'prop-types';
 import Match from './Match';
 import MatchTransition from './MatchTransition';
-
-const nop = () => {};
+import { transitionEventsPropTypes, transitionEventsDefaultProps } from 'react-steersman-transition/propTypes';
 
 export default class Route extends Component {
 
   static propTypes = {
     render: func.isRequired,
     path: string,
-    onEnter: func,
-    onEntering: func,
-    onEntered: func,
-    onExit: func,
-    onExiting: func,
-    onExited: func,
     transition: func,
+    ...transitionEventsPropTypes,
   };
 
   static defaultProps = {
     path: '/',
-    onEnter: nop,
-    onEntering: nop,
-    onEntered: nop,
-    onExit: nop,
-    onExiting: nop,
-    onExited: nop,
+    ...transitionEventsDefaultProps,
   };
 
   static contextTypes = {
@@ -34,12 +23,12 @@ export default class Route extends Component {
   };
 
   render() {
-    const { render: Component, path, exact, strict, ...props } = this.props;
+    const { render: Component, path, exact, strict, ...restProps } = this.props;
     const { history } = this.context;
     return (
       <Match path={path} exact={exact} strict={strict}>
         {({ match, pathname }) => (
-          <MatchTransition match={match} pathname={pathname} {...props}>
+          <MatchTransition match={match} pathname={pathname} {...restProps}>
             {props => <Component pathname={pathname} history={history} {...props} />}
           </MatchTransition>
         )}

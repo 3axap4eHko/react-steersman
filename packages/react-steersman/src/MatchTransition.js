@@ -1,43 +1,27 @@
 import React, { Component } from 'react';
 import { bool, string, object, func } from 'prop-types';
 import { DIRECTION_ENTER, DIRECTION_EXIT } from 'react-steersman-transition/constants';
-
-const nop = () => {};
+import { transitionEventsPropTypes, transitionEventsDefaultProps } from 'react-steersman-transition/propTypes';
+import { routeEventsPropTypes } from './propTypes';
 
 export default class MatchTransition extends Component {
 
   static propTypes = {
     children: func.isRequired,
     match: object,
-    onEnter: func,
-    onEntering: func,
-    onEntered: func,
-    onExit: func,
-    onExiting: func,
-    onExited: func,
     transition: func,
+    ...transitionEventsPropTypes,
   };
 
   static defaultProps = {
-    onEnter: nop,
-    onEntering: nop,
-    onEntered: nop,
-    onExit: nop,
-    onExiting: nop,
-    onExited: nop,
+    ...transitionEventsDefaultProps,
   };
 
   static contextTypes = {
     history: object,
     isMounted: func,
     routeTransition: func,
-    onRouteEnter: func,
-    onRouteEntering: func,
-    onRouteEntered: func,
-    onRouteExit: func,
-    onRouteExiting: func,
-    onRouteExited: func,
-    onRouteUpdated: func,
+    ...routeEventsPropTypes,
   };
 
   setStateAsync = state => {
