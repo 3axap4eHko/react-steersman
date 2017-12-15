@@ -1,4 +1,4 @@
-import { any, bool, func, number, oneOf } from 'prop-types';
+import { any, bool, func, number, object, oneOf, oneOfType } from 'prop-types';
 import { DIRECTION_ENTER, DIRECTION_EXIT } from './constants';
 
 const nop = () => {};
@@ -18,6 +18,7 @@ export const transitionPropTypes = {
   direction: oneOf([DIRECTION_ENTER, DIRECTION_EXIT]),
   startOnMount: bool,
   force: any,
+  extraProps: oneOfType([func, object]),
   ...transitionEventsPropTypes
 };
 
@@ -34,5 +35,6 @@ export const transitionDefaultProps = {
   direction: DIRECTION_ENTER,
   startOnMount: false,
   force: any,
+  extraProps: {},
   ...transitionEventsDefaultProps
 };

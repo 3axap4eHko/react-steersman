@@ -1,17 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import createMemoryHistory from '../createMemoryHistory';
-import Transition from '../../../react-steersman-transition/src/Transition';
 import Steersman from '../Steersman';
 import Match from '../Match';
-
-function DefaultTransition({ children, ...props }) {
-  return (
-    <Transition {...props} timeout={500}>
-      {transition => children(transition)}
-    </Transition>
-  );
-}
 
 test('Match', () => {
   const context = {};

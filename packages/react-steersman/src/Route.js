@@ -20,7 +20,19 @@ export default class Route extends Component {
 
   static contextTypes = {
     history: object.isRequired,
+    routeTransition: func,
   };
+
+  static childContextTypes = {
+    routeTransition: func,
+  };
+
+  getChildContext() {
+    return {
+      routeTransition: this.props.transition || this.context.routeTransition,
+    };
+  }
+
 
   render() {
     const { render: Component, path, exact, strict, ...restProps } = this.props;
