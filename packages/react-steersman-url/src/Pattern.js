@@ -1,14 +1,16 @@
+import { $p } from './utils';
+
 const placeholderParseRegexp = /(:([a-zA-Z0-9_-]+)(\(.*?\)\??)?(\|(\w+))?)/;
-const placeholderRegexp = new RegExp(placeholderParseRegexp, 'g');
+const placeholderRegexp = new RegExp(placeholderParseRegexp.source, 'g');
 
 const defaultConstraint = '([^\\/\\?#:]+?)';
 const defaultCast = 'string';
 
-const _pattern = Symbol('URL pattern');
-const _patternRegexp = Symbol('URL pattern regexp');
-const _patternPlaceholder = Symbol('URL pattern placeholder');
-const _names = Symbol('URL names');
-const _casts = Symbol('URL cast');
+const PATTERN = 'PATTERN';
+const PATTERN_REGEXP = 'PATTERN_REGEXP';
+const PATTERN_PLACEHOLDER = 'PATTERN_PLACEHOLDER';
+const NAMES = 'NAMES';
+const CASTS = 'CASTS';
 
 const selfRef = {};
 
@@ -114,11 +116,11 @@ export default class Pattern {
     const { patternRegexp, patternPlaceholder, names, casts } = compile(pattern);
     const compiled = new Pattern(selfRef);
 
-    compiled[_pattern] = pattern;
-    compiled[_patternRegexp] = buildRegexp(patternRegexp, options || {});
-    compiled[_patternPlaceholder] = patternPlaceholder;
-    compiled[_names] = names;
-    compiled[_casts] = casts;
+    $p(compiled, PATTERN, pattern);
+    $p(compiled, PATTERN_REGEXP, buildRegexp(patternRegexp, options || {}));
+    $p(compiled, PATTERN_PLACEHOLDER, patternPlaceholder);
+    $p(compiled, NAMES, names);
+    $p(compiled, CASTS, casts);
 
     return compiled;
   }
@@ -133,12 +135,12 @@ export default class Pattern {
    * pattern.match('/users/correct@example.com'); // { email: "correct@example.com" }
    */
   match(input) {
-    const matches = input.match(this[_patternRegexp]);
+    const matches = input.match($p(this, PATTERN_REGEXP));
 
     if (matches) {
       return matches.slice(1).reduce((params, value, idx) => {
-        const name = this[_names][idx];
-        const cast = this[_casts][idx];
+        const name = $p(this, NAMES)[idx];
+        const cast = $p(this, CASTS)[idx];
         const castFunction = castFunctions[cast] || castFunctions.string;
         return { ...params, [name]: castFunction(value) };
       }, {});
@@ -157,6 +159,6 @@ export default class Pattern {
   build(parameters) {
     return Object.keys(parameters).reduce((result, name) => {
       return result.replace(getPH(name), parameters[name]);
-    }, this[_patternPlaceholder]);
+    }, $p(this, PATTERN_PLACEHOLDER));
   }
 }

@@ -1,31 +1,26 @@
 import React, { Component } from 'react';
-import { bool, object, func, oneOf } from 'prop-types';
+import { number, bool, object, func, oneOf } from 'prop-types';
 import Transition from 'react-steersman-transition/Transition';
 import { routeEventsPropTypes, routeEventsDefaultProps } from './propTypes';
-
-function DefaultTransition({ children, ...props }) {
-  return (
-    <Transition {...props} timeout={375}>
-      {transition => children(transition)}
-    </Transition>
-  );
-}
 
 export default class Steersman extends Component {
 
   static propTypes = {
     history: object.isRequired,
     routeTransition: func,
+    timeout: number,
     ...routeEventsPropTypes,
   };
 
   static defaultProps = {
-    routeTransition: DefaultTransition,
+    routeTransition: Transition,
+    timeout: 375,
     ...routeEventsDefaultProps,
   };
 
   static childContextTypes = {
     history: object,
+    transitionTimeout: number,
     isMounted: func,
     routeTransition: func,
     ...routeEventsPropTypes,
@@ -41,6 +36,7 @@ export default class Steersman extends Component {
   getChildContext() {
     return {
       history: this.props.history,
+      transitionTimeout: this.props.timeout,
       isMounted: () => this.mounted,
       routeTransition: this.props.routeTransition,
       onRouteUpdated: this.props.onRouteUpdated,

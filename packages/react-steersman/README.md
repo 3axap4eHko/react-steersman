@@ -10,7 +10,6 @@ Tiny react navigation library
 License [The MIT License](http://opensource.org/licenses/MIT)
 Copyright (c) 2017 Ivan Zakharchanka
 
-
 [downloads-image]: https://img.shields.io/npm/dm/react-steersman.svg
 [npm-url]: https://www.npmjs.com/package/react-steersman
 [npm-image]: https://img.shields.io/npm/v/react-steersman.svg

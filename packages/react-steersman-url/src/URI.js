@@ -1,15 +1,17 @@
+import { $p } from './utils';
+
 const urlParseExpr = /^(\w+):\/\/((.*?)(:(.*?))?@)?(.*?)(:(\d+))?(\/.*?)(\?(.*?))?(#(.*))?$/;
 
-const _protocol = Symbol('protocol');
-const _username = Symbol('username');
-const _password = Symbol('password');
-const _hostname = Symbol('hostname');
-const _port = Symbol('port');
-const _path = Symbol('path');
-const _pathParts = Symbol('pathParts');
-const _query = Symbol('query');
-const _queryParams = Symbol('queryParams');
-const _hash = Symbol('hash');
+const PROTOCOL = 'PROTOCOL';
+const USERNAME = 'USERNAME';
+const PASSWORD = 'PASSWORD';
+const HOSTNAME = 'HOSTNAME';
+const PORT = 'PORT';
+const PATH = 'PATH';
+const PATH_PARTS = 'PATH_PARTS';
+const QUERY = 'QUERY';
+const QUERY_PARAMS = 'QUERY_PARAMS';
+const HASH = 'HASH';
 
 /**
  * @module URI
@@ -135,47 +137,47 @@ export default class URI {
   }
 
   get protocol() {
-    return this[_protocol];
+    return $p(this, PROTOCOL);
   }
 
   set protocol(value) {
-    this[_protocol] = value.toLowerCase();
+    $p(this, PROTOCOL, value.toLowerCase());
   }
 
   get username() {
-    return this[_username];
+    return $p(this, USERNAME);
   }
 
   set username(value) {
-    this[_username] = value;
+    $p(this, USERNAME, value);
   }
 
   get password() {
-    return this[_password];
+    return $p(this, PASSWORD);
   }
 
   set password(value) {
-    this[_password] = value;
+    $p(this, PASSWORD, value);
   }
 
   get hostname() {
-    return this[_hostname];
+    return $p(this, HOSTNAME);
   }
 
   set hostname(value) {
-    this[_hostname] = value;
+    $p(this, HOSTNAME, value);
   }
 
   get port() {
-    return this[_port];
+    return $p(this, PORT);
   }
 
   set port(value) {
-    this[_port] = parseInt(value) || false;
+    $p(this, PORT, parseInt(value) || false);
   }
 
   get host() {
-    return `${this[_hostname]}${this[_port] ? `:${this[_port]}` : ''}`;
+    return `${$p(this, HOSTNAME)}${$p(this, PORT) ? `:${$p(this, PORT)}` : ''}`;
   }
 
   get origin() {
@@ -183,50 +185,50 @@ export default class URI {
   }
 
   get path() {
-    return this[_path];
+    return $p(this, PATH);
   }
 
   set path(value) {
     value = value || false;
-    this[_path] = value;
-    this[_pathParts] = Object.freeze(URI.parsePath(value));
+    $p(this, PATH, value);
+    $p(this, PATH_PARTS, Object.freeze(URI.parsePath(value)));
   }
 
   get pathParts() {
-    return this[_pathParts];
+    return $p(this, PATH_PARTS);
   }
 
   set pathParts(value) {
-    this[_pathParts] = Object.freeze(value);
-    this[_path] = URI.buildPath(value);
+    $p(this, PATH_PARTS, Object.freeze(value));
+    $p(this, PATH, URI.buildPath(value));
   }
 
   get query() {
-    return this[_query];
+    return $p(this, QUERY);
   }
 
   set query(value) {
     value = value || false;
-    this[_query] = value;
-    this[_queryParams] = Object.freeze(URI.parseQuery(value));
+    $p(this, QUERY, value);
+    $p(this, QUERY_PARAMS, Object.freeze(URI.parseQuery(value)));
   }
 
   get queryParams() {
-    return this[_queryParams];
+    return $p(this, QUERY_PARAMS);
   }
 
   set queryParams(value) {
-    this[_queryParams] = Object.freeze(value);
-    this[_query] = URI.buildQuery(value);
+    $p(this, QUERY_PARAMS, Object.freeze(value));
+    $p(this, QUERY, URI.buildQuery(value));
   }
 
   get hash() {
-    return this[_hash];
+    return $p(this, HASH);
   }
 
   set hash(value) {
     value = value || false;
-    this[_hash] = value;
+    $p(this, HASH, value);
   }
 
   get href() {
@@ -239,14 +241,14 @@ export default class URI {
 
   toObject() {
     return {
-      protocol: this[_protocol],
-      username: this[_username],
-      password: this[_password],
-      hostname: this[_hostname],
-      port: this[_port],
-      path: this[_path],
-      query: this[_query],
-      hash: this[_hash],
+      protocol: $p(this, PROTOCOL),
+      username: $p(this, USERNAME),
+      password: $p(this, PASSWORD),
+      hostname: $p(this, HOSTNAME),
+      port: $p(this, PORT),
+      path: $p(this, PATH),
+      query: $p(this, QUERY),
+      hash: $p(this, HASH),
     };
   }
 }

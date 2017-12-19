@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bool, string, object, func } from 'prop-types';
+import { number, bool, string, object, func } from 'prop-types';
 import { DIRECTION_ENTER, DIRECTION_EXIT } from 'react-steersman-transition/constants';
 import { transitionEventsPropTypes, transitionEventsDefaultProps } from 'react-steersman-transition/propTypes';
 import { routeEventsPropTypes } from './propTypes';
@@ -10,6 +10,7 @@ export default class MatchTransition extends Component {
     children: func.isRequired,
     match: object,
     transition: func,
+    timeout: number,
     ...transitionEventsPropTypes,
   };
 
@@ -19,6 +20,7 @@ export default class MatchTransition extends Component {
 
   static contextTypes = {
     history: object,
+    transitionTimeout: number,
     isMounted: func,
     routeTransition: func,
     ...routeEventsPropTypes,
@@ -82,13 +84,14 @@ export default class MatchTransition extends Component {
     if (!rendered) {
       return null;
     }
-    const { routeTransition, isMounted } = this.context;
-    const { transition, children, startOnMount } = this.props;
+    const { routeTransition, transitionTimeout, isMounted } = this.context;
+    const { transition, children, timeout, startOnMount } = this.props;
     const TransitionComponent = transition || routeTransition;
 
     return (
       <TransitionComponent
         key={timestamp}
+        timeout={timeout || transitionTimeout}
         direction={direction}
         onEnter={this.onEnter}
         onEntering={this.onEntering}
