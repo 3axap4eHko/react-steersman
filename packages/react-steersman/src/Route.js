@@ -1,55 +1,64 @@
 import React, { Component } from 'react';
 import { number, string, object, func } from 'prop-types';
 import Match from './Match';
-import MatchTransition from './MatchTransition';
-import { transitionEventsPropTypes, transitionEventsDefaultProps } from 'react-steersman-transition/propTypes';
+import ContentTransition from 'react-steersman-transition/ContentTransition';
+import { propsMap } from 'react-steersman-transition/Transition';
+import { routeEventsPropTypes, routeEventsDefaultProps, matchPropTypes, matchDefaultProps } from './propTypes';
 
 export default class Route extends Component {
 
   static propTypes = {
-    render: func.isRequired,
-    path: string,
-    transition: func,
-    timeout: number,
-    ...transitionEventsPropTypes,
+    transitionTimeout: number,
+    ...matchPropTypes,
+    ...routeEventsPropTypes,
   };
 
   static defaultProps = {
-    path: '/',
-    ...transitionEventsDefaultProps,
+    ...matchDefaultProps,
+    ...routeEventsDefaultProps,
   };
 
   static contextTypes = {
     history: object.isRequired,
-    transitionTimeout: number,
-    routeTransition: func,
+    transitionTimeout: number.isRequired,
+    isMounted: func.isRequired,
+    ...routeEventsDefaultProps,
   };
 
-  static childContextTypes = {
-    routeTransition: func,
-    transitionTimeout: number,
+  onTransition = async args => {
+    const { direction, status } = args;
+    const event = propsMap[direction][status];
+    await this.props[event](args);
+    await this.context[event](args);
+    await this.context.onUpdated(args);
   };
-
-  getChildContext() {
-    return {
-      routeTransition: this.props.transition || this.context.routeTransition,
-    };
-  }
 
   render() {
-    const { render: Component, path, exact, strict, timeout, ...restProps } = this.props;
-    const { history } = this.context;
-    const transitionTimeout = timeout || this.context.transitionTimeout;
+    const { isMounted, transitionTimeout: defaultTimeout } = this.context;
+    const { path, exact, strict, transitionTimeout = defaultTimeout, props, children } = this.props;
 
     return (
-      <Match path={path} exact={exact} strict={strict}>
-        {({ match, pathname }) => (
-          <MatchTransition match={match} pathname={pathname} timeout={transitionTimeout} {...restProps}>
-            {props => <Component pathname={pathname} history={history} {...props} />}
-          </MatchTransition>
+      <Match
+        path={path}
+        exact={exact}
+        strict={strict}
+        props={props}
+        children={match => (
+          <ContentTransition
+            children={children}
+            timeout={transitionTimeout}
+            display={!!match.match}
+            props={match}
+            onEnter={this.onTransition}
+            onEntering={this.onTransition}
+            onEntered={this.onTransition}
+            onExit={this.onTransition}
+            onExiting={this.onTransition}
+            onExited={this.onTransition}
+            startOnMount={isMounted()}
+          />
         )}
-      </Match>
-
+      />
     );
   }
 }

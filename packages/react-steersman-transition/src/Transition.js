@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
-import { number, string, func, bool, any, oneOf } from 'prop-types';
-import { DIRECTION_ENTER, DIRECTION_EXIT, STATUS_INIT, STATUS_DOING, STATUS_DONE } from './constants';
+import { DIRECTION_ENTER, DIRECTION_EXIT, STATUS_START, STATUS_ACTIVE, STATUS_DONE } from './constants';
 import { transitionPropTypes, transitionDefaultProps } from './propTypes';
 
 function wait(timeout) {
   return new Promise(resolve => setTimeout(resolve, timeout));
 }
 
-const propsMap = {
+export const propsMap = {
   [DIRECTION_ENTER]: {
-    [STATUS_INIT]: 'onEnter',
-    [STATUS_DOING]: 'onEntering',
+    [STATUS_START]: 'onEnter',
+    [STATUS_ACTIVE]: 'onEntering',
     [STATUS_DONE]: 'onEntered',
   },
   [DIRECTION_EXIT]: {
-    [STATUS_INIT]: 'onExit',
-    [STATUS_DOING]: 'onExiting',
+    [STATUS_START]: 'onExit',
+    [STATUS_ACTIVE]: 'onExiting',
     [STATUS_DONE]: 'onExited',
   },
 };
@@ -29,7 +28,6 @@ export default class Transition extends Component {
   state = {
     direction: this.props.direction,
     status: STATUS_DONE,
-    props: {},
   };
 
   unmounted = false;
@@ -40,11 +38,9 @@ export default class Transition extends Component {
     return new Promise((resolve) => this.setState(state, resolve));
   };
 
-  setStatus = async (direction, status) => {
-    const { extraProps } = this.props;
-    const props = typeof extraProps === 'function' ? extraProps(direction, status) : extraProps;
-    await this.setStateAsync({ direction, status, props });
-    await this.props[propsMap[direction][status]](direction, status);
+  fireEvent = async (direction, status) => {
+    await this.setStateAsync({ direction, status });
+    await this.props[propsMap[direction][status]]({ direction, status, ...this.props.props });
   };
 
   setDirection = async direction => {
@@ -52,26 +48,35 @@ export default class Transition extends Component {
     let canceled = false;
     this.cancel = () => canceled = true;
 
-    await this.setStatus(direction, STATUS_INIT);
+    if (this.props.timeout !== 0) {
+      await this.fireEvent(direction, STATUS_START);
+
+      if (canceled || this.unmounted) {
+        return;
+      }
+
+      await this.fireEvent(direction, STATUS_ACTIVE);
+
+      if (canceled || this.unmounted) {
+        return;
+      }
+
+      await wait(this.props.timeout);
+    }
 
     if (canceled || this.unmounted) {
       return;
     }
 
-    await this.setStatus(direction, STATUS_DOING);
-
-    if (canceled || this.unmounted) {
-      return;
-    }
-
-    await wait(this.props.timeout);
-
-    if (canceled || this.unmounted) {
-      return;
-    }
-
-    await this.setStatus(direction, STATUS_DONE);
+    await this.fireEvent(direction, STATUS_DONE);
   };
+
+  async componentWillMount() {
+    this.unmounted = false;
+    if (!this.props.startOnMount) {
+      await this.fireEvent(this.props.direction, STATUS_DONE);
+    }
+  }
 
   async componentDidMount() {
     if (this.props.startOnMount) {
@@ -90,8 +95,8 @@ export default class Transition extends Component {
   }
 
   render() {
-    const { children } = this.props;
-    const { direction, status, props } = this.state;
-    return children({ direction, status, ...props });
+    const { direction, status } = this.state;
+    const { children: Content, props } = this.props;
+    return <Content {...{ direction, status, ...props }} />;
   }
 }

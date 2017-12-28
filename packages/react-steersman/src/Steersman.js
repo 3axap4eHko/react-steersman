@@ -1,51 +1,41 @@
 import React, { Component } from 'react';
 import { number, bool, object, func, oneOf } from 'prop-types';
-import Transition from 'react-steersman-transition/Transition';
 import { routeEventsPropTypes, routeEventsDefaultProps } from './propTypes';
 
 export default class Steersman extends Component {
 
   static propTypes = {
     history: object.isRequired,
-    routeTransition: func,
-    timeout: number,
+    transitionTimeout: number,
     ...routeEventsPropTypes,
   };
 
   static defaultProps = {
-    routeTransition: Transition,
-    timeout: 375,
+    transitionTimeout: 0,
     ...routeEventsDefaultProps,
   };
 
   static childContextTypes = {
     history: object,
-    transitionTimeout: number,
     isMounted: func,
-    routeTransition: func,
+    transitionTimeout: number,
     ...routeEventsPropTypes,
   };
 
   mounted = false;
 
-  onRouteUpdated = (routeProps, routeState) => {
-    const { onRouteUpdated } = this.props;
-    onRouteUpdated(routeProps, routeState);
-  };
-
   getChildContext() {
     return {
       history: this.props.history,
-      transitionTimeout: this.props.timeout,
+      transitionTimeout: this.props.transitionTimeout,
       isMounted: () => this.mounted,
-      routeTransition: this.props.routeTransition,
-      onRouteUpdated: this.props.onRouteUpdated,
-      onRouteEnter: this.props.onRouteEnter,
-      onRouteEntering: this.props.onRouteEntering,
-      onRouteEntered: this.props.onRouteEntered,
-      onRouteExit: this.props.onRouteExit,
-      onRouteExiting: this.props.onRouteExiting,
-      onRouteExited: this.props.onRouteExited,
+      onUpdated: this.props.onUpdated,
+      onEnter: this.props.onEnter,
+      onEntering: this.props.onEntering,
+      onEntered: this.props.onEntered,
+      onExit: this.props.onExit,
+      onExiting: this.props.onExiting,
+      onExited: this.props.onExited,
     };
   }
 

@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
 import { object, string, func, bool, oneOfType } from 'prop-types';
 import Pattern from 'react-steersman-url/Pattern';
+import { matchPropTypes, matchDefaultProps } from './propTypes';
 
 export default class Match extends Component {
 
-  static propTypes = {
-    path: string,
-    exact: bool,
-    strict: bool,
-  };
+  static propTypes = matchPropTypes;
 
-  static defaultProps = {
-    path: '/',
-    exact: true,
-    strict: false,
-  };
+  static defaultProps = matchDefaultProps;
 
   static contextTypes = {
     history: object,
@@ -33,7 +26,7 @@ export default class Match extends Component {
     });
 
     this.state = {
-      pathname: history.location.pathname,
+      location: history.location.pathname,
       match: this.pattern.match(history.location.pathname),
       timestamp: Date.now(),
     };
@@ -44,7 +37,7 @@ export default class Match extends Component {
         this.setState({
           match,
           timestamp: Date.now(),
-          pathname: location.pathname,
+          location: location.pathname,
         });
       }
     });
@@ -62,9 +55,17 @@ export default class Match extends Component {
   }
 
   render() {
-    const { children } = this.props;
-    const { match, pathname } = this.state;
+    const { children: Content, path, exact, props } = this.props;
+    const { match, location } = this.state;
 
-    return children({ match, pathname });
+    return (
+      <Content
+        match={match}
+        location={location}
+        path={path}
+        exact={exact}
+        {...props}
+      />
+    );
   }
 }

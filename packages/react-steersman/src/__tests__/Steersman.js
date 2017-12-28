@@ -10,7 +10,7 @@ test('Steersman defaults', () => {
 
   context.component = renderer.create(
     <Steersman history={history}>
-      {'defaults'}
+      defaults
     </Steersman>,
   );
   context.tree = context.component.toTree();
@@ -34,33 +34,32 @@ test('Steersman events', done => {
   class EventTest extends Component {
     static contextTypes = {
       history: object,
-      routeTransition: func,
-      onRouteEnter: func,
-      onRouteEntering: func,
-      onRouteEntered: func,
-      onRouteExit: func,
-      onRouteExiting: func,
-      onRouteExited: func,
-      onRouteUpdated: func,
+      onEnter: func,
+      onEntering: func,
+      onEntered: func,
+      onExit: func,
+      onExiting: func,
+      onExited: func,
+      onUpdated: func,
     };
 
     componentDidMount() {
-      const { history, onRouteEnter, onRouteEntering, onRouteEntered, onRouteExit, onRouteExiting, onRouteExited, onRouteUpdated } = this.context;
+      const { history, onEnter, onEntering, onEntered, onExit, onExiting, onExited, onUpdated } = this.context;
       expect(typeof history).toBe('object');
-      expect(typeof onRouteEnter).toBe('function');
-      expect(typeof onRouteEntering).toBe('function');
-      expect(typeof onRouteEntered).toBe('function');
-      expect(typeof onRouteExit).toBe('function');
-      expect(typeof onRouteExiting).toBe('function');
-      expect(typeof onRouteExited).toBe('function');
-      expect(typeof onRouteUpdated).toBe('function');
-      onRouteEnter('enter');
-      onRouteEntering('entering');
-      onRouteEntered('entered');
-      onRouteExit('exit');
-      onRouteExiting('exiting');
-      onRouteExited('exited');
-      onRouteUpdated('updated');
+      expect(typeof onEnter).toBe('function');
+      expect(typeof onEntering).toBe('function');
+      expect(typeof onEntered).toBe('function');
+      expect(typeof onExit).toBe('function');
+      expect(typeof onExiting).toBe('function');
+      expect(typeof onExited).toBe('function');
+      expect(typeof onUpdated).toBe('function');
+      onEnter('enter');
+      onEntering('entering');
+      onEntered('entered');
+      onExit('exit');
+      onExiting('exiting');
+      onExited('exited');
+      onUpdated('updated');
     }
 
     render() {
@@ -78,13 +77,13 @@ test('Steersman events', done => {
   context.component = renderer.create(
     <Steersman
       history={history}
-      onRouteUpdated={event}
-      onRouteEnter={event}
-      onRouteEntering={event}
-      onRouteEntered={event}
-      onRouteExit={event}
-      onRouteExiting={event}
-      onRouteExited={event}
+      onUpdated={event}
+      onEnter={event}
+      onEntering={event}
+      onEntered={event}
+      onExit={event}
+      onExiting={event}
+      onExited={event}
     >
       <EventTest />
     </Steersman>,

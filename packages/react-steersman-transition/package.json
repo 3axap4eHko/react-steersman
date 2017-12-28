@@ -1,10 +1,10 @@
 {
   "name": "react-steersman-transition",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf *.js && babel src --out-dir . --ignore __tests__",
+    "build": "rm -rf *.js && babel src --out-dir . --ignore __tests__,__fixtures__",
     "prepare": "NODE_ENV=production npm run build",
     "test": "NODE_ENV=test jest"
   },

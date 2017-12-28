@@ -12,16 +12,6 @@ export const transitionEventsPropTypes = {
   onExited: func,
 };
 
-export const transitionPropTypes = {
-  timeout: number.isRequired,
-  children: func.isRequired,
-  direction: oneOf([DIRECTION_ENTER, DIRECTION_EXIT]),
-  startOnMount: bool,
-  force: any,
-  extraProps: oneOfType([func, object]),
-  ...transitionEventsPropTypes
-};
-
 export const transitionEventsDefaultProps = {
   onEnter: nop,
   onEntering: nop,
@@ -31,10 +21,38 @@ export const transitionEventsDefaultProps = {
   onExited: nop,
 };
 
+export const transitionPropTypes = {
+  children: func.isRequired,
+  timeout: number.isRequired,
+  direction: oneOf([DIRECTION_ENTER, DIRECTION_EXIT]),
+  startOnMount: bool,
+  force: any,
+  props: object,
+  ...transitionEventsPropTypes,
+};
+
 export const transitionDefaultProps = {
   direction: DIRECTION_ENTER,
   startOnMount: false,
   force: any,
-  extraProps: {},
-  ...transitionEventsDefaultProps
+  props: {},
+  ...transitionEventsDefaultProps,
+};
+
+export const contentTransitionPropTypes = {
+  children: func.isRequired,
+  timeout: number.isRequired,
+  display: bool,
+  props: object,
+  startOnMount: bool,
+  keepContentMounted: bool,
+  ...transitionEventsPropTypes,
+};
+
+export const contentTransitionDefaultProps = {
+  display: true,
+  props: {},
+  startOnMount: false,
+  keepContentMounted: false,
+  ...transitionEventsDefaultProps,
 };

@@ -10,7 +10,7 @@ test('Match', () => {
 
   context.component = renderer.create(
     <Steersman history={history}>
-      <Match path="/">{() => 'match'}</Match>
+      <Match path="/" children={() => 'match'} />
     </Steersman>,
   );
   context.tree = context.component.toTree();
@@ -23,8 +23,8 @@ test('Match multiple', () => {
 
   context.component = renderer.create(
     <Steersman history={history}>
-      <Match path="/">{({ match }) => match && '/'}</Match>
-      <Match path="/test">{({ match }) => match && '/'}</Match>
+      <Match path="/" children={({ match }) => match && '/'} />
+      <Match path="/test" children={({ match }) => match && '/test'} />
     </Steersman>,
   );
   context.tree = context.component.toTree();
@@ -37,8 +37,8 @@ test('Match multiple changed', done => {
 
   context.component = renderer.create(
     <Steersman history={history}>
-      <Match path="/">{({ match }) => match && '/'}</Match>
-      <Match path="/test">{({ match }) => match && '/test'}</Match>
+      <Match path="/" children={({ match }) => match && '/'} />
+      <Match path="/test" children={({ match }) => match && '/test'} />
     </Steersman>,
   );
   context.tree = context.component.toTree();

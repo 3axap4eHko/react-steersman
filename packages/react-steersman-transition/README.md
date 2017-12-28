@@ -9,9 +9,11 @@ Tiny react transition library
 ## Usage
 
 ```javascript
-    <Transition timeout={1000} startOnMount>
-      {({ direction, status }) => `${direction}:${status}`}
-    </Transition>
+    <Transition 
+      timeout={1000} 
+      startOnMount
+      children={({ direction, status }) => `${direction}:${status}`}
+    />
 ```
 
 ## License

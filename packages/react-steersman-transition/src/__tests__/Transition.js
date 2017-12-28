@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import renderer from 'react-test-renderer';
 import Transition from '../Transition';
-import { DIRECTION_ENTER, DIRECTION_EXIT, STATUS_INIT, STATUS_DOING, STATUS_DONE } from '../constants';
+import { DIRECTION_ENTER, DIRECTION_EXIT, STATUS_START, STATUS_ACTIVE, STATUS_DONE } from '../constants';
 
 const NO_TIMEOUT = 0;
 const TIMEOUT = 1000;
@@ -16,97 +16,228 @@ expect.extend({
   },
 });
 
-test('Transition init state', () => {
+function noExecution() {
+  expect(() => {throw new Error;}).not.toThrowError();
+}
+
+class NullRender extends Component {
+  render() {
+    return null;
+  }
+}
+
+function nullRender() {
+  return null;
+}
+
+test('Transition init state stateless', () => {
+
   const component = renderer.create(
-    <Transition timeout={NO_TIMEOUT}>
-      {({ direction, status }) => `${direction}:${status}`}
-    </Transition>,
+    <Transition
+      timeout={NO_TIMEOUT}
+      children={nullRender}
+    />,
   );
   let tree = component.toJSON();
-  expect(tree).toBe(`${DIRECTION_ENTER}:${STATUS_DONE}`);
+  expect(tree).toBe(null);
 });
 
-test('Transition enter', () => {
+test('Transition init state class', () => {
+
+  const component = renderer.create(
+    <Transition
+      timeout={NO_TIMEOUT}
+      children={NullRender}
+    />,
+  );
+  let tree = component.toJSON();
+  expect(tree).toBe(null);
+});
+
+test('Transition enter', done => {
   const context = {};
 
-  function noExecution() {
-    expect(() => {throw new Error;}).not.toThrowError();
+  function onEntered({ direction, status }) {
+    expect(direction).toBe(DIRECTION_ENTER);
+    expect(status).toBe(STATUS_DONE);
+    done();
   }
 
   context.component = renderer.create(
-    <Transition timeout={NO_TIMEOUT} direction={DIRECTION_ENTER} onEnter={noExecution} onEntering={noExecution} onEntered={noExecution}>
-      {({ direction, status }) => `${direction}:${status}`}
-    </Transition>,
+    <Transition
+      timeout={NO_TIMEOUT}
+      direction={DIRECTION_ENTER}
+      onEnter={noExecution}
+      onEntering={noExecution}
+      onEntered={onEntered}
+      children={nullRender}
+      startOnMount
+    />,
   );
-  expect(context.component.toJSON()).toBe(`${DIRECTION_ENTER}:${STATUS_DONE}`);
+  expect(context.component.toJSON()).toBe(null);
 });
 
 test('Transition enter startOnMount', done => {
   const context = {};
 
-  function onEnter() {
-    expect(context.component.toJSON()).toBe(`${DIRECTION_ENTER}:${STATUS_INIT}`);
+  function onEnter({ direction, status }) {
+    expect(direction).toBe(DIRECTION_ENTER);
+    expect(status).toBe(STATUS_START);
     context.time = Date.now();
   }
 
-  function onEntering() {
-    expect(context.component.toJSON()).toBe(`${DIRECTION_ENTER}:${STATUS_DOING}`);
+  function onEntering({ direction, status }) {
+    expect(direction).toBe(DIRECTION_ENTER);
+    expect(status).toBe(STATUS_ACTIVE);
   }
 
-  function onEntered() {
-    expect(context.component.toJSON()).toBe(`${DIRECTION_ENTER}:${STATUS_DONE}`);
+  function onEntered({ direction, status }) {
+    expect(direction).toBe(DIRECTION_ENTER);
+    expect(status).toBe(STATUS_DONE);
     expect(Date.now() - context.time).toBeAroundTo(TIMEOUT);
     done();
   }
 
   context.component = renderer.create(
-    <Transition timeout={TIMEOUT} direction={DIRECTION_ENTER} onEnter={onEnter} onEntering={onEntering} onEntered={onEntered} startOnMount>
-      {({ direction, status }) => `${direction}:${status}`}
-    </Transition>,
+    <Transition
+      timeout={TIMEOUT}
+      direction={DIRECTION_ENTER}
+      onEnter={onEnter}
+      onEntering={onEntering}
+      onEntered={onEntered}
+      children={nullRender}
+      startOnMount
+    />,
   );
-
-  expect(context.component.toJSON()).toBe(`${DIRECTION_ENTER}:${STATUS_INIT}`);
 });
 
-test('Transition exit', () => {
+test('Transition exit', done => {
   const context = {};
 
-  function noExecution() {
-    expect(() => {throw new Error;}).not.toThrowError();
+  function onExited({ direction, status }) {
+    expect(direction).toBe(DIRECTION_EXIT);
+    expect(status).toBe(STATUS_DONE);
+    done();
   }
 
   context.component = renderer.create(
-    <Transition timeout={NO_TIMEOUT} direction={DIRECTION_EXIT} onEnter={noExecution} onEntering={noExecution} onEntered={noExecution}>
-      {({ direction, status }) => `${direction}:${status}`}
-    </Transition>,
+    <Transition
+      timeout={NO_TIMEOUT}
+      direction={DIRECTION_EXIT}
+      onExit={noExecution}
+      onExiting={noExecution}
+      onExited={onExited}
+      children={nullRender}
+      startOnMount
+    />,
   );
-  expect(context.component.toJSON()).toBe(`${DIRECTION_EXIT}:${STATUS_DONE}`);
 });
 
 test('Transition exit startOnMount', done => {
   const context = {};
 
-  function onExit() {
-    expect(context.component.toJSON()).toBe(`${DIRECTION_EXIT}:${STATUS_INIT}`);
+  function onExit({ direction, status }) {
+    expect(direction).toBe(DIRECTION_EXIT);
+    expect(status).toBe(STATUS_START);
     context.time = Date.now();
   }
 
-  function onExiting() {
-    expect(context.component.toJSON()).toBe(`${DIRECTION_EXIT}:${STATUS_DOING}`);
-    context.time = Date.now();
+  function onExiting({ direction, status }) {
+    expect(direction).toBe(DIRECTION_EXIT);
+    expect(status).toBe(STATUS_ACTIVE);
   }
 
-  function onExited() {
-    expect(context.component.toJSON()).toBe(`${DIRECTION_EXIT}:${STATUS_DONE}`);
+  function onExited({ direction, status }) {
+    expect(direction).toBe(DIRECTION_EXIT);
+    expect(status).toBe(STATUS_DONE);
     expect(Date.now() - context.time).toBeAroundTo(TIMEOUT);
     done();
   }
 
   context.component = renderer.create(
-    <Transition timeout={TIMEOUT} direction={DIRECTION_EXIT} onExit={onExit} onExiting={onExiting} onExited={onExited} startOnMount>
-      {({ direction, status }) => `${direction}:${status}`}
-    </Transition>,
+    <Transition
+      timeout={TIMEOUT}
+      direction={DIRECTION_EXIT}
+      onExit={onExit}
+      onExiting={onExiting}
+      onExited={onExited}
+      children={nullRender}
+      startOnMount
+    />,
   );
+});
 
-  expect(context.component.toJSON()).toBe(`${DIRECTION_EXIT}:${STATUS_INIT}`);
+class Wrapper extends Component {
+  state = {
+    direction: DIRECTION_ENTER,
+  };
+  render() {
+    return (
+      <Transition
+        direction={this.state.direction}
+        {...this.props}
+      />
+    );
+  }
+}
+
+test('Transition full', done => {
+  const context = {};
+
+  function onEnter({ direction, status }) {
+    expect(direction).toBe(DIRECTION_ENTER);
+    expect(status).toBe(STATUS_START);
+    context.time = Date.now();
+  }
+
+  function onEntering({ direction, status }) {
+    expect(direction).toBe(DIRECTION_ENTER);
+    expect(status).toBe(STATUS_ACTIVE);
+  }
+
+  function onEntered({ direction, status }) {
+    expect(direction).toBe(DIRECTION_ENTER);
+    expect(status).toBe(STATUS_DONE);
+    expect(Date.now() - context.time).toBeAroundTo(TIMEOUT);
+    if (context.fromExit) {
+      done();
+    } else {
+      context.tree.instance.setState({ direction: DIRECTION_EXIT });
+    }
+  }
+
+  function onExit({ direction, status }) {
+    expect(direction).toBe(DIRECTION_EXIT);
+    expect(status).toBe(STATUS_START);
+    context.time = Date.now();
+  }
+
+  function onExiting({ direction, status }) {
+    expect(direction).toBe(DIRECTION_EXIT);
+    expect(status).toBe(STATUS_ACTIVE);
+  }
+
+  function onExited({ direction, status }) {
+    expect(direction).toBe(DIRECTION_EXIT);
+    expect(status).toBe(STATUS_DONE);
+    expect(Date.now() - context.time).toBeAroundTo(TIMEOUT);
+    context.fromExit = true;
+    context.tree.instance.setState({ direction: DIRECTION_ENTER });
+  }
+
+  context.component = renderer.create(
+    <Wrapper
+      timeout={TIMEOUT}
+      onEnter={onEnter}
+      onEntering={onEntering}
+      onEntered={onEntered}
+      onExit={onExit}
+      onExiting={onExiting}
+      onExited={onExited}
+      children={nullRender}
+      startOnMount
+    />,
+  );
+  context.tree = context.component.toTree();
+  expect(context.component.toJSON()).toBe(null);
 });

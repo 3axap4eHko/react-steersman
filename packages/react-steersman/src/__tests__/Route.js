@@ -1,62 +1,18 @@
 import React, { Component } from 'react';
 import renderer from 'react-test-renderer';
-import Transition from '../../../react-steersman-transition/src/Transition';
+import { DIRECTION_ENTER, DIRECTION_EXIT, STATUS_START, STATUS_ACTIVE, STATUS_DONE } from 'react-steersman-transition/constants';
 import createMemoryHistory from '../createMemoryHistory';
 import Route from '../Route';
 import Steersman from '../Steersman';
 
-function TestTransition({ children, ...props }) {
-  return (
-    <Transition {...props} timeout={500}>
-      {transition => children(transition)}
-    </Transition>
-  );
-}
-
-class TestClassComponent extends Component {
-  render() {
-    return 'test';
-  }
-}
-
-function TestFnComponent() {
-  return 'test';
-}
-
-test('Steersman render class as component', () => {
+test('Steersman render route', () => {
   const context = {};
   const history = createMemoryHistory();
 
   context.component = renderer.create(
     <Steersman history={history}>
-      <Route path="/" render={TestClassComponent} />
-    </Steersman>,
-  );
-  context.tree = context.component.toTree();
-  expect(context.component.toJSON()).toBe('test');
-
-});
-
-test('Steersman render function as component', () => {
-  const context = {};
-  const history = createMemoryHistory();
-
-  context.component = renderer.create(
-    <Steersman history={history}>
-      <Route path="/" render={TestFnComponent} />
-    </Steersman>,
-  );
-  context.tree = context.component.toTree();
-  expect(context.component.toJSON()).toBe('test');
-});
-
-test('Steersman render callback as component', () => {
-  const context = {};
-  const history = createMemoryHistory();
-
-  context.component = renderer.create(
-    <Steersman history={history}>
-      <Route path="/" render={() => 'test'} />
+      <Route path="/" children={() => 'test'} />
+      <Route path="/test" children={() => 'not test'} />
     </Steersman>,
   );
   context.tree = context.component.toTree();
@@ -67,20 +23,30 @@ test('Steersman onRouteUpdated', done => {
   const context = {};
   const history = createMemoryHistory();
 
-  function onUpdated({ match, pathname }) {
+  function onExited({ match, location, path }) {
     expect(match).toBe(null);
-    expect(pathname).toBe('/test');
+    expect(location).not.toBe(path);
+    history.push('/test');
+  }
+
+  function onEnter({ match, location, path }) {
+    expect(match).not.toBe(null);
+    expect(location).toBe(path);
+  }
+
+  function onEntered({ match, location, path }) {
+    expect(match).not.toBe(null);
+    expect(location).toBe(path);
     done();
   }
 
   context.component = renderer.create(
-    <Steersman history={history} onRouteUpdated={onUpdated}>
-      <Route path="/" render={() => null} />
+    <Steersman history={history} onEnter={onEnter} onEntered={onEntered} onExited={onExited}>
+      <Route path="/" children={() => null} />
     </Steersman>,
   );
   context.tree = context.component.toTree();
   expect(context.component.toJSON()).toBe(null);
-  history.push('/test');
 });
 
 test('Route matched path', done => {
@@ -90,39 +56,38 @@ test('Route matched path', done => {
   };
   const history = createMemoryHistory();
 
-  function testCase(event) {
-    return () => {
-      context.counter += 1;
-      context.events[event] = (context.events[event] || 0) + 1;
-      if (context.counter === 6) {
-        expect(context.events.enter).toBe(1);
-        expect(context.events.entering).toBe(1);
-        expect(context.events.entered).toBe(1);
-        expect(context.events.exit).toBe(1);
-        expect(context.events.exiting).toBe(1);
-        expect(context.events.exited).toBe(1);
-        done();
-      }
-    };
+  function testCase({ direction, status }) {
+    context.counter += 1;
+    context.events[direction + status] = (context.events[direction + status] || 0) + 1;
+    if (context.counter === 6) {
+      expect(context.events[DIRECTION_ENTER + STATUS_START]).toBe(1);
+      expect(context.events[DIRECTION_ENTER + STATUS_ACTIVE]).toBe(1);
+      expect(context.events[DIRECTION_ENTER + STATUS_DONE]).toBe(1);
+      expect(context.events[DIRECTION_EXIT + STATUS_START]).toBe(1);
+      expect(context.events[DIRECTION_EXIT + STATUS_ACTIVE]).toBe(1);
+      expect(context.events[DIRECTION_EXIT + STATUS_DONE]).toBe(1);
+      done();
+    }
   }
 
   context.component = renderer.create(
     <Steersman
       history={history}
-      onRouteEnter={testCase('enter')}
-      onRouteEntering={testCase('entering')}
-      onRouteEntered={testCase('entered')}
-      onRouteExit={testCase('exit')}
-      onRouteExiting={testCase('exiting')}
-      onRouteExited={testCase('exited')}
+      transitionTimeout={100}
+      onEnter={testCase}
+      onEntering={testCase}
+      onEntered={testCase}
+      onExit={testCase}
+      onExiting={testCase}
+      onExited={testCase}
     >
-      <Route transition={TestTransition} path="/" render={({ match, direction, status }) => `route-${direction}-${status}`} />
-      <Route transition={TestTransition} path="/test" render={({ match, direction, status }) => `route-test-${direction}-${status}`} />
+      <Route path="/" children={({ direction, status }) => `route-${direction}-${status}`} />
+      <Route path="/test" children={({ direction, status }) => `route-test-${direction}-${status}`} />
     </Steersman>,
   );
 
   context.tree = context.component.toTree();
-  expect(context.component.toJSON()).toBe('route-enter-done');
+  expect(context.component.toJSON()).toBe(`route-${DIRECTION_ENTER}-${STATUS_DONE}`);
   setTimeout(() => history.push('/test'), 1000);
 });
 

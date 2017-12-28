@@ -8,6 +8,8 @@ Tiny and Fast URL utils
 
 ## Usage
 
+### URI
+
 ```javascript
 interface URI {
  protocol      // returns protocol
@@ -29,6 +31,8 @@ interface URI {
 const uri = URI.parse('https://example.com');
 console.log(uri.toObject());
 ```
+
+### Pattern
 
 ```javascript
 interface Pattern {
