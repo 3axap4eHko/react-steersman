@@ -19,7 +19,6 @@ export default class Route extends Component {
   };
 
   static contextTypes = {
-    history: object.isRequired,
     transitionTimeout: number.isRequired,
     isMounted: func.isRequired,
     ...routeEventsDefaultProps,
