@@ -3,24 +3,18 @@ import { number, string, object, func } from 'prop-types';
 import Match from './Match';
 import ContentTransition from 'react-steersman-transition/ContentTransition';
 import { propsMap } from 'react-steersman-transition/Transition';
-import { routeEventsPropTypes, routeEventsDefaultProps, matchPropTypes, matchDefaultProps } from './propTypes';
+import { routePropTypes, routeDefaultProps, routeEventsDefaultProps } from './propTypes';
 
 export default class Route extends Component {
 
-  static propTypes = {
-    transitionTimeout: number,
-    ...matchPropTypes,
-    ...routeEventsPropTypes,
-  };
+  static propTypes = routePropTypes;
 
-  static defaultProps = {
-    ...matchDefaultProps,
-    ...routeEventsDefaultProps,
-  };
+  static defaultProps = routeDefaultProps;
 
   static contextTypes = {
     transitionTimeout: number.isRequired,
     isMounted: func.isRequired,
+    mapProps: func,
     ...routeEventsDefaultProps,
   };
 
@@ -30,6 +24,18 @@ export default class Route extends Component {
     await this.props[event](args);
     await this.context[event](args);
     await this.context.onUpdated(args);
+  };
+
+  mapProps = (match) => {
+    return (direction, status) => {
+      const { mapProps: defaultMapProps } = this.context;
+      const { mapProps = defaultMapProps } = this.props;
+
+      return {
+        ...mapProps(direction, status),
+        match,
+      };
+    };
   };
 
   render() {
@@ -48,6 +54,7 @@ export default class Route extends Component {
             timeout={transitionTimeout}
             display={!!match.match}
             props={match}
+            mapProps={this.mapProps(match)}
             onEnter={this.onTransition}
             onEntering={this.onTransition}
             onEntered={this.onTransition}

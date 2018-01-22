@@ -3,6 +3,11 @@ import { DIRECTION_ENTER, DIRECTION_EXIT } from './constants';
 
 const nop = () => {};
 
+const mapProps = (direction, status) => ({
+  direction,
+  status
+});
+
 export const transitionEventsPropTypes = {
   onEnter: func,
   onEntering: func,
@@ -25,6 +30,7 @@ export const transitionPropTypes = {
   children: func.isRequired,
   timeout: number.isRequired,
   direction: oneOf([DIRECTION_ENTER, DIRECTION_EXIT]),
+  mapProps: func,
   startOnMount: bool,
   force: any,
   props: object,
@@ -33,6 +39,7 @@ export const transitionPropTypes = {
 
 export const transitionDefaultProps = {
   direction: DIRECTION_ENTER,
+  mapProps,
   startOnMount: false,
   force: any,
   props: {},
@@ -44,6 +51,7 @@ export const contentTransitionPropTypes = {
   timeout: number.isRequired,
   display: bool,
   props: object,
+  mapProps: func,
   startOnMount: bool,
   keepContentMounted: bool,
   ...transitionEventsPropTypes,
@@ -52,6 +60,7 @@ export const contentTransitionPropTypes = {
 export const contentTransitionDefaultProps = {
   display: true,
   props: {},
+  mapProps,
   startOnMount: false,
   keepContentMounted: false,
   ...transitionEventsDefaultProps,

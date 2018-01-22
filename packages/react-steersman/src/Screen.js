@@ -3,7 +3,7 @@ import { func, number, object } from 'prop-types';
 import Route from './Route';
 import { screensPropTypes } from './propTypes';
 
-export default class Screens extends Component {
+export default class Screen extends Component {
 
   static propTypes = {
     screens: screensPropTypes.isRequired,

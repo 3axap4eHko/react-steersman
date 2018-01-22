@@ -4,4 +4,6 @@ export { default as createMemoryHistory } from './createMemoryHistory';
 export { default as Steersman } from './Steersman';
 export { default as Match } from './Match';
 export { default as Route } from './Route';
-export { default as Screens } from './Screens';
+export { default as RouteContext } from './RouteContext';
+export { default as Link } from './Link';
+

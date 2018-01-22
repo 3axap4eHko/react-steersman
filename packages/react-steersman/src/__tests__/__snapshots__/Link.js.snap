@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Link Web active 1`] = `
+<a
+  className="class active"
+  href="/"
+  match={Object {}}
+  onClick={[Function]}
+  style={
+    Object {
+      "background": "#000",
+      "color": "#f00",
+    }
+  }
+>
+  Test
+</a>
+`;
+
+exports[`Link Web inactive 1`] = `
+<a
+  className="class"
+  href="/test"
+  match={null}
+  onClick={[Function]}
+  style={
+    Object {
+      "background": "#000",
+      "color": "#fff",
+    }
+  }
+>
+  Test
+</a>
+`;

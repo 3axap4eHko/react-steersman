@@ -17,8 +17,9 @@ export default class Steersman extends Component {
 
   static childContextTypes = {
     history: object,
-    isMounted: func,
     transitionTimeout: number,
+    isMounted: func,
+    mapProps: func,
     ...routeEventsPropTypes,
   };
 

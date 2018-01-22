@@ -19,10 +19,6 @@ export default class ContentTransition extends Component {
     timestamp: Date.now(),
   };
 
-  setStateAsync = state => {
-    return new Promise((resolve) => this.setState(state, resolve));
-  };
-
   componentWillReceiveProps(nextProps) {
     const direction = getDirection(nextProps.display);
     this.setState({
@@ -44,7 +40,7 @@ export default class ContentTransition extends Component {
 
   render() {
     const { rendered, direction } = this.state;
-    const { timestamp, timeout, startOnMount, keepContentMounted, children, props } = this.props;
+    const { timestamp, timeout, mapProps, startOnMount, keepContentMounted, children, props } = this.props;
     if (!keepContentMounted && !rendered) {
       return null;
     }
@@ -59,6 +55,7 @@ export default class ContentTransition extends Component {
         onExit={this.onTransition}
         onExiting={this.onTransition}
         onExited={this.onTransition}
+        mapProps={mapProps}
         startOnMount={startOnMount}
         props={props}
         children={children}
