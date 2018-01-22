@@ -26,21 +26,9 @@ export default class Route extends Component {
     await this.context.onUpdated(args);
   };
 
-  mapProps = (match) => {
-    return (direction, status) => {
-      const { mapProps: defaultMapProps } = this.context;
-      const { mapProps = defaultMapProps } = this.props;
-
-      return {
-        ...mapProps(direction, status),
-        match,
-      };
-    };
-  };
-
   render() {
-    const { isMounted, transitionTimeout: defaultTimeout } = this.context;
-    const { path, exact, strict, transitionTimeout = defaultTimeout, props, children } = this.props;
+    const { isMounted, transitionTimeout: defaultTimeout, mapProps: defaultMapProps } = this.context;
+    const { path, exact, strict, transitionTimeout = defaultTimeout, mapProps = defaultMapProps, props, children } = this.props;
 
     return (
       <Match
@@ -54,7 +42,7 @@ export default class Route extends Component {
             timeout={transitionTimeout}
             display={!!match.match}
             props={match}
-            mapProps={this.mapProps(match)}
+            mapProps={mapProps}
             onEnter={this.onTransition}
             onEntering={this.onTransition}
             onEntered={this.onTransition}

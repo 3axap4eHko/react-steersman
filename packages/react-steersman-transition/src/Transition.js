@@ -97,7 +97,7 @@ export default class Transition extends Component {
   render() {
     const { direction, status } = this.state;
     const { children: Content, mapProps, props } = this.props;
-    const extraProps = mapProps(direction, status);
-    return <Content {...extraProps} {...props} />;
+    const mappedProps = mapProps({ ...props, direction, status });
+    return <Content {...mappedProps} />;
   }
 }

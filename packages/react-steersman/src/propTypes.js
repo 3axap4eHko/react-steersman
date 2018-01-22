@@ -4,6 +4,8 @@ import { transitionEventsPropTypes, transitionEventsDefaultProps } from 'react-s
 
 const nop = () => {};
 
+const mapProps = props => props;
+
 export const isReactNative = typeof navigator !== 'undefined' && navigator.product === 'ReactNative';
 
 const linkNativePropTypes = {
@@ -72,9 +74,7 @@ export const routePropTypes = {
 };
 
 export const routeDefaultProps = {
-  mapProps(direction, status) {
-    return { direction, status };
-  },
+  mapProps,
   ...matchDefaultProps,
   ...routeEventsDefaultProps,
 };

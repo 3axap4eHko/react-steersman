@@ -77,7 +77,7 @@ import Route from 'react-steersman/Route';
 const history = createBrowserHistory();
 
 
-function Dashboard({ direction, status }) {
+function Dashboard({ className }) {
   return (
     <div className={className}>
       {`Dashboard ${direction}-${status}`}
@@ -87,7 +87,7 @@ function Dashboard({ direction, status }) {
 
 class User extends Component {
   render() {
-    const { match: { username } } = this.props;
+    const { className, match: { username } } = this.props;
     return (
       <div className={className}>
         {`User ${username}`}
@@ -96,7 +96,7 @@ class User extends Component {
   }
 }
 
-function mapProps(direction, status) {
+function mapProps({ direction, status }) {
   return {
     className: `fade-${direction}-${status}`,
   };
@@ -111,11 +111,9 @@ render(
 );
 ```
 
-### Mobile example
-
 ## License
 License [The MIT License](http://opensource.org/licenses/MIT)
-Copyright (c) 2017 Ivan Zakharchanka
+Copyright (c) 2017-2018 Ivan Zakharchanka
 
 [downloads-image]: https://img.shields.io/npm/dm/react-steersman.svg
 [npm-url]: https://www.npmjs.com/package/react-steersman

@@ -3,10 +3,7 @@ import { DIRECTION_ENTER, DIRECTION_EXIT } from './constants';
 
 const nop = () => {};
 
-const mapProps = (direction, status) => ({
-  direction,
-  status
-});
+const mapProps = props => props;
 
 export const transitionEventsPropTypes = {
   onEnter: func,
