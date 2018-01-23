@@ -2,16 +2,37 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import createMemoryHistory from '../createMemoryHistory';
 import Steersman from '../Steersman';
-import Link from '../Link';
+import createLink from '../createLink';
 
 const defaultColor = '#fff';
 const activeColor = '#f00';
 const className = 'class';
 const activeClassName = 'active';
 
-function TestComponent(props) {
-  return <a {...props} />;
+function merge(values, joiner = ' ') {
+  return values.reduce((result, value) => {
+    if (value) {
+      if (typeof result === 'string') {
+        return result + joiner + value;
+      } else if (typeof result === 'object') {
+        return { ...result, ...value };
+      }
+    }
+    return result;
+  });
 }
+
+const Link = createLink(({ to, title, className, activeClassName, style, activeStyle, navigate, match }) => (
+  <a
+    href={to}
+    className={merge([className, match && activeClassName])}
+    style={merge([style, match && activeStyle])}
+    title={title}
+    onClick={navigate}
+  >
+    {title}
+  </a>
+));
 
 test('Link Web active', () => {
   const context = {};
@@ -26,8 +47,6 @@ test('Link Web active', () => {
         activeClassName={activeClassName}
         style={{ color: defaultColor, background: '#000' }}
         activeStyle={{ color: activeColor }}
-        onClick={() => {}}
-        component={TestComponent}
       />
     </Steersman>,
   );
@@ -51,8 +70,6 @@ test('Link Web inactive', () => {
         activeClassName={activeClassName}
         style={{ color: defaultColor, background: '#000' }}
         activeStyle={{ color: activeColor }}
-        onClick={() => {}}
-        component={TestComponent}
       />
     </Steersman>,
   );

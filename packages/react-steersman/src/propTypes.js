@@ -6,41 +6,6 @@ const nop = () => {};
 
 const mapProps = props => props;
 
-export const isReactNative = typeof navigator !== 'undefined' && navigator.product === 'ReactNative';
-
-const linkNativePropTypes = {
-  style: any,
-  activeStyle: any,
-  onPress: func,
-};
-
-const linkWebPropTypes = {
-  style: object,
-  activeStyle: object,
-  className: string,
-  activeClassName: string,
-  onClick: func,
-};
-
-export const linkPropTypes = {
-  to: string.isRequired,
-  title: string.isRequired,
-  component: func,
-  exact: bool,
-  strict: bool,
-  ...(isReactNative ? linkNativePropTypes : linkWebPropTypes),
-};
-
-export const linkDefaultProps = isReactNative
-  ? {
-    onPress: nop,
-    component: require('react-native').Button,
-  }
-  : {
-    onClick: nop,
-    component: props => <a {...props} />,
-  };
-
 export const matchPropTypes = {
   children: func.isRequired,
   path: string,
