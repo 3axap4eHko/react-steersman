@@ -1,35 +1,26 @@
 import React, { Component } from 'react';
 import { number, bool, object, func, oneOf } from 'prop-types';
-import { routeEventsPropTypes, routeEventsDefaultProps } from './propTypes';
+import { steersmanPropTypes, steersmanDefaultProps } from './propTypes';
 
 export default class Steersman extends Component {
 
-  static propTypes = {
-    history: object.isRequired,
-    transitionTimeout: number,
-    ...routeEventsPropTypes,
-  };
+  static propTypes = steersmanPropTypes;
 
-  static defaultProps = {
-    transitionTimeout: 0,
-    ...routeEventsDefaultProps,
-  };
+  static defaultProps = steersmanDefaultProps;
 
   static childContextTypes = {
-    history: object,
-    transitionTimeout: number,
     isMounted: func,
-    mapProps: func,
-    ...routeEventsPropTypes,
+    ...steersmanPropTypes,
   };
 
   mounted = false;
 
   getChildContext() {
     return {
+      isMounted: () => this.mounted,
       history: this.props.history,
       transitionTimeout: this.props.transitionTimeout,
-      isMounted: () => this.mounted,
+      mapProps: this.props.mapProps,
       onUpdated: this.props.onUpdated,
       onEnter: this.props.onEnter,
       onEntering: this.props.onEntering,

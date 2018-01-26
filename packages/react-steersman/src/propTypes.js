@@ -50,6 +50,19 @@ const screenFullPropTypes = shape({
   options: object,
 });
 
+export const steersmanPropTypes = {
+  history: object.isRequired,
+  transitionTimeout: number,
+  mapProps: func,
+  ...routeEventsPropTypes,
+};
+
+export const steersmanDefaultProps = {
+  transitionTimeout: 0,
+  mapProps,
+  ...routeEventsDefaultProps,
+};
+
 const screenShortPropTypes = func;
 
 export const screenPropTypes = oneOfType([screenFullPropTypes, screenShortPropTypes]);
