@@ -39,7 +39,6 @@ export const routePropTypes = {
 };
 
 export const routeDefaultProps = {
-  mapProps,
   ...matchDefaultProps,
   ...routeEventsDefaultProps,
 };

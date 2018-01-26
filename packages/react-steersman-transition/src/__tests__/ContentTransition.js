@@ -16,6 +16,10 @@ expect.extend({
   },
 });
 
+function propsMapper(props) {
+  return { children: `${props.direction}:${props.status}` };
+}
+
 class Wrapper extends Component {
   state = {
     display: false,
@@ -27,7 +31,8 @@ class Wrapper extends Component {
       <ContentTransition
         {...props}
         display={this.state.display}
-        children={({ direction, status }) => `${direction}:${status}`}
+        mapProps={propsMapper}
+        children={({ children }) => children}
       />
     );
   }

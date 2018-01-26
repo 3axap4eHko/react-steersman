@@ -12,8 +12,8 @@ export default class Route extends Component {
   static defaultProps = routeDefaultProps;
 
   static contextTypes = {
-    transitionTimeout: number.isRequired,
     isMounted: func.isRequired,
+    transitionTimeout: number.isRequired,
     mapProps: func,
     ...routeEventsDefaultProps,
   };

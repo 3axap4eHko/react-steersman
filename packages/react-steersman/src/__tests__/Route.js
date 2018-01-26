@@ -19,6 +19,20 @@ test('Steersman render route', () => {
   expect(context.component.toJSON()).toBe('test');
 });
 
+test('Steersman mapProps', () => {
+  const context = {};
+  const history = createMemoryHistory();
+
+  context.component = renderer.create(
+    <Steersman history={history} mapProps={({ direction, status }) => ({ children: `${direction}-${status}` })}>
+      <Route path="/" children={({ children }) => `${children}-test`} />
+      <Route path="/test" children={({ children }) => `${children}-not-test`} />
+    </Steersman>,
+  );
+  context.tree = context.component.toTree();
+  expect(context.component.toJSON()).toBe('enter-done-test');
+});
+
 test('Steersman onRouteUpdated', done => {
   const context = {};
   const history = createMemoryHistory();

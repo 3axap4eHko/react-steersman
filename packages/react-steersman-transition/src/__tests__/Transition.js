@@ -26,8 +26,13 @@ class NullRender extends Component {
   }
 }
 
-function nullRender() {
+function nullRender(props) {
+  expect(props.mappedProp).toMatch(/^(\w+)-(\w+)$/);
   return null;
+}
+
+function propsMapper(props) {
+  return { ...props, mappedProp: `${props.direction}-${props.status}` };
 }
 
 test('Transition init state stateless', () => {
@@ -36,6 +41,7 @@ test('Transition init state stateless', () => {
     <Transition
       timeout={NO_TIMEOUT}
       children={nullRender}
+      mapProps={propsMapper}
     />,
   );
   let tree = component.toJSON();
@@ -48,6 +54,7 @@ test('Transition init state class', () => {
     <Transition
       timeout={NO_TIMEOUT}
       children={NullRender}
+      mapProps={propsMapper}
     />,
   );
   let tree = component.toJSON();
@@ -67,6 +74,7 @@ test('Transition enter', done => {
     <Transition
       timeout={NO_TIMEOUT}
       direction={DIRECTION_ENTER}
+      mapProps={propsMapper}
       onEnter={noExecution}
       onEntering={noExecution}
       onEntered={onEntered}
@@ -102,6 +110,7 @@ test('Transition enter startOnMount', done => {
     <Transition
       timeout={TIMEOUT}
       direction={DIRECTION_ENTER}
+      mapProps={propsMapper}
       onEnter={onEnter}
       onEntering={onEntering}
       onEntered={onEntered}
@@ -124,6 +133,7 @@ test('Transition exit', done => {
     <Transition
       timeout={NO_TIMEOUT}
       direction={DIRECTION_EXIT}
+      mapProps={propsMapper}
       onExit={noExecution}
       onExiting={noExecution}
       onExited={onExited}
@@ -158,6 +168,7 @@ test('Transition exit startOnMount', done => {
     <Transition
       timeout={TIMEOUT}
       direction={DIRECTION_EXIT}
+      mapProps={propsMapper}
       onExit={onExit}
       onExiting={onExiting}
       onExited={onExited}
@@ -171,10 +182,12 @@ class Wrapper extends Component {
   state = {
     direction: DIRECTION_ENTER,
   };
+
   render() {
     return (
       <Transition
         direction={this.state.direction}
+        mapProps={propsMapper}
         {...this.props}
       />
     );
