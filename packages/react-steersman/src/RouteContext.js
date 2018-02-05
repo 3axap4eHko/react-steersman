@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { number, func } from 'prop-types';
-import { routeEventsDefaultProps, routeEventsPropTypes } from './propTypes';
+import { routeEventsDefaultProps, routeEventsPropTypes } from './props';
 
 export default class RouteContext extends Component {
 

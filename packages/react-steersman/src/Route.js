@@ -3,7 +3,7 @@ import { number, string, object, func } from 'prop-types';
 import Match from './Match';
 import ContentTransition from 'react-steersman-transition/ContentTransition';
 import { propsMap } from 'react-steersman-transition/Transition';
-import { routePropTypes, routeDefaultProps, routeEventsDefaultProps } from './propTypes';
+import { routePropTypes, routeDefaultProps, routeEventsDefaultProps } from './props';
 
 export default class Route extends Component {
 

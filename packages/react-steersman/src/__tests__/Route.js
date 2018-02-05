@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import renderer from 'react-test-renderer';
 import { DIRECTION_ENTER, DIRECTION_EXIT, STATUS_START, STATUS_ACTIVE, STATUS_DONE } from 'react-steersman-transition/constants';
 import createMemoryHistory from '../createMemoryHistory';
@@ -43,14 +43,16 @@ test('Steersman onRouteUpdated', done => {
     history.push('/test');
   }
 
-  function onEnter({ match, location, path }) {
+  function onEnter({ match, location, path, method }) {
     expect(match).not.toBe(null);
     expect(location).toBe(path);
+    expect(method).toBe('PUSH');
   }
 
-  function onEntered({ match, location, path }) {
+  function onEntered({ match, location, path, method }) {
     expect(match).not.toBe(null);
     expect(location).toBe(path);
+    expect(method).toBe('PUSH');
     done();
   }
 

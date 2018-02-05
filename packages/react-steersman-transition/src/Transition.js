@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { DIRECTION_ENTER, DIRECTION_EXIT, STATUS_START, STATUS_ACTIVE, STATUS_DONE } from './constants';
-import { transitionPropTypes, transitionDefaultProps } from './propTypes';
+import { transitionPropTypes, transitionDefaultProps } from './props';
 
 function wait(timeout) {
   return new Promise(resolve => setTimeout(resolve, timeout));
@@ -98,6 +98,7 @@ export default class Transition extends Component {
     const { direction, status } = this.state;
     const { children: Content, mapProps, props } = this.props;
     const mappedProps = mapProps({ ...props, direction, status });
+
     return <Content {...mappedProps} />;
   }
 }

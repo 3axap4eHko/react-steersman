@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DIRECTION_ENTER, DIRECTION_EXIT, STATUS_DONE } from './constants';
 import Transition, { propsMap } from './Transition';
-import { contentTransitionPropTypes, contentTransitionDefaultProps } from './propTypes';
+import { contentTransitionPropTypes, contentTransitionDefaultProps } from './props';
 
 function getDirection(show) {
   return [DIRECTION_EXIT, DIRECTION_ENTER][show | 0];

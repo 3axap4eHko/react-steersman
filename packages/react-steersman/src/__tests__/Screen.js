@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import { DIRECTION_ENTER, DIRECTION_EXIT, STATUS_DONE, STATUS_ACTIVE, STATUS_START } from 'react-steersman-transition/constants';
 import createMemoryHistory from '../createMemoryHistory';
 import Steersman from '../Steersman';
-import Screen from '../Screen';
+import Screens from '../Screens';
 
 test('Screen', done => {
   const context = { counter: 0 };
@@ -31,7 +31,7 @@ test('Screen', done => {
       onExiting={testCase}
       onExited={testCase}
     >
-      <Screen
+      <Screens
         screens={{
           '/': ({ direction, status }) => `screen:${direction}:${status}`,
           '/test': ({ direction, status }) => `test-screen:${direction}:${status}`,

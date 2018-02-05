@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { func, number, object } from 'prop-types';
 import Route from './Route';
-import { screensPropTypes } from './propTypes';
+import { screensPropTypes } from './props';
 
-export default class Screen extends Component {
+export default class Screens extends Component {
 
   static propTypes = {
     screens: screensPropTypes.isRequired,

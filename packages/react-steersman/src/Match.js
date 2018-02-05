@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { object, string, func, bool, oneOfType } from 'prop-types';
 import Pattern from 'react-steersman-url/Pattern';
-import { matchPropTypes, matchDefaultProps } from './propTypes';
+import { matchPropTypes, matchDefaultProps } from './props';
 
 export default class Match extends Component {
 
@@ -29,15 +29,17 @@ export default class Match extends Component {
       location: history.location.pathname,
       match: this.pattern.match(history.location.pathname),
       timestamp: Date.now(),
+      method: 'PUSH',
     };
 
-    this.unlisten = history.listen(location => {
+    this.unlisten = history.listen((location, method) => {
       const match = this.pattern.match(location.pathname);
       if (JSON.stringify(this.state.match) !== JSON.stringify(match)) {
         this.setState({
           match,
           timestamp: Date.now(),
           location: location.pathname,
+          method,
         });
       }
     });
@@ -56,13 +58,14 @@ export default class Match extends Component {
 
   render() {
     const { children: Content, path, exact, props } = this.props;
-    const { match, location } = this.state;
+    const { match, location, method } = this.state;
 
     return (
       <Content
         match={match}
         location={location}
         path={path}
+        method={method}
         exact={exact}
         {...props}
       />

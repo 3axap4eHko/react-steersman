@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { number, bool, object, func, oneOf } from 'prop-types';
-import { steersmanPropTypes, steersmanDefaultProps } from './propTypes';
+import { steersmanPropTypes, steersmanDefaultProps } from './props';
 
 export default class Steersman extends Component {
 
