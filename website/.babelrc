@@ -1,0 +1,17 @@
+{
+  "presets": [
+    "react",
+    ["env", {
+      "targets": {
+        "browsers": ["last 2 versions"],
+        "node": 8
+      }
+    }]
+  ],
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-object-rest-spread",
+    "transform-class-properties",
+    ["transform-runtime", { "helpers": false, "polyfill": false }]
+  ]
+}

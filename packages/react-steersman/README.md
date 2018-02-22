@@ -111,6 +111,29 @@ render(
 );
 ```
 
+### Render one from a group routes
+```javascript
+import React from 'react';
+import { render } from 'react-dom';
+import Steersman from 'react-steersman/Steersman';
+import createBrowserHistory from 'react-steersman/createBrowserHistory';
+import Route from 'react-steersman/Route';
+import RouteGroup from 'react-steersman/RouteGroup';
+
+const history = createBrowserHistory();
+
+render(
+  <Steersman history={history}>
+    <RouteGroup path="/" children={() => 'Home Top Bar'} group="top-bar"/>
+    <RouteGroup path="/profile" children={() => 'Profile Top Bar'} group="top-bar"/>
+    <RouteGroup path=".*" children={() => 'Other page Top Bar'} group="top-bar"/>
+    <Route path="/" children={() => 'Home'} />
+    <Route path="/profile" children={() => 'Profile'}/>
+  </Steersman>,
+  document.getElementById('app'),
+);
+```
+
 ## License
 License [The MIT License](http://opensource.org/licenses/MIT)
 Copyright (c) 2017-2018 Ivan Zakharchanka

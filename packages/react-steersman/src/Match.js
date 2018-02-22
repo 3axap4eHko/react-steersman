@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { object, string, func, bool, oneOfType } from 'prop-types';
-import Pattern from 'react-steersman-url/Pattern';
+import Pattern from 'uriil/Pattern';
 import { matchPropTypes, matchDefaultProps } from './props';
 
 export default class Match extends Component {
@@ -15,10 +15,11 @@ export default class Match extends Component {
 
   constructor(props, context) {
     super(props, context);
-    if (!context.history) {
+    const { history } = context;
+
+    if (!history) {
       console.error('Make sure your Route has Steersman component at a parent level');
     }
-    const { history } = context;
 
     this.pattern = Pattern.fromString(props.path, {
       exact: props.exact,
@@ -34,14 +35,12 @@ export default class Match extends Component {
 
     this.unlisten = history.listen((location, method) => {
       const match = this.pattern.match(location.pathname);
-      if (JSON.stringify(this.state.match) !== JSON.stringify(match)) {
-        this.setState({
-          match,
-          timestamp: Date.now(),
-          location: location.pathname,
-          method,
-        });
-      }
+      this.setState({
+        match,
+        timestamp: Date.now(),
+        location: location.pathname,
+        method,
+      });
     });
   }
 

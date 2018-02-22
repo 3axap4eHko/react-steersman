@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { number, string, object, func } from 'prop-types';
-import Match from './Match';
 import ContentTransition from 'react-steersman-transition/ContentTransition';
 import { propsMap } from 'react-steersman-transition/Transition';
 import { routePropTypes, routeDefaultProps, routeEventsDefaultProps } from './props';
+import Match from './Match';
 
 export default class Route extends Component {
 
@@ -28,14 +28,16 @@ export default class Route extends Component {
 
   render() {
     const { isMounted, transitionTimeout: defaultTimeout, mapProps: defaultMapProps } = this.context;
-    const { path, exact, strict, transitionTimeout = defaultTimeout, mapProps = defaultMapProps, props, children } = this.props;
+    const { matcher, path, exact, strict, transitionTimeout = defaultTimeout, mapProps = defaultMapProps, props, children, ...matcherProps } = this.props;
+    const Matcher = matcher || Match;
 
     return (
-      <Match
+      <Matcher
         path={path}
         exact={exact}
         strict={strict}
         props={props}
+        {...matcherProps}
         children={match => (
           <ContentTransition
             children={children}

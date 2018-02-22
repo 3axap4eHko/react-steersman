@@ -21,6 +21,16 @@ export const matchDefaultProps = {
   props: {},
 };
 
+export const matchGroupPropTypes = {
+  group: string,
+  ...matchPropTypes,
+};
+
+export const matchGroupDefaultProps = {
+  group: 'default',
+  ...matchDefaultProps,
+};
+
 export const routeEventsPropTypes = {
   onUpdated: func,
   ...transitionEventsPropTypes,
@@ -41,6 +51,16 @@ export const routePropTypes = {
 export const routeDefaultProps = {
   ...matchDefaultProps,
   ...routeEventsDefaultProps,
+};
+
+export const routeGroupPropTypes = {
+  ...routePropTypes,
+  group: string,
+};
+
+export const routeGroupDefaultProps = {
+  ...routeDefaultProps,
+  group: 'default,'
 };
 
 const screenFullPropTypes = shape({

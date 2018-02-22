@@ -1,24 +1,24 @@
 import Pattern from '../Pattern';
 
-test('Should works without placeholders (positive)', () => {
+test('Should work without placeholders (positive)', () => {
   const compiled = Pattern.fromString('/test');
   expect(compiled.build({ userId: 1 })).toBe('/test');
   expect(compiled.match('/test')).toMatchObject({});
 });
 
-test('Should works in not strict mode', () => {
+test('Should work in not strict mode', () => {
   const compiled = Pattern.fromString('/test', { strict: false });
   expect(compiled.match('/test')).toMatchObject({});
   expect(compiled.match('/test/')).toMatchObject({});
 });
 
-test('Should works in not exact mode', () => {
+test('Should work in not exact mode', () => {
   const compiled = Pattern.fromString('/test', { exact: false });
   expect(compiled.match('/test')).toMatchObject({});
   expect(compiled.match('/test/subtest')).toMatchObject({});
 });
 
-test('Should works without placeholders (negative)', () => {
+test('Should work without placeholders (negative)', () => {
   const compiled = Pattern.fromString('/test');
   expect(compiled.build({ userId: 1 })).toBe('/test');
   expect(compiled.match('/')).toBeFalsy();
@@ -52,4 +52,10 @@ test('Compiled should parse constrained placeholders', () => {
   expect(compiled.match('/user/2/test')).toBeFalsy();
   expect(compiled.match('/user/2?query')).toBeFalsy();
   expect(compiled.match('/user/2#hash')).toBeFalsy();
+});
+
+test('Compiled trigger event on match', done => {
+  const compiled = Pattern.fromString('/user/:userId(\\d+)|int');
+  compiled.onMatch(() => done());
+  compiled.match('/user/1')
 });

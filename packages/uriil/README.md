@@ -1,4 +1,4 @@
-# React Steersman URL
+# URIIL
 
 Tiny and Fast URL utils
 
@@ -39,6 +39,7 @@ interface Pattern {
   static fromString(url: string): Pattern
   build(params: object): string
   match(url: string): (object|null)
+  onMatch(callback: function): function
 }
 
 const compiled = Pattern.fromString('/user/:userId(\\d+)|int');
@@ -53,9 +54,9 @@ console.log(params) // { userId: 4520 }
 License [The MIT License](http://opensource.org/licenses/MIT)
 Copyright (c) 2017-2018 Ivan Zakharchanka
 
-[downloads-image]: https://img.shields.io/npm/dm/react-steersman-transition.svg
-[npm-url]: https://www.npmjs.com/package/react-steersman-transition
-[npm-image]: https://img.shields.io/npm/v/react-steersman-transition.svg
+[downloads-image]: https://img.shields.io/npm/dm/uriil.svg
+[npm-url]: https://www.npmjs.com/package/uriil
+[npm-image]: https://img.shields.io/npm/v/uriil.svg
 
 [travis-url]: https://travis-ci.org/3axap4eHko/react-steersman
 [travis-image]: https://img.shields.io/travis/3axap4eHko/react-steersman/master.svg

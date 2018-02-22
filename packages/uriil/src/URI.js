@@ -1,6 +1,6 @@
 import { $p } from './utils';
 
-const urlParseExpr = /^(\w+):\/\/((.*?)(:(.*?))?@)?(.*?)(:(\d+))?(\/.*?)(\?(.*?))?(#(.*))?$/;
+const urlParseExpr = /^([\w-]+):\/\/((.*?)(:(.*?))?@)?(.*?)(:(\d+))?(\/.*?)(\?(.*?))?(#(.*))?$/;
 
 const PROTOCOL = 'PROTOCOL';
 const USERNAME = 'USERNAME';

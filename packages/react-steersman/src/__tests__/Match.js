@@ -29,6 +29,9 @@ test('Match multiple', () => {
   );
   context.tree = context.component.toTree();
   expect(context.component.toJSON()).toBe('/');
+
+  history.push('/test');
+  expect(context.component.toJSON()).toBe('/test');
 });
 
 test('Match multiple changed', done => {

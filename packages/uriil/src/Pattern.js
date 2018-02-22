@@ -1,3 +1,7 @@
+/**
+ * @module Pattern
+ * @description The Pattern class that matches a URL and returns matched parameters or build a URL from provided parameters.
+ */
 import { $p } from './utils';
 
 const placeholderParseRegexp = /(:([a-zA-Z0-9_-]+)(\(.*?\)\??)?(\|(\w+))?)/;
@@ -11,6 +15,7 @@ const PATTERN_REGEXP = 'PATTERN_REGEXP';
 const PATTERN_PLACEHOLDER = 'PATTERN_PLACEHOLDER';
 const NAMES = 'NAMES';
 const CASTS = 'CASTS';
+const ON_MATCH = 'ON_MATCH';
 
 const selfRef = {};
 
@@ -121,31 +126,9 @@ export default class Pattern {
     $p(compiled, PATTERN_PLACEHOLDER, patternPlaceholder);
     $p(compiled, NAMES, names);
     $p(compiled, CASTS, casts);
+    $p(compiled, ON_MATCH, new Set());
 
     return compiled;
-  }
-
-  /**
-   * Matches pattern to input string and returns matched properties or null
-   * @param {String} input
-   * @returns {Object|null}
-   * @example
-   * const pattern = Pattern.fromString('/users/:email|lower')
-   * pattern.match('/user/wrong@example.com'); // false
-   * pattern.match('/users/correct@example.com'); // { email: "correct@example.com" }
-   */
-  match(input) {
-    const matches = input.match($p(this, PATTERN_REGEXP));
-
-    if (matches) {
-      return matches.slice(1).reduce((params, value, idx) => {
-        const name = $p(this, NAMES)[idx];
-        const cast = $p(this, CASTS)[idx];
-        const castFunction = castFunctions[cast] || castFunctions.string;
-        return { ...params, [name]: castFunction(value) };
-      }, {});
-    }
-    return null;
   }
 
   /**
@@ -161,4 +144,44 @@ export default class Pattern {
       return result.replace(getPH(name), parameters[name]);
     }, $p(this, PATTERN_PLACEHOLDER));
   }
+
+  /**
+   * Matches pattern to input string and returns matched properties or null
+   * @param {String} input
+   * @returns {Object|null}
+   * @example
+   * const pattern = Pattern.fromString('/users/:email|lower')
+   * pattern.match('/user/wrong@example.com'); // false
+   * pattern.match('/users/correct@example.com'); // { email: "correct@example.com" }
+   */
+  match(input) {
+    const matches = input.match($p(this, PATTERN_REGEXP));
+
+    if (matches) {
+      const matched = matches.slice(1).reduce((params, value, idx) => {
+        const name = $p(this, NAMES)[idx];
+        const cast = $p(this, CASTS)[idx];
+        const castFunction = castFunctions[cast] || castFunctions.string;
+        return { ...params, [name]: castFunction(value) };
+      }, {});
+      $p(this, ON_MATCH).forEach(callback => callback(matched));
+      return matched;
+    }
+    return null;
+  }
+
+  /**
+   * Subscribe for match event
+   * @param {Function} callback
+   * @returns {Function} unsubscribe from match listening
+   * @example
+   * const pattern = Pattern.fromString('/users/:email');
+   * pattern.onMatch(parameters => console.log(parameters));
+   * pattern.match('/users/correct@example.com');
+   */
+  onMatch(callback) {
+    $p(this, ON_MATCH).add(callback);
+    return () => $p(this, ON_MATCH).remove(callback);
+  }
+
 }
