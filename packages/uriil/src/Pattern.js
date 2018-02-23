@@ -81,8 +81,9 @@ function buildRegexp(patternRegexp, options) {
  *
  * interface Pattern {
  *    static fromString(pattern, options);  // creates instance of Pattern from pattern string
- *    match(input);                         // matches string to pattern and returns object with matched parameters or null
  *    build(parameters);                    // creates a string from pattern and passed parameters
+ *    match(input);                         // matches string to pattern and returns object with matched parameters or null
+ *    onMatch(callback);                    // Adds a match listener. Returns a function that unsubscribes the match listener
  * }
  *
  * const compiled = Pattern.fromString('/user/:userId(\\d+)|int');
@@ -112,7 +113,7 @@ export default class Pattern {
    * Pattern.fromString('/conversations/:guid|upper')
    * Pattern.fromString('/items/:id(\\d+)|int')
    * Pattern.fromString('/messages/:unreadOnly|bool')
-   * Pattern.fromString('/map/:long|float/:lat|float')
+   * Pattern.fromString('/map/:latitude|float/:longitude|float')
    * Pattern.fromString('/random', { exact: false })
    * Pattern.fromString('/random/:seed|number')
    */

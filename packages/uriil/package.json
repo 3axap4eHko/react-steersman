@@ -8,7 +8,7 @@
     "prepare": "NODE_ENV=production npm run build",
     "test": "NODE_ENV=test jest"
   },
-  "repository": "https://github.com/3axap4eHko/react-steersman/tree/master/packages/react-steersman-url",
+  "repository": "https://github.com/3axap4eHko/react-steersman/tree/master/packages/uriil",
   "author": "Ivan (3axap4eHko@gmail.com) Zakharchanka",
   "license": "MIT",
   "devDependencies": {

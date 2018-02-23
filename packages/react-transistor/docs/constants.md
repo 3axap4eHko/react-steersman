@@ -1,0 +1,9 @@
+# constants
+
+ - `DIRECTION_ENTER`
+ - `DIRECTION_EXIT`
+
+ - `STATUS_START`
+ - `STATUS_ACTIVE`
+ - `STATUS_DONE`
+

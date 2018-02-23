@@ -1,20 +1,34 @@
-# Match
+# &lt; MatchGroup &gt;
 
+Component matches a first path to current location.
+
+## Description
+
+Component `MatchGroup` is doing the same as `Match` only difference that matched will be only first from group.
+All other `MatchGroup` will have `match` equals `null`. 
+
+## Props
+
+`<MatchGroup>` has all props of [&lt; Match &gt;](Match.md) component and also:
+
+#### group: string
+
+A name of group
+
+Default: `default`
+
+## Example
 
 ```javascript
 import React from 'react';
-import { render } from 'react-dom';
 import { Steersman, MatchGroup, createBrowserHistory } from 'react-steersman';
 
 const history = createBrowserHistory();
 
-render(
-  <Steersman history={history}>
-    <MatchGroup path="/" children={() => 'Home'} />
-    <MatchGroup path="/profile" children={() => 'Profile'} />
-    <MatchGroup path="/dashboard" children={() => 'Dashboard'} />
-    <MatchGroup path=".*" children={() => 'Nothing matched'} />
-  </Steersman>,
-  document.getElementById('app')
-);
+<Steersman history={history}>
+  <MatchGroup path="/" children={() => 'Home'} group="screen" />
+  <MatchGroup path="/profile" children={() => 'Profile'} group="screen" />
+  <MatchGroup path="/dashboard" children={() => 'Dashboard'} group="screen" />
+  <MatchGroup path=".*" children={() => 'Nothing matched'} group="screen" />
+</Steersman>
 ```

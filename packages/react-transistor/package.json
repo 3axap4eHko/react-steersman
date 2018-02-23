@@ -1,5 +1,5 @@
 {
-  "name": "react-steersman-transition",
+  "name": "react-transistor",
   "version": "2.5.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,7 @@
     "prepare": "NODE_ENV=production npm run build",
     "test": "NODE_ENV=test jest"
   },
-  "repository": "https://github.com/3axap4eHko/react-steersman/tree/master/packages/react-steersman-transition",
+  "repository": "https://github.com/3axap4eHko/react-steersman/tree/master/packages/react-transistor",
   "author": "Ivan (3axap4eHko@gmail.com) Zakharchanka",
   "license": "MIT",
   "peerDependencies": {

@@ -1067,8 +1067,8 @@ copy-concurrently@^1.0.0:
     run-queue "^1.0.0"
 
 copy-webpack-plugin@^4.4.1:
-  version "4.4.1"
-  resolved "https://registry.yarnpkg.com/copy-webpack-plugin/-/copy-webpack-plugin-4.4.1.tgz#1e8c366211db6dc2ddee40e5a3e4fc661dd149e8"
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/copy-webpack-plugin/-/copy-webpack-plugin-4.4.2.tgz#c92bcd7df4d5e42c51398cc36b23820d0d10446a"
   dependencies:
     cacache "^10.0.1"
     find-cache-dir "^1.0.0"
@@ -1305,8 +1305,8 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
 
 electron-to-chromium@^1.3.30:
-  version "1.3.33"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.33.tgz#bf00703d62a7c65238136578c352d6c5c042a545"
+  version "1.3.34"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.34.tgz#d93498f40391bb0c16a603d8241b9951404157ed"
 
 elliptic@^6.0.0:
   version "6.4.0"
@@ -2399,8 +2399,8 @@ ms@2.0.0:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
 
 nan@^2.3.0:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.8.0.tgz#ed715f3fe9de02b57a5e6252d90a96675e1f085a"
+  version "2.9.2"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.9.2.tgz#f564d75f5f8f36a6d9456cca7a6c4fe488ab7866"
 
 ncname@1.0.x:
   version "1.0.0"
@@ -2849,24 +2849,20 @@ react-proxy@^3.0.0-alpha.0:
   dependencies:
     lodash "^4.6.1"
 
-react-steersman-transition@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/react-steersman-transition/-/react-steersman-transition-1.4.0.tgz#7395bc7a95844f24d606376bedff8555c68da36e"
+react-steersman-transition@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/react-steersman-transition/-/react-steersman-transition-2.5.0.tgz#342068421343cbb68576350b3d136a1944312b70"
   dependencies:
     prop-types "^15.6.0"
 
-react-steersman-url@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-steersman-url/-/react-steersman-url-1.0.0.tgz#592f6cc03afccca77cfa1843832bebfda8a6597d"
-
-react-steersman@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/react-steersman/-/react-steersman-1.4.0.tgz#e207b01393c6aba5b1df863776804ca9c41c0fff"
+react-steersman@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/react-steersman/-/react-steersman-2.5.0.tgz#75a4726770b6702db1af50dc36e5e3e468f6b3e4"
   dependencies:
     history "^4.7.2"
     prop-types "^15.6.0"
-    react-steersman-transition "^1.4.0"
-    react-steersman-url "^1.0.0"
+    react-steersman-transition "^2.5.0"
+    uriil "^1.0.0"
 
 react@^16.2.0:
   version "16.2.0"
@@ -3425,6 +3421,10 @@ unique-slug@^2.0.0:
 upper-case@^1.1.1:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/upper-case/-/upper-case-1.1.3.tgz#f6b4501c2ec4cdd26ba78be7222961de77621598"
+
+uriil@^1.0.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/uriil/-/uriil-1.1.1.tgz#35691a13cb8d53667240a8f475655d3a3e18f75d"
 
 url@^0.11.0:
   version "0.11.0"
