@@ -16,9 +16,9 @@ Tiny react transition library
 License [The MIT License](http://opensource.org/licenses/MIT)
 Copyright (c) 2017-2018 Ivan Zakharchanka
 
-[downloads-image]: https://img.shields.io/npm/dm/react-steersman-transition.svg
-[npm-url]: https://www.npmjs.com/package/react-steersman-transition
-[npm-image]: https://img.shields.io/npm/v/react-steersman-transition.svg
+[downloads-image]: https://img.shields.io/npm/dm/react-transistor.svg
+[npm-url]: https://www.npmjs.com/package/react-transistor
+[npm-image]: https://img.shields.io/npm/v/react-transistor.svg
 
 [travis-url]: https://travis-ci.org/3axap4eHko/react-steersman
 [travis-image]: https://img.shields.io/travis/3axap4eHko/react-steersman/master.svg

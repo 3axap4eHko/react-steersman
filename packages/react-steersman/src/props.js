@@ -1,6 +1,6 @@
 import React from 'react';
 import { func, object, oneOfType, objectOf, shape, bool, string, any, number } from 'prop-types';
-import { transitionEventsPropTypes, transitionEventsDefaultProps } from 'react-steersman-transition/props';
+import { transitionEventsPropTypes, transitionEventsDefaultProps } from 'react-transistor/props';
 
 const nop = () => {};
 

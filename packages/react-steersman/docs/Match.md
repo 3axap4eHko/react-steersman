@@ -4,6 +4,7 @@ Component matches path to current location.
 
 ## Description
 
+Matches current location to route’s path and passes matched parameters to children.
 
 ## Props
 
@@ -28,8 +29,7 @@ A flag that enables strict mode matching.
 
 Extra props to pass to children.
 
-## Examples
- 
+## Example
 
 ```javascript
 import React from 'react';

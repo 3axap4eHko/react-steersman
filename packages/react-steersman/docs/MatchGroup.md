@@ -1,6 +1,6 @@
 # &lt; MatchGroup &gt;
 
-Component matches a first path to current location.
+The Component matches a first path to current location.
 
 ## Description
 

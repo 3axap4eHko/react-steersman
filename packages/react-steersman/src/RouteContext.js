@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { number, func } from 'prop-types';
-import { routeEventsDefaultProps, routeEventsPropTypes } from './props';
+import { routeEventsPropTypes } from './props';
 
 export default class RouteContext extends Component {
 
   static contextTypes = {
     transitionTimeout: number.isRequired,
     mapProps: func,
-    ...routeEventsDefaultProps,
+    ...routeEventsPropTypes,
   };
 
   static childContextTypes = {

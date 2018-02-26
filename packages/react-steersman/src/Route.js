@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { number, string, object, func } from 'prop-types';
-import ContentTransition from 'react-steersman-transition/ContentTransition';
-import { propsMap } from 'react-steersman-transition/Transition';
+import ContentTransition from 'react-transistor/ContentTransition';
+import { propsMap } from 'react-transistor/Transition';
 import { routePropTypes, routeDefaultProps, routeEventsDefaultProps } from './props';
 import Match from './Match';
 

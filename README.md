@@ -1,14 +1,20 @@
 # React Steersman
 
-Lightweight React Routing Library with transitions
+Lightweight React routing library with transitions
 
 [![NPM version][npm-image]][npm-url]
 [![Downloads][downloads-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 
+## Packages
+
+  - [react-steersman](packages/react-steersman)
+  - [react-transistor](packages/react-transistor)
+  - [uriil](packages/uriil)
+
 ## License
 License [The MIT License](http://opensource.org/licenses/MIT)
-Copyright (c) 2017 Ivan Zakharchanka
+Copyright (c) 2017-2018 Ivan Zakharchanka
 
 
 [downloads-image]: https://img.shields.io/npm/dm/react-steersman.svg

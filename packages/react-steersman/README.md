@@ -8,14 +8,14 @@ Tiny and fast react navigation library
 
 ## Documentation
 
- - [createLink](docs/createLink.md)
- - [withNav](docs/withNav.md)
  - [Steersman](docs/Steersman.md)
  - [Match](docs/Match.md)
  - [MatchGroup](docs/MatchGroup.md)
  - [Route](docs/Route.md)
  - [RouteGroup](docs/RouteGroup.md)
  - [RouteContext](docs/RouteContext.md)
+ - [createLink](docs/createLink.md)
+ - [withNav](docs/withNav.md)
 
 ## Usage
 
