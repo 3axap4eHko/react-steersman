@@ -1,6 +1,6 @@
 {
   "name": "uriil",
-  "version": "2.7.1",
+  "version": "2.7.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,7 @@
     "test": "NODE_ENV=test jest"
   },
   "repository": "https://github.com/3axap4eHko/react-steersman/tree/master/packages/uriil",
+  "homepage": "https://github.com/3axap4eHko/react-steersman/tree/master/packages/uriil#readme",
   "author": "Ivan (3axap4eHko@gmail.com) Zakharchanka",
   "license": "MIT",
   "devDependencies": {
