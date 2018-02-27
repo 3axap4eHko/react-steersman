@@ -8,15 +8,15 @@ Tiny and fast react navigation library
 
 ## Documentation
 
- - [Steersman](docs/Steersman.md)
- - [Match](docs/Match.md)
- - [MatchGroup](docs/MatchGroup.md)
- - [Route](docs/Route.md)
- - [RouteGroup](docs/RouteGroup.md)
- - [RouteContext](docs/RouteContext.md)
- - [Redirect](docs/Redirect.md)
- - [createLink](docs/createLink.md)
- - [withNav](docs/withNav.md)
+ - [Steersman](https://github.com/3axap4eHko/react-steersman/blob/master/docs/Steersman.md)
+ - [Match](https://github.com/3axap4eHko/react-steersman/blob/master/docs/Match.md)
+ - [MatchGroup](https://github.com/3axap4eHko/react-steersman/blob/master/docs/MatchGroup.md)
+ - [Route](https://github.com/3axap4eHko/react-steersman/blob/master/docs/Route.md)
+ - [RouteGroup](https://github.com/3axap4eHko/react-steersman/blob/master/docs/RouteGroup.md)
+ - [RouteContext](https://github.com/3axap4eHko/react-steersman/blob/master/docs/RouteContext.md)
+ - [Redirect](https://github.com/3axap4eHko/react-steersman/blob/master/docs/Redirect.md)
+ - [createLink](https://github.com/3axap4eHko/react-steersman/blob/master/docs/createLink.md)
+ - [withNav](https://github.com/3axap4eHko/react-steersman/blob/master/docs/withNav.md)
 
 ## Usage
 

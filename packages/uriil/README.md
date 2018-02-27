@@ -8,8 +8,8 @@ Tiny and Fast URL utils for client and server side
 
 ## Documentation
 
- - [Pattern](docs/Pattern.md) - matches a URL and returns matched parameters or build a URL from provided parameters
- - [URI](docs/URI.md) - parses and builds a URL
+ - [Pattern](https://github.com/3axap4eHko/react-steersman/blob/master/docs/Pattern.md) - matches a URL and returns matched parameters or build a URL from provided parameters
+ - [URI](https://github.com/3axap4eHko/react-steersman/blob/master/docs/URI.md) - parses and builds a URL
 
 ## License
 License [The MIT License](http://opensource.org/licenses/MIT)
