@@ -3,6 +3,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "bootstrap": "yarn install && lerna bootstrap",
     "build": "NODE_ENV=production lerna run build",
     "test": "NODE_ENV=test jest"
   },

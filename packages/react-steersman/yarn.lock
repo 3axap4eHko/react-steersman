@@ -1021,12 +1021,6 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-steersman-transition@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/react-steersman-transition/-/react-steersman-transition-2.5.0.tgz#342068421343cbb68576350b3d136a1944312b70"
-  dependencies:
-    prop-types "^15.6.0"
-
 readable-stream@^2.0.2, readable-stream@^2.0.6, readable-stream@^2.1.4:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.3.3.tgz#368f2512d79f9d46fdfc71349ae7878bbc1eb95c"
@@ -1259,10 +1253,6 @@ ua-parser-js@^0.7.9:
 uid-number@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/uid-number/-/uid-number-0.0.6.tgz#0ea10e8035e8eb5b8e4449f06da1c730663baa81"
-
-uriil@^1.0.0:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/uriil/-/uriil-1.1.1.tgz#35691a13cb8d53667240a8f475655d3a3e18f75d"
 
 user-home@^1.1.1:
   version "1.1.1"

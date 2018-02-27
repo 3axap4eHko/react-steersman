@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { DIRECTION_ENTER, DIRECTION_EXIT, STATUS_START, STATUS_ACTIVE, STATUS_DONE } from 'react-steersman-transition/constants';
+import { DIRECTION_ENTER, DIRECTION_EXIT, STATUS_START, STATUS_ACTIVE, STATUS_DONE } from 'react-transistor/constants';
 import createMemoryHistory from '../createMemoryHistory';
 import Route from '../Route';
 import Steersman from '../Steersman';

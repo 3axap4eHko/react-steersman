@@ -9,8 +9,7 @@ Tiny and Fast URL utils for client and server side
 ## Documentation
 
  - [Pattern](docs/Pattern.md) - matches a URL and returns matched parameters or build a URL from provided parameters
- - [URI](docs/URI.md) - parses and builds and URL
-
+ - [URI](docs/URI.md) - parses and builds a URL
 
 ## License
 License [The MIT License](http://opensource.org/licenses/MIT)

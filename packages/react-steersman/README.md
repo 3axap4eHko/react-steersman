@@ -14,6 +14,7 @@ Tiny and fast react navigation library
  - [Route](docs/Route.md)
  - [RouteGroup](docs/RouteGroup.md)
  - [RouteContext](docs/RouteContext.md)
+ - [Redirect](docs/Redirect.md)
  - [createLink](docs/createLink.md)
  - [withNav](docs/withNav.md)
 
