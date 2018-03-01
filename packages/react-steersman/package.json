@@ -1,6 +1,6 @@
 {
   "name": "react-steersman",
-  "version": "2.8.0",
+  "version": "2.8.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   "dependencies": {
     "history": "^4.7.2",
     "prop-types": "^15.6.0",
-    "react-transistor": "^2.8.0",
+    "react-transistor": "^2.8.1",
     "uriil": "^2.7.3"
   },
   "devDependencies": {
