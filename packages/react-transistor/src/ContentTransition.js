@@ -44,6 +44,7 @@ export default class ContentTransition extends Component {
     if (!keepContentMounted && !rendered) {
       return null;
     }
+
     return (
       <Transition
         force={timestamp}

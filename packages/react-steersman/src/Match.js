@@ -33,7 +33,9 @@ export default class Match extends Component {
       method: 'PUSH',
     };
 
-    this.unlisten = history.listen((location, method) => {
+    const unsubscribeMatch = this.pattern.onMatch(this.props.onMatch);
+
+    const unsubscribeHistory = history.listen((location, method) => {
       const match = this.pattern.match(location.pathname);
       this.setState({
         match,
@@ -42,6 +44,11 @@ export default class Match extends Component {
         method,
       });
     });
+
+    this.unlisten = () => {
+      unsubscribeHistory();
+      unsubscribeMatch();
+    };
   }
 
   componentWillReceiveProps({ path, exact, strict }) {

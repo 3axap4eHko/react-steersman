@@ -36,14 +36,13 @@ export default class Route extends Component {
         path={path}
         exact={exact}
         strict={strict}
-        props={props}
         {...matcherProps}
         children={match => (
           <ContentTransition
             children={children}
             timeout={transitionTimeout}
             display={!!match.match}
-            props={match}
+            props={{ ...match, ...props }}
             mapProps={mapProps}
             onEnter={this.onTransition}
             onEntering={this.onTransition}

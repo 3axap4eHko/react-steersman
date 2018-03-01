@@ -90,6 +90,13 @@ export default class Transition extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state.direction !== nextState.direction ||
+      this.state.status !== nextState.status ||
+      this.props.children !== nextProps.children ||
+      this.props.props !== nextProps.props;
+  }
+
   componentWillUnmount() {
     this.unmounted = true;
   }

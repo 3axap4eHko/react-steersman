@@ -4,6 +4,14 @@ import createMemoryHistory from '../createMemoryHistory';
 import RouteGroup from '../RouteGroup';
 import Steersman from '../Steersman';
 
+function mapProps(props) {
+  const { direction, status } = props;
+  return {
+    mapped: `${direction}-${status}`,
+    ...props,
+  };
+}
+
 function render({ value }) {
   return value;
 }
@@ -13,7 +21,7 @@ test('Steersman render route group', async () => {
   const history = createMemoryHistory();
 
   context.component = renderer.create(
-    <Steersman history={history}>
+    <Steersman history={history} mapProps={mapProps}>
       <RouteGroup path="/" children={render} props={{ value: 1 }} />
       <RouteGroup path="/test1" children={render} props={{ value: 2 }} />
       <RouteGroup path="/test2" children={render} props={{ value: 3 }} />
