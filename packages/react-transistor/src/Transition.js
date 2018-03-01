@@ -31,6 +31,7 @@ export default class Transition extends Component {
   };
 
   unmounted = false;
+  mounting = new Promise(resolve => this.mountCallback = resolve);
 
   cancel = () => {};
 
@@ -54,7 +55,7 @@ export default class Transition extends Component {
       if (canceled || this.unmounted) {
         return;
       }
-
+      await this.mounting;
       await this.fireEvent(direction, STATUS_ACTIVE);
 
       if (canceled || this.unmounted) {
@@ -75,13 +76,13 @@ export default class Transition extends Component {
     this.unmounted = false;
     if (!this.props.startOnMount) {
       await this.fireEvent(this.props.direction, STATUS_DONE);
+    } else {
+      await this.setDirection(this.props.direction);
     }
   }
 
-  async componentDidMount() {
-    if (this.props.startOnMount) {
-      await this.setDirection(this.props.direction);
-    }
+  componentDidMount() {
+    this.mountCallback();
   }
 
   async componentWillReceiveProps({ direction, force }) {

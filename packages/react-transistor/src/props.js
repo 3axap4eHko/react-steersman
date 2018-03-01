@@ -38,7 +38,7 @@ export const transitionDefaultProps = {
   direction: DIRECTION_ENTER,
   mapProps,
   startOnMount: false,
-  force: any,
+  force: false,
   props: {},
   ...transitionEventsDefaultProps,
 };

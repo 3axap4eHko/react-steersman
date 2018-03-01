@@ -181,6 +181,7 @@ test('Transition exit startOnMount', done => {
 class Wrapper extends Component {
   state = {
     direction: DIRECTION_ENTER,
+    startOnMount: true,
   };
 
   render() {
@@ -194,7 +195,8 @@ class Wrapper extends Component {
   }
 }
 
-test('Transition full', done => {
+
+test('Transition full cycle', done => {
   const context = {};
 
   function onEnter({ direction, status }) {

@@ -4,7 +4,7 @@ import createMemoryHistory from '../createMemoryHistory';
 import Steersman from '../Steersman';
 import MatchGroup from '../MatchGroup';
 
-function renderMatch({ match }) {
+function renderMatch({ match, }) {
   return JSON.stringify(match);
 }
 
@@ -29,4 +29,6 @@ test('MatchGroup', () => {
   expect(context.component.toJSON()).toMatchObject(["null", "null", "{}", "null"]);
   history.push('/test3');
   expect(context.component.toJSON()).toMatchObject(["null", "null", "null", "{}"]);
+  history.push('/');
+  expect(context.component.toJSON()).toMatchObject(["{}", "null", "null", "null"]);
 });
