@@ -1,5 +1,6 @@
 import React, { Component as ReactComponent } from 'react';
 import { object } from 'prop-types';
+import navigateTo from './navigateTo';
 
 export default function withNav(Component) {
 
@@ -14,21 +15,7 @@ export default function withNav(Component) {
     };
 
     navigate = (path = 0) => {
-      const { history } = this.context;
-      switch (typeof path) {
-        case 'string':
-          if (history.location.pathname !== path) {
-            history.push(path);
-          }
-          break;
-        case 'number':
-          if (path === 0) {
-            history.replace(history.location.pathname);
-          } else {
-            history.go(path);
-          }
-          break;
-      }
+      navigateTo(this.context.history, path);
     };
 
     render() {

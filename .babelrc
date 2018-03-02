@@ -9,19 +9,8 @@
     }]
   ],
   "plugins": [
-    "transform-object-rest-spread",
+    "transform-decorators-legacy",
     "transform-class-properties",
-    ["transform-runtime", { "helpers": false, "polyfill": false }]
-  ],
-  "env": {
-    "test": {
-      "presets": [
-        "es2015"
-      ],
-      "plugins": [
-        "transform-object-rest-spread",
-        "transform-class-properties"
-      ]
-    }
-  }
+    "transform-object-rest-spread"
+  ]
 }

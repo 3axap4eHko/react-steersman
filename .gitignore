@@ -2,3 +2,5 @@
 node_modules/
 /packages/*/*.js
 /*.log*
+website/build/
+website/cache/

@@ -181,8 +181,9 @@ export default class Pattern {
    * pattern.match('/users/correct@example.com');
    */
   onMatch(callback) {
-    $p(this, ON_MATCH).add(callback);
-    return () => $p(this, ON_MATCH).remove(callback);
+    const listeners = $p(this, ON_MATCH);
+    listeners.add(callback);
+    return () => listeners.remove(callback);
   }
 
 }

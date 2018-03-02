@@ -1,6 +1,6 @@
 # React Steersman
 
-Tiny and fast react navigation library
+Tiny fast and real cross-platform react navigation library
 
 [![NPM version][npm-image]][npm-url]
 [![Downloads][downloads-image]][npm-url]
@@ -16,6 +16,7 @@ Tiny and fast react navigation library
  - [RouteContext](https://github.com/3axap4eHko/react-steersman/blob/master/docs/RouteContext.md)
  - [Redirect](https://github.com/3axap4eHko/react-steersman/blob/master/docs/Redirect.md)
  - [createLink](https://github.com/3axap4eHko/react-steersman/blob/master/docs/createLink.md)
+ - [navigate](https://github.com/3axap4eHko/react-steersman/blob/master/docs/navigate.md)
  - [withNav](https://github.com/3axap4eHko/react-steersman/blob/master/docs/withNav.md)
 
 ## Usage

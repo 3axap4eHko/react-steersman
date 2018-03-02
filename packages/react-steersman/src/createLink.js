@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { string, func, object, bool } from 'prop-types';
+import { string, number, func, object, bool, oneOfType } from 'prop-types';
 import Match from './Match';
+import navigateTo from './navigateTo';
 
 export default function createLink(render) {
 
   return class Link extends Component {
     static propTypes = {
-      to: string.isRequired,
+      to: oneOfType([string, number]).isRequired,
       exact: bool,
       strict: bool,
     };
@@ -21,9 +22,7 @@ export default function createLink(render) {
       if (event.preventDefault) {
         event.preventDefault();
       }
-      if (history.location.pathname !== to) {
-        history.push(to);
-      }
+      navigateTo(history, to);
     };
 
     render() {
