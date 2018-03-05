@@ -29,7 +29,7 @@ module.exports = {
     rules: [
       { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader', options: { cacheDirectory: 'cache' } },
       { test: /\.(svg|jpg|png|gif)$/, loader: 'file-loader', options: { name: 'images/[name].[ext]' } },
-      { test: /\.md$/, loader: 'markdown-loader', options: { } },
+      { test: /\.md$/, use: ['raw-loader', 'markdown-loader'] },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'url-loader',

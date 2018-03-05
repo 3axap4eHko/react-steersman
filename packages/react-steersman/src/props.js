@@ -12,7 +12,6 @@ export const matchPropTypes = {
   exact: bool,
   strict: bool,
   props: object,
-  onMatch: func,
 };
 
 export const matchDefaultProps = {
@@ -20,7 +19,6 @@ export const matchDefaultProps = {
   exact: true,
   strict: false,
   props: {},
-  onMatch: nop,
 };
 
 export const matchGroupPropTypes = {

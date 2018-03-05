@@ -36,14 +36,13 @@ export default class MatchGroup extends Component {
   };
 
   render() {
-    const { path, exact, props, onMatch } = this.props;
+    const { path, exact, props } = this.props;
 
     return (
       <Match
         path={path}
         exact={exact}
         props={props}
-        onMatch={onMatch}
         children={this.renderMatchGroup}
       />
     );

@@ -38,15 +38,6 @@ ajv@^4.9.1:
     co "^4.6.0"
     json-stable-stringify "^1.0.1"
 
-ajv@^5.0.0:
-  version "5.5.2"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-5.5.2.tgz#73b5eeca3fab653e3d3f9422b341ad42205dc965"
-  dependencies:
-    co "^4.6.0"
-    fast-deep-equal "^1.0.0"
-    fast-json-stable-stringify "^2.0.0"
-    json-schema-traverse "^0.3.0"
-
 ajv@^6.1.0:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.2.1.tgz#28a6abc493a2abe0fb4c8507acaedb43fa550671"
@@ -3861,11 +3852,7 @@ mime@1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.4.1.tgz#121f9ebc49e3766f311a76e1fa1c8003c4b03aa6"
 
-mime@^1.4.1:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/mime/-/mime-1.6.0.tgz#32cd9e5c64553bd58d19a568af452acff04981b1"
-
-mime@^2.1.0:
+mime@^2.0.3, mime@^2.1.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/mime/-/mime-2.2.0.tgz#161e541965551d3b549fa1114391e3a3d55b923b"
 
@@ -4677,6 +4664,10 @@ raw-body@2.3.2:
     iconv-lite "0.4.19"
     unpipe "1.0.0"
 
+raw-loader@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/raw-loader/-/raw-loader-0.5.1.tgz#0c3d0beaed8a01c966d9787bf778281252a979aa"
+
 rc@^1.1.7:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/rc/-/rc-1.2.5.tgz#275cd687f6e3b36cc756baa26dfee80a790301fd"
@@ -4732,17 +4723,17 @@ react-side-effect@^1.1.0:
     shallowequal "^1.0.1"
 
 react-steersman@^2.5.0:
-  version "2.9.1"
-  resolved "https://registry.yarnpkg.com/react-steersman/-/react-steersman-2.9.1.tgz#4ea690bc7d3d8c68aacf39a792cd709f9e8fcc6f"
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/react-steersman/-/react-steersman-2.10.0.tgz#170b4282d238bcb5f24e5142a9300e258eed4a9b"
   dependencies:
     history "^4.7.2"
     prop-types "^15.6.0"
-    react-transistor "^2.9.1"
-    uriil "^2.9.1"
+    react-transistor "^2.10.0"
+    uriil "^2.10.0"
 
-react-transistor@^2.9.1:
-  version "2.9.1"
-  resolved "https://registry.yarnpkg.com/react-transistor/-/react-transistor-2.9.1.tgz#17184b16336cb853048d142b0550d0dfb544c72e"
+react-transistor@^2.10.0:
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/react-transistor/-/react-transistor-2.10.0.tgz#6ad9b66fdc961c6c1d11a563cc3ac36cb09fc0d5"
   dependencies:
     prop-types "^15.6.0"
 
@@ -5108,13 +5099,7 @@ safe-regex@^1.1.0:
   dependencies:
     ret "~0.1.10"
 
-schema-utils@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/schema-utils/-/schema-utils-0.3.0.tgz#f5877222ce3e931edae039f17eb3716e7137f8cf"
-  dependencies:
-    ajv "^5.0.0"
-
-schema-utils@^0.4.2, schema-utils@^0.4.5:
+schema-utils@^0.4.2, schema-utils@^0.4.3, schema-utils@^0.4.5:
   version "0.4.5"
   resolved "https://registry.yarnpkg.com/schema-utils/-/schema-utils-0.4.5.tgz#21836f0608aac17b78f9e3e24daff14a5ca13a3e"
   dependencies:
@@ -5841,9 +5826,9 @@ upper-case@^1.1.1:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/upper-case/-/upper-case-1.1.3.tgz#f6b4501c2ec4cdd26ba78be7222961de77621598"
 
-uriil@^2.9.1:
-  version "2.9.1"
-  resolved "https://registry.yarnpkg.com/uriil/-/uriil-2.9.1.tgz#c18b937814feb99d4afc3b34d7ba8696ca2d9f44"
+uriil@^2.10.0:
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/uriil/-/uriil-2.10.0.tgz#d78ac8b600d9253d6c7c93680a6c2d60b672e01c"
 
 urix@^0.1.0:
   version "0.1.0"
@@ -5853,13 +5838,13 @@ url-join@^2.0.2:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/url-join/-/url-join-2.0.5.tgz#5af22f18c052a000a48d7b82c5e9c2e2feeda728"
 
-url-loader@^0.6.2:
-  version "0.6.2"
-  resolved "https://registry.yarnpkg.com/url-loader/-/url-loader-0.6.2.tgz#a007a7109620e9d988d14bce677a1decb9a993f7"
+url-loader@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/url-loader/-/url-loader-1.0.1.tgz#61bc53f1f184d7343da2728a1289ef8722ea45ee"
   dependencies:
-    loader-utils "^1.0.2"
-    mime "^1.4.1"
-    schema-utils "^0.3.0"
+    loader-utils "^1.1.0"
+    mime "^2.0.3"
+    schema-utils "^0.4.3"
 
 url-parse-lax@^1.0.0:
   version "1.0.0"

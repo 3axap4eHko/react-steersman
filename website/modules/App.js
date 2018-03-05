@@ -5,8 +5,8 @@ import withStyles from 'react-jss';
 import RouteGroup from 'react-steersman/RouteGroup';
 import TopBar from './components/TopBar';
 import Footer from './components/Footer';
-import DocPage from './components/DocPage';
 import Home from './screens/Home';
+import Docs from './screens/Docs';
 
 const styles = ({ palette }) => ({
   '@global': {
@@ -39,7 +39,7 @@ export default class App extends Component {
       <Fragment>
         <TopBar />
         <RouteGroup path="/" children={Home} props={{ page: 'index' }} />
-        <RouteGroup path="/" children={DocPage} />
+        <RouteGroup path="/docs" children={Docs} />
         <Footer />
         <Helmet
           htmlAttributes={{ lang: 'en', amp: undefined }} // amp takes no value

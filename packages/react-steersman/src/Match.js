@@ -26,8 +26,6 @@ export default class Match extends Component {
       strict: props.strict,
     });
 
-    this.unsubscribeMatch = this.pattern.onMatch(this.props.onMatch);
-
     this.state = {
       location: history.location.pathname,
       match: this.pattern.match(history.location.pathname),
@@ -44,7 +42,6 @@ export default class Match extends Component {
         method,
       });
     });
-
   }
 
   componentWillReceiveProps({ path, exact, strict }) {
@@ -52,12 +49,9 @@ export default class Match extends Component {
       exact,
       strict,
     });
-    this.unsubscribeMatch();
-    this.unsubscribeMatch = this.pattern.onMatch(this.props.onMatch);
   }
 
   componentWillUnmount() {
-    this.unsubscribeMatch();
     this.unsubscribeHistory();
   }
 
