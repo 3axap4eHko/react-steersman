@@ -15,6 +15,7 @@ Tiny and Fast URL utils for client and server side
 License [The MIT License](http://opensource.org/licenses/MIT)
 Copyright (c) 2017-2018 Ivan Zakharchanka
 
+
 [downloads-image]: https://img.shields.io/npm/dm/uriil.svg?longCache=true&style=for-the-badge
 [npm-url]: https://www.npmjs.com/package/uriil
 [npm-image]: https://img.shields.io/npm/v/uriil.svg?longCache=true&style=for-the-badge
