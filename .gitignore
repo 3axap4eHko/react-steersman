@@ -4,3 +4,4 @@ node_modules/
 /*.log*
 website/build/
 website/cache/
+website/public/

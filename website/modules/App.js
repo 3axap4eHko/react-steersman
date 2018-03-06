@@ -7,6 +7,7 @@ import TopBar from './components/TopBar';
 import Footer from './components/Footer';
 import Home from './screens/Home';
 import Docs from './screens/Docs';
+import Contents from './screens/Contents';
 
 const styles = ({ palette }) => ({
   '@global': {
@@ -16,6 +17,7 @@ const styles = ({ palette }) => ({
       flex: 1,
       margin: 0,
       backgroundColor: palette.background,
+      minHeight: '100%',
     },
     '#app': {
       maxWidth: 1000,
@@ -28,7 +30,7 @@ const styles = ({ palette }) => ({
       outlineColor: palette.primaryLightColor,
       outlineWidth: 1,
       outlineOffset: 2,
-    }
+    },
   },
 });
 
@@ -38,8 +40,8 @@ export default class App extends Component {
     return (
       <Fragment>
         <TopBar />
-        <RouteGroup path="/" children={Home} props={{ page: 'index' }} />
-        <RouteGroup path="/docs" children={Docs} />
+        <RouteGroup path="/" children={Home} />
+        <RouteGroup path="/docs/:component" children={Docs} />
         <Footer />
         <Helmet
           htmlAttributes={{ lang: 'en', amp: undefined }} // amp takes no value

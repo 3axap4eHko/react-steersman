@@ -22,6 +22,9 @@ const styles = ({ palette }) => ({
   root: {
     color: palette.primaryTextColor,
     padding: 10,
+    '&:hover': {
+      color: palette.secondaryLightColor,
+    }
   },
   activeRoot: {
 

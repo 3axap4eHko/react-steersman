@@ -1,6 +1,6 @@
 # React Steersman
 
-Lightweight React routing library with transitions
+Lightweight React JS routing library with transitions [React Steersman](https://pro-js.com/react-steersman/)
 
 [![NPM version][npm-image]][npm-url]
 [![Downloads][downloads-image]][npm-url]
@@ -16,6 +16,7 @@ Lightweight React routing library with transitions
 License [The MIT License](http://opensource.org/licenses/MIT)
 Copyright (c) 2017-2018 Ivan Zakharchanka
 
+[logo-image]: https://
 
 [downloads-image]: https://img.shields.io/npm/dm/react-steersman.svg?longCache=true&style=for-the-badge
 [npm-url]: https://www.npmjs.com/package/react-steersman

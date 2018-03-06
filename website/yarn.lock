@@ -432,6 +432,12 @@ babel-plugin-check-es2015-constants@^6.22.0:
   dependencies:
     babel-runtime "^6.22.0"
 
+babel-plugin-dynamic-import-node@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-dynamic-import-node/-/babel-plugin-dynamic-import-node-1.2.0.tgz#f91631e703e0595e47d4beafbb088576c87fbeee"
+  dependencies:
+    babel-plugin-syntax-dynamic-import "^6.18.0"
+
 babel-plugin-syntax-async-functions@^6.8.0:
   version "6.13.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-async-functions/-/babel-plugin-syntax-async-functions-6.13.0.tgz#cad9cad1191b5ad634bf30ae0872391e0647be95"
@@ -2754,6 +2760,10 @@ he@1.1.x:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/he/-/he-1.1.1.tgz#93410fd21b009735151f8868c2f271f3427e23fd"
 
+highlight.js@^9.12.0:
+  version "9.12.0"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.12.0.tgz#e6d9dbe57cbefe60751f02af336195870c90c01e"
+
 history@^4.7.2:
   version "4.7.2"
   resolved "https://registry.yarnpkg.com/history/-/history-4.7.2.tgz#22b5c7f31633c5b8021c7f4a8a954ac139ee8d5b"
@@ -4723,8 +4733,8 @@ react-side-effect@^1.1.0:
     shallowequal "^1.0.1"
 
 react-steersman@^2.5.0:
-  version "2.10.0"
-  resolved "https://registry.yarnpkg.com/react-steersman/-/react-steersman-2.10.0.tgz#170b4282d238bcb5f24e5142a9300e258eed4a9b"
+  version "2.10.1"
+  resolved "https://registry.yarnpkg.com/react-steersman/-/react-steersman-2.10.1.tgz#e9a4cf29ab67c4e95d985e7d856edcb502d5fa31"
   dependencies:
     history "^4.7.2"
     prop-types "^15.6.0"

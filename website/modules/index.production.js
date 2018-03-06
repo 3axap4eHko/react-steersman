@@ -24,7 +24,7 @@ function mapProps(props) {
 
 const Root = () => (
   <ThemeProvider theme={theme}>
-    <Steersman history={createHashHistory()} transitionTimeout={375} mapProps={mapProps}>
+    <Steersman history={createHashHistory()} mapProps={mapProps}>
       <AppContainer />
     </Steersman>
   </ThemeProvider>

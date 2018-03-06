@@ -9,7 +9,7 @@ const isProd = NODE_ENV === 'production';
 
 module.exports = {
   mode: NODE_ENV,
-  devtool: 'source-map',
+  devtool: isDev ? 'source-map' : false,
   devServer: {
     contentBase: './build',
     hot: true,

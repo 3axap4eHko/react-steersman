@@ -1,3 +1,5 @@
+import shadows from './shadows';
+
 const lightTheme = {
   background: '#fafafa',
   backgroundLight: '#ffffff',
@@ -25,27 +27,37 @@ const palette = {
   secondaryTextColor: '#ffffff',
 };
 
+const xsSize = '600px';
+const smSize = '960px';
+const mdSize = '1280px';
+const lgSize = '1920px';
+
 const screens = {
+  xsSize,
+  smSize,
+  mdSize,
+  lgSize,
 
-  xs: '@media (max-width: 600px)',
-  sm: '@media (min-width: 600px) and (max-width: 960px)',
-  md: '@media (min-width: 960px) and (max-width: 1280px)',
-  lg: '@media (min-width: 1280px) and (max-width: 1920px)',
-  xl: '@media (min-width: 1920px)',
+  xs: `@media (max-width: ${xsSize})`,
+  sm: `@media (min-width: ${xsSize}) and (max-width: ${smSize})`,
+  md: `@media (min-width: ${smSize}) and (max-width: ${mdSize})`,
+  lg: `@media (min-width: ${mdSize}) and (max-width: ${lgSize})`,
+  xl: `@media (min-width: ${lgSize})`,
 
-  smUp: '@media (min-width: 600px)',
-  mdUp: '@media (min-width: 960px)',
-  lgUp: '@media (min-width: 1280px)',
-  xlUp: '@media (min-width: 1920px)',
+  smUp: `@media (min-width: ${xsSize})`,
+  mdUp: `@media (min-width: ${smSize})`,
+  lgUp: `@media (min-width: ${mdSize})`,
+  xlUp: `@media (min-width: ${lgSize})`,
 
-  xsDown: '@media (max-width: 600px)',
-  smDown: '@media (max-width: 960px)',
-  mdDown: '@media (min-width: 1280px)',
-  lgDown: '@media (min-width: 1920px)',
+  xsDown: `@media (max-width: ${xsSize})`,
+  smDown: `@media (max-width: ${smSize})`,
+  mdDown: `@media (min-width: ${mdSize})`,
+  lgDown: `@media (min-width: ${lgSize})`,
 
 };
 
 export default {
   palette,
   screens,
+  shadows,
 };

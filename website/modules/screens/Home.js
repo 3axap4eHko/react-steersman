@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
-import {} from 'prop-types';
 import withStyles from 'react-jss';
-import Paper from '../components/Paper';
+import Text from 'react-typographic';
 import Page from '../components/Page';
 import Link from '../components/Link';
-import Text from 'react-typographic';
+import logo from './Logo.svg';
 
 const styles = ({ palette }) => ({
-  root: {
+  container: {
     display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
   },
   logo: {
     display: 'flex',
     flex: '1 1 0%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logoImage: {
+    maxWidth: 256,
+    maxHeight: 256,
   },
   description: {
     display: 'flex',
@@ -24,6 +27,7 @@ const styles = ({ palette }) => ({
   buttonContainer: {
     display: 'flex',
     justifyContent: 'center',
+    margin: '20px 0',
   },
   button: {
     textDecoration: 'none',
@@ -31,6 +35,13 @@ const styles = ({ palette }) => ({
     backgroundColor: palette.secondaryColor,
     borderRadius: 25,
   },
+  sandbox: {
+    flex: 1,
+    border: 0,
+    borderRadius: 4,
+    overflow: 'hidden',
+    margin: 10,
+  }
 });
 
 @withStyles(styles)
@@ -39,10 +50,10 @@ export default class Home extends Component {
     const { classes } = this.props;
 
     return (
-      <div className={classes.root}>
-        <Paper>
+      <Page>
+        <div className={classes.container}>
           <div className={classes.logo}>
-
+            <img className={classes.logoImage} src={logo} />
           </div>
 
           <div className={classes.description}>
@@ -54,15 +65,20 @@ export default class Home extends Component {
               It good to use in universal application with universal components.
             </Text>
           </div>
-        </Paper>
+        </div>
         <div className={classes.buttonContainer}>
           <Link
-            to="/docs"
+            to="/docs/Steersman"
             className={classes.button}
             title="Documentation"
           />
         </div>
-      </div>
+        <iframe
+          src="https://codesandbox.io/embed/kmlzm4rpvr"
+          className={classes.sandbox}
+          sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
+        />
+      </Page>
     );
   }
 }
