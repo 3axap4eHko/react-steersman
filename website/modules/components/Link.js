@@ -24,10 +24,10 @@ const styles = ({ palette }) => ({
     padding: 10,
     '&:hover': {
       color: palette.secondaryLightColor,
-    }
+    },
   },
   activeRoot: {
-
+    color: palette.secondaryLightColor,
   },
 });
 

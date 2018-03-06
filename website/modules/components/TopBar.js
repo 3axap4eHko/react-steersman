@@ -21,6 +21,9 @@ const styles = ({ palette }) => ({
   link: {
     color: palette.primaryTextColor,
     padding: 10,
+    '&:hover': {
+      color: palette.secondaryLightColor,
+    },
   }
 });
 

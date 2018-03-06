@@ -10,11 +10,13 @@ const NavLink = createLink(({ classes, className, to, title, navigate, match }) 
   </li>
 ));
 
-const styles = ({ }) => ({
+const styles = ({ palette }) => ({
   root: {
     padding: 10,
   },
-  activeRoot: {},
+  activeRoot: {
+    backgroundColor: palette.primaryDarkColor,
+  },
 });
 
 export default withStyles(styles)(NavLink);

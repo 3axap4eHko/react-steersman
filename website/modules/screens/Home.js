@@ -34,6 +34,9 @@ const styles = ({ palette }) => ({
     textTransform: 'uppercase',
     backgroundColor: palette.secondaryColor,
     borderRadius: 25,
+    '&:hover': {
+      color: palette.primaryTextColor,
+    }
   },
   sandbox: {
     flex: 1,
