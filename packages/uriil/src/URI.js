@@ -177,7 +177,7 @@ export default class URI {
   }
 
   get host() {
-    return `${$p(this, HOSTNAME)}${$p(this, PORT) ? `:${$p(this, PORT)}` : ''}`;
+    return `${this.hostname}${this.port ? `:${this.port}` : ''}`;
   }
 
   get origin() {

@@ -31,7 +31,7 @@ interface URI {
 ```javascript
 import URI from 'uriil/URI';
 
-const uri = URI.parse('https://example.com');
+const uri = new URI('https://example.com');
 uri.toObject();
 
 ```

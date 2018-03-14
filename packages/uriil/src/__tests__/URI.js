@@ -62,6 +62,8 @@ test('Test url params', () => {
   uri.password = 'mypassword';
   uri.hostname = 'expected.hostname.com';
   uri.port = '8080';
+  uri.host = 'expected.hostname.com:8080';
+  uri.origin = 'https://expected.hostname.com:8080';
   uri.pathParts = ['this', 'is', 'mypath'];
   uri.queryParams = {
     key2: 'value2',

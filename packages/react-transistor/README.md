@@ -16,7 +16,6 @@ Tiny react transition library
 License [The MIT License](http://opensource.org/licenses/MIT)
 Copyright (c) 2017-2018 Ivan Zakharchanka
 
-
 [downloads-image]: https://img.shields.io/npm/dm/react-transistor.svg?longCache=true&style=for-the-badge
 [npm-url]: https://www.npmjs.com/package/react-transistor
 [npm-image]: https://img.shields.io/npm/v/react-transistor.svg?longCache=true&style=for-the-badge
