@@ -107,3 +107,77 @@ test('Route matched path', done => {
   setTimeout(() => history.push('/test'), 1000);
 });
 
+function mapProps(props) {
+  const { direction, status } = props;
+  return {
+    mapped: `${direction}-${status}`,
+    ...props,
+  };
+}
+
+function renderRoute({ value }) {
+  return value;
+}
+
+const TIMEOUT = 500;
+
+test('Route group', async () => {
+  const context = {};
+  const history = createMemoryHistory();
+
+  context.component = renderer.create(
+    <Steersman history={history} mapProps={mapProps} transitionTimeout={200}>
+      <Route path="/" children={renderRoute} props={{ value: 1 }} group="test" />
+    </Steersman>,
+  );
+
+  context.tree = context.component.toTree();
+  expect(context.component.toJSON()).toBe('1');
+  history.push('/test1');
+  await new Promise(resolve => setTimeout(resolve, TIMEOUT));
+  expect(context.component.toJSON()).toBe(null);
+});
+
+function renderMatchedValue({ match: { value = null }}) {
+  return value;
+}
+
+test('Route group with null match', async () => {
+  const context = {};
+  const history = createMemoryHistory();
+
+  context.component = renderer.create(
+    <Steersman history={history} mapProps={mapProps} transitionTimeout={200}>
+      <Route path="/" children={renderMatchedValue} group="test" />
+      <Route path="/:value" children={renderMatchedValue} group="test" />
+    </Steersman>,
+  );
+
+  context.tree = context.component.toTree();
+  expect(context.component.toJSON()).toBe(null);
+  history.push('/test1');
+  await new Promise(resolve => setTimeout(resolve, TIMEOUT));
+  expect(context.component.toJSON()).toBe('test1');
+});
+
+test('Route group', async () => {
+  const context = {};
+  const history = createMemoryHistory();
+
+  context.component = renderer.create(
+    <Steersman history={history} mapProps={mapProps} transitionTimeout={200}>
+      <Route path="/" children={renderRoute} props={{ value: 1 }} group="test" />
+      <Route path=".*" children={renderRoute} props={{ value: 0 }} group="test" />
+    </Steersman>,
+  );
+
+  context.tree = context.component.toTree();
+  expect(context.component.toJSON()).toBe('1');
+  await new Promise(resolve => setTimeout(resolve, TIMEOUT));
+  history.push('/test1');
+  await new Promise(resolve => setTimeout(resolve, TIMEOUT));
+  expect(context.component.toJSON()).toBe('0');
+  history.push('/');
+  await new Promise(resolve => setTimeout(resolve, TIMEOUT));
+  expect(context.component.toJSON()).toBe('1');
+});

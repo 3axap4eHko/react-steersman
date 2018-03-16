@@ -25,9 +25,16 @@ A flag that enables exact mode matching.
 
 A flag that enables strict mode matching.
 
+#### group: string
+
+A name of match group. If defined will be matched only first from a group.
+
+Default: ``
+
 #### props: object
 
 Extra props to pass to children.
+
 
 ## Example
 

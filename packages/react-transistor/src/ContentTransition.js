@@ -17,14 +17,19 @@ export default class ContentTransition extends Component {
     direction: getDirection(this.props.display),
     rendered: this.props.display,
     timestamp: Date.now(),
+    props: this.props.props,
   };
 
   componentWillReceiveProps(nextProps) {
     const direction = getDirection(nextProps.display);
+    const rendered = nextProps.display || this.state.rendered;
+    const props = nextProps.freezePropsOnExit && direction === DIRECTION_EXIT ? this.props.props : nextProps.props;
+
     this.setState({
       direction,
-      rendered: nextProps.display || this.state.rendered,
+      rendered,
       timestamp: Date.now(),
+      props,
     });
   }
 
@@ -39,8 +44,8 @@ export default class ContentTransition extends Component {
   };
 
   render() {
-    const { rendered, direction } = this.state;
-    const { timestamp, timeout, mapProps, startOnMount, keepContentMounted, children, props } = this.props;
+    const { rendered, direction, props } = this.state;
+    const { timestamp, timeout, mapProps, startOnMount, keepContentMounted, children } = this.props;
     if (!keepContentMounted && !rendered) {
       return null;
     }

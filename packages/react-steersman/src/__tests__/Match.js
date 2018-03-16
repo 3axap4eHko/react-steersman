@@ -55,3 +55,32 @@ test('Match multiple changed', done => {
   history.push('/test');
 
 });
+
+function renderMatch({ match, }) {
+  return JSON.stringify(match);
+}
+
+test('Match group', () => {
+  const context = {};
+  const history = createMemoryHistory();
+
+  context.component = renderer.create(
+    <Steersman history={history}>
+      <Match path="/" children={renderMatch} group="test" />
+      <Match path="/test1" children={renderMatch} group="test" />
+      <Match path="/test2" children={renderMatch}  group="test" />
+      <Match path=".*" children={renderMatch}  group="test" />
+    </Steersman>,
+  );
+
+  context.tree = context.component.toTree();
+  expect(context.component.toJSON()).toMatchObject(["{}", "null", "null", "null"]);
+  history.push('/test1');
+  expect(context.component.toJSON()).toMatchObject(["null", "{}", "null", "null"]);
+  history.push('/test2');
+  expect(context.component.toJSON()).toMatchObject(["null", "null", "{}", "null"]);
+  history.push('/test3');
+  expect(context.component.toJSON()).toMatchObject(["null", "null", "null", "{}"]);
+  history.push('/');
+  expect(context.component.toJSON()).toMatchObject(["{}", "null", "null", "null"]);
+});

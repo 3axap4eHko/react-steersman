@@ -8,6 +8,7 @@ const mapProps = props => props;
 
 export const matchPropTypes = {
   children: func.isRequired,
+  group: string,
   path: string,
   exact: bool,
   strict: bool,
@@ -15,21 +16,13 @@ export const matchPropTypes = {
 };
 
 export const matchDefaultProps = {
+  group: '',
   path: '/',
   exact: true,
   strict: false,
   props: {},
 };
 
-export const matchGroupPropTypes = {
-  group: string,
-  ...matchPropTypes,
-};
-
-export const matchGroupDefaultProps = {
-  group: 'default',
-  ...matchDefaultProps,
-};
 
 export const routeEventsPropTypes = {
   onUpdated: func,
@@ -60,7 +53,7 @@ export const routeGroupPropTypes = {
 
 export const routeGroupDefaultProps = {
   ...routeDefaultProps,
-  group: 'default,'
+  group: 'default',
 };
 
 const screenFullPropTypes = shape({

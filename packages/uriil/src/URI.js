@@ -34,7 +34,6 @@ const HASH = 'HASH';
  *  toObject();   // converts URI instance to Object
  * }
  *
- *
  * const uri = URI.parse('https://example.com');
  * console.log(uri.toObject());
  */

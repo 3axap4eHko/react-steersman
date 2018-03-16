@@ -17,6 +17,12 @@ A flag that renders content on first mount.
 
 Default: `true`
 
+#### freezePropsOnExit: bool
+
+A flag that prevents changing `props` on exit.
+
+Default: `true`
+
 #### keepContentMounted: bool
 
 A flag that does not allow remove inner content if `direction` is `DIRECTION_EXIT` and `status` is `STATUS_DONE`.

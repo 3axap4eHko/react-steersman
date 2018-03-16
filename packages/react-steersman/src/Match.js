@@ -3,6 +3,24 @@ import { object, string, func, bool, oneOfType } from 'prop-types';
 import Pattern from 'uriil/Pattern';
 import { matchPropTypes, matchDefaultProps } from './props';
 
+const matchedGroups = {};
+
+function getMatches(group, location, match) {
+  if (group) {
+    if (matchedGroups[group].location !== location) {
+      matchedGroups[group] = {
+        location,
+      };
+    }
+    const groupMatch = match && !matchedGroups[group].matched ? match : null;
+    if (groupMatch) {
+      matchedGroups[group].matched = true;
+    }
+    return groupMatch;
+  }
+  return match;
+}
+
 export default class Match extends Component {
 
   static propTypes = matchPropTypes;
@@ -21,9 +39,15 @@ export default class Match extends Component {
       console.error('Make sure your Route has Steersman component at a parent level');
     }
 
-    this.pattern = Pattern.fromString(props.path, {
-      exact: props.exact,
-      strict: props.strict,
+    const { group, path, exact, strict } = this.props;
+
+    if (!matchedGroups[group]) {
+      matchedGroups[group] = {};
+    }
+
+    this.pattern = Pattern.fromString(path, {
+      exact,
+      strict,
     });
 
     this.state = {
@@ -56,12 +80,13 @@ export default class Match extends Component {
   }
 
   render() {
-    const { children: Content, path, exact, props } = this.props;
+    const { children: Content, path, exact, props, group } = this.props;
     const { match, location, method } = this.state;
+    const matches = getMatches(group, location, match);
 
     return (
       <Content
-        match={match}
+        match={matches}
         location={location}
         path={path}
         method={method}

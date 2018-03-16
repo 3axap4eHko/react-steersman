@@ -32,7 +32,7 @@ export default class Route extends Component {
 
   render() {
     const { isMounted, transitionTimeout: defaultTimeout, mapProps: defaultMapProps } = this.context;
-    const { matcher, path, exact, strict, transitionTimeout = defaultTimeout, mapProps = defaultMapProps, props, children, ...matcherProps } = this.props;
+    const { matcher, path, exact, strict, transitionTimeout = defaultTimeout, mapProps = defaultMapProps, props, children, group, ...matcherProps } = this.props;
     const Matcher = matcher || Match;
 
     return (
@@ -41,13 +41,14 @@ export default class Route extends Component {
         exact={exact}
         strict={strict}
         props={props}
+        group={group}
         {...matcherProps}
-        children={match => (
+        children={matchProps => (
           <ContentTransition
             children={children}
             timeout={transitionTimeout}
-            display={!!match.match}
-            props={match}
+            display={!!matchProps.match}
+            props={matchProps}
             mapProps={mapProps}
             onEnter={this.onTransition}
             onEntering={this.onTransition}
@@ -56,6 +57,7 @@ export default class Route extends Component {
             onExiting={this.onTransition}
             onExited={this.onTransition}
             startOnMount={isMounted()}
+            freezePropsOnExit={true}
           />
         )}
       />

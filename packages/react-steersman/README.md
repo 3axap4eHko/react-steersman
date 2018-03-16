@@ -16,9 +16,7 @@ Tiny fast and real cross-platform react navigation library
 
  - [Steersman](https://github.com/3axap4eHko/react-steersman/blob/master/docs/Steersman.md)
  - [Match](https://github.com/3axap4eHko/react-steersman/blob/master/docs/Match.md)
- - [MatchGroup](https://github.com/3axap4eHko/react-steersman/blob/master/docs/MatchGroup.md)
  - [Route](https://github.com/3axap4eHko/react-steersman/blob/master/docs/Route.md)
- - [RouteGroup](https://github.com/3axap4eHko/react-steersman/blob/master/docs/RouteGroup.md)
  - [RouteContext](https://github.com/3axap4eHko/react-steersman/blob/master/docs/RouteContext.md)
  - [Redirect](https://github.com/3axap4eHko/react-steersman/blob/master/docs/Redirect.md)
  - [createLink](https://github.com/3axap4eHko/react-steersman/blob/master/docs/createLink.md)
@@ -137,15 +135,14 @@ import { render } from 'react-dom';
 import Steersman from 'react-steersman/Steersman';
 import createBrowserHistory from 'react-steersman/createBrowserHistory';
 import Route from 'react-steersman/Route';
-import RouteGroup from 'react-steersman/RouteGroup';
 
 const history = createBrowserHistory();
 
 render(
   <Steersman history={history}>
-    <RouteGroup path="/" children={() => 'Home Top Bar'} group="top-bar"/>
-    <RouteGroup path="/profile" children={() => 'Profile Top Bar'} group="top-bar"/>
-    <RouteGroup path=".*" children={() => 'Other page Top Bar'} group="top-bar"/>
+    <Route path="/" children={() => 'Home Top Bar'} group="top-bar"/>
+    <Route path="/profile" children={() => 'Profile Top Bar'} group="top-bar"/>
+    <Route path=".*" children={() => 'Other page Top Bar'} group="top-bar"/>
     <Route path="/" children={() => 'Home'} />
     <Route path="/profile" children={() => 'Profile'}/>
   </Steersman>,

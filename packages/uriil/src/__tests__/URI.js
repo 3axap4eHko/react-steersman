@@ -25,6 +25,8 @@ test('URI constructor', () => {
 });
 
 test.only(`URI.parse ${totalTestURLCount} urls`, () => {
+  const startTime = Date.now();
+
   testProtocols.forEach(protocol => {
     testCredentials.forEach(credential => {
       testHostnames.forEach(hostname => {
@@ -47,6 +49,9 @@ test.only(`URI.parse ${totalTestURLCount} urls`, () => {
       });
     });
   });
+
+  const elapsedTime = (Date.now() - startTime)/1000;
+  console.log(`Parsed ${totalTestURLCount} in ${elapsedTime}s`)
 });
 
 test('URI reimport', () => {
