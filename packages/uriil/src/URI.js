@@ -86,7 +86,7 @@ export default class URI {
 
   static parseQuery(query) {
     if (!query || !query.length) {return {};}
-    return query.split('&').map(keyValue => keyValue.split('=').map(decodeURIComponent)).reduce((result, [key, value]) => {
+    return query.replace(/^[?#]/,'').split('&').map(keyValue => keyValue.split('=').map(decodeURIComponent)).reduce((result, [key, value]) => {
       if (key in result) {
         if (!Array.isArray(result[key])) {
           result[key] = [result[key]];
