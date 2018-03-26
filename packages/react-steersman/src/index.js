@@ -4,6 +4,7 @@ export { default as createMemoryHistory } from './createMemoryHistory';
 export { default as createLink } from './createLink';
 export { default as navigate } from './navigate';
 export { default as withNav } from './withNav';
+export { default as withRoute } from './withRoute';
 export { default as Steersman } from './Steersman';
 export { default as Match } from './Match';
 export { default as Route } from './Route';

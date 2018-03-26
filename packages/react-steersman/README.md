@@ -25,6 +25,32 @@ Tiny fast and real cross-platform react navigation library
 
 ## Usage
 
+### Simple browser example with decorators
+```javascript
+import React from 'react';
+import { render } from 'react-dom';
+import Steersman from 'react-steersman/Steersman';
+import createBrowserHistory from 'react-steersman/createBrowserHistory';
+import withRoute from 'react-steersman/withRoute';
+
+const history = createBrowserHistory();
+
+@withRoute({ path: '/' })
+class Dashboard extends Component {
+  render() {
+    const { someProp } = this.props;
+    return someProp;
+  }
+}
+
+render(
+  <Steersman history={history}>
+    <Dashboard someProp="someProp"/>
+  </Steersman>,
+  document.getElementById('app'),
+);
+```
+
 ### Simple browser example 
 ```javascript
 import React from 'react';
