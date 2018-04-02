@@ -2,36 +2,28 @@ import React, { Component } from 'react';
 import { number, string, object, func } from 'prop-types';
 import ContentTransition from 'react-transistor/ContentTransition';
 import { propsMap } from 'react-transistor/Transition';
-import { routePropTypes, routeDefaultProps, routeEventsDefaultProps } from './props';
+import { routePropTypes, routeDefaultProps } from './props';
+import { withContext } from './Steersman';
 import Match from './Match';
 
+@withContext
 export default class Route extends Component {
 
   static propTypes = routePropTypes;
 
   static defaultProps = routeDefaultProps;
 
-  static contextTypes = {
-    isMounted: func.isRequired,
-    transitionTimeout: number.isRequired,
-    mapProps: func,
-    ...routeEventsDefaultProps,
-  };
-
   onTransition = async args => {
     const { direction, status } = args;
     const event = propsMap[direction][status];
-    await this.props[event](args);
-    await this.context[event](args);
-    await this.context.onUpdated(args);
+    const { steersman, [event]: eventProp } = this.props;
+    await eventProp(args);
+    await steersman[event](args);
+    await steersman.onUpdated(args);
   };
 
-  componentDidMount() {
-    this.mounted = true;
-  }
-
   render() {
-    const { isMounted, transitionTimeout: defaultTimeout, mapProps: defaultMapProps } = this.context;
+    const { isMounted, transitionTimeout: defaultTimeout, mapProps: defaultMapProps } = this.props.steersman;
     const { matcher, path, exact, strict, transitionTimeout = defaultTimeout, mapProps = defaultMapProps, props, children, group, ...matcherProps } = this.props;
     const Matcher = matcher || Match;
 

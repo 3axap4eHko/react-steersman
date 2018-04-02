@@ -1,13 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import { object } from 'prop-types';
 import renderer from 'react-test-renderer';
-import createMemoryHistory from '../createMemoryHistory';
-import Steersman from '../Steersman';
+import createMemoryHistory from 'history/createMemoryHistory';
+import Steersman, { withContext } from '../Steersman';
 import Route from '../Route';
 import navigate from '../navigate';
 
 const TEST_VALUE = 1;
 
+@withContext
 class Test extends Component {
 
   @navigate('/test')

@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { DIRECTION_ENTER, DIRECTION_EXIT, STATUS_START, STATUS_ACTIVE, STATUS_DONE } from 'react-transistor/constants';
-import createMemoryHistory from '../createMemoryHistory';
+import createMemoryHistory from 'history/createMemoryHistory';
 import Route from '../Route';
 import Steersman from '../Steersman';
 
@@ -11,7 +11,7 @@ test('Steersman render route', () => {
 
   context.component = renderer.create(
     <Steersman history={history}>
-      <Route path="/" children={() => 'test'} />
+      <Route path="/" children={() => 'test' } />
       <Route path="/test" children={() => 'not test'} />
     </Steersman>,
   );

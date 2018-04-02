@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { object, string, func, bool, oneOfType } from 'prop-types';
 import Pattern from 'uriil/Pattern';
 import { matchPropTypes, matchDefaultProps } from './props';
+import { withContext } from './Steersman';
 
 const matchedGroups = {};
 
@@ -21,24 +22,21 @@ function getMatches(group, location, match) {
   return match;
 }
 
+@withContext
 export default class Match extends Component {
 
   static propTypes = matchPropTypes;
 
   static defaultProps = matchDefaultProps;
 
-  static contextTypes = {
-    history: object,
-  };
-
   constructor(props, context) {
     super(props, context);
-    const { history } = context;
+    const { steersman } = props;
 
-    if (!history) {
-      console.error('Make sure your Route has Steersman component at a parent level');
+    if (!steersman) {
+      console.error('Make sure your Route has Steersman component at the parent level');
     }
-
+    const { history } = steersman;
     const { group, path, exact, strict } = this.props;
 
     if (!matchedGroups[group]) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, object, oneOfType, objectOf, shape, bool, string, any, number } from 'prop-types';
+import { func, object, oneOfType, oneOf, objectOf, shape, bool, string, any, number } from 'prop-types';
 import { transitionEventsPropTypes, transitionEventsDefaultProps } from 'react-transistor/props';
 
 const nop = () => {};
@@ -8,6 +8,7 @@ const mapProps = props => props;
 
 export const matchPropTypes = {
   children: func.isRequired,
+  steersman: object.isRequired,
   group: string,
   path: string,
   exact: bool,
@@ -64,6 +65,7 @@ const screenFullPropTypes = shape({
 
 export const steersmanPropTypes = {
   history: object.isRequired,
+  SSR: bool,
   transitionTimeout: number,
   mapProps: func,
   ...routeEventsPropTypes,
@@ -71,6 +73,7 @@ export const steersmanPropTypes = {
 
 export const steersmanDefaultProps = {
   transitionTimeout: 0,
+  ssr: false,
   mapProps,
   ...routeEventsDefaultProps,
 };

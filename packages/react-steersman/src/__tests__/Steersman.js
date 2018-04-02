@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { func, object } from 'prop-types';
+import { func, object, shape } from 'prop-types';
 import renderer from 'react-test-renderer';
-import createMemoryHistory from '../createMemoryHistory';
-import Steersman from '../Steersman';
+import createMemoryHistory from 'history/createMemoryHistory';
+import Steersman, { withContext } from '../Steersman';
 
 test('Steersman defaults', () => {
   const context = {};
@@ -31,20 +31,23 @@ test('Steersman events', done => {
     'updated': 1,
   };
 
+  @withContext
   class EventTest extends Component {
-    static contextTypes = {
-      history: object,
-      onEnter: func,
-      onEntering: func,
-      onEntered: func,
-      onExit: func,
-      onExiting: func,
-      onExited: func,
-      onUpdated: func,
+    static propTypes = {
+      steersman: shape({
+        history: object,
+        onEnter: func,
+        onEntering: func,
+        onEntered: func,
+        onExit: func,
+        onExiting: func,
+        onExited: func,
+        onUpdated: func,
+      }),
     };
 
     componentDidMount() {
-      const { history, onEnter, onEntering, onEntered, onExit, onExiting, onExited, onUpdated } = this.context;
+      const { history, onEnter, onEntering, onEntered, onExit, onExiting, onExited, onUpdated } = this.props.steersman;
       expect(typeof history).toBe('object');
       expect(typeof onEnter).toBe('function');
       expect(typeof onEntering).toBe('function');
