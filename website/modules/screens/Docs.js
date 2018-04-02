@@ -40,13 +40,12 @@ const menu = {
   'React Steersman': [
     'Steersman',
     'Match',
-    'MatchGroup',
     'Route',
-    'RouteGroup',
-    'RouteContext',
     'Redirect',
     'createLink',
     'navigate',
+    'withMatch',
+    'withRoute',
     'withNav',
   ],
   'React Transistor': [

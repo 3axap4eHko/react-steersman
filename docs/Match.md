@@ -47,6 +47,7 @@ const history = createBrowserHistory();
 function outputUserId(props) {
   return <div>{props.match.userId}</div>;
 }
+
 <Steersman history={history}>
   <Match path="/user/:userId|int" children={outputUserId} />
 </Steersman>

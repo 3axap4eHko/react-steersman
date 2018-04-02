@@ -13,7 +13,7 @@ Redirecting path
 import React from 'react';
 import { render } from 'react-dom';
 import Steersman from 'react-steersman/Steersman';
-import RouteGroup from 'react-steersman/RouteGroup';
+import Route from 'react-steersman/Route';
 import Redirect from 'react-steersman/Redirect';
 import createBrowserHistory from 'react-steersman/createBrowserHistory';
 
@@ -21,10 +21,10 @@ const history = createBrowserHistory();
 
 render(
   <Steersman history={history} >
-    <RouteGroup path="/" children={() => 'Home'} group="page" />
-    <RouteGroup path="/profile" children={() => 'Profile'}  group="page" />
-    <RouteGroup path="/dashboard" children={() => 'Dashboard'}  group="page" />
-    <RouteGroup path=".*" children={Redirect} props={{ path: '/' }}  group="page" />
+    <Route path="/" children={() => 'Home'} group="page" />
+    <Route path="/profile" children={() => 'Profile'}  group="page" />
+    <Route path="/dashboard" children={() => 'Dashboard'}  group="page" />
+    <Route path=".*" children={Redirect} props={{ path: '/' }}  group="page" />
   </Steersman>,
   document.getElementById('app'),
 );

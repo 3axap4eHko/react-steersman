@@ -15,7 +15,7 @@
     "react-dom": "^16.2.0",
     "react-helmet": "^5.2.0",
     "react-jss": "^8.3.3",
-    "react-steersman": "^2.5.0",
+    "react-steersman": "^4.0.0-0",
     "react-typographic": "^0.1.0",
     "react-wire": "^1.0.1"
   },

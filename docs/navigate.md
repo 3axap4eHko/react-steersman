@@ -9,11 +9,13 @@
 ## Example
 ```javascript
 import React, { Component } from 'react';
+import { withContext } from 'react-steersman/Steersman';
 import navigate from 'react-steersman/navigate';
 import Breadcrumbs from './Breadcrumbs';
 import Button from './Button';
 import Loading from './Loading';
 
+@withContext
 export default class NavMenu extends Component {
   state = {
     breadcrumbs: '/',

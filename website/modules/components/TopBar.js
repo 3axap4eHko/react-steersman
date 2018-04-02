@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import withStyles from 'react-jss';
 import Text from 'react-typographic';
+import Link from './Link';
 
 const styles = ({ palette }) => ({
   root: {
@@ -34,7 +35,7 @@ export default class TopBar extends Component {
     return (
       <div className={classes.root}>
         <div>
-          <Text type="title" transform="uppercase">PRO JS <span className={classes.subBrand}>/ React Steersman</span></Text>
+          <Text type="title" transform="uppercase"><a className={classes.link} href="https://pro-js.com">PRO JS</a> / <Link to="/" title="React Steersman" /></Text>
         </div>
         <div className={classes.nav}>
           <a href="https://github.com/3axap4eHko/react-steersman" className={classes.link} title="GitHub">GitHub</a>

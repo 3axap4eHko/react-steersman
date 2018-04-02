@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import {} from 'prop-types';
 import Helmet from 'react-helmet';
 import withStyles from 'react-jss';
-import RouteGroup from 'react-steersman/RouteGroup';
+import Route from 'react-steersman/Route';
 import TopBar from './components/TopBar';
 import Footer from './components/Footer';
 import Home from './screens/Home';
@@ -40,8 +40,8 @@ export default class App extends Component {
     return (
       <Fragment>
         <TopBar />
-        <RouteGroup path="/" children={Home} />
-        <RouteGroup path="/docs/:component" children={Docs} />
+        <Route path="/" children={Home} group="main" />
+        <Route path="/docs/:component" children={Docs} group="main" />
         <Footer />
         <Helmet
           htmlAttributes={{ lang: 'en', amp: undefined }} // amp takes no value
