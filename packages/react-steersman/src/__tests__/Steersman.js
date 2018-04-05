@@ -31,7 +31,7 @@ test('Steersman events', done => {
     'updated': 1,
   };
 
-  @withContext
+  @withContext()
   class EventTest extends Component {
     static propTypes = {
       steersman: shape({

@@ -4,8 +4,7 @@ import { withContext } from './Steersman';
 import Match from './Match';
 import navigateTo from './navigateTo';
 
-@withContext
-class SteerLink extends Component {
+class Link extends Component {
   static propTypes = {
     to: oneOfType([string, number]).isRequired,
     exact: bool,
@@ -22,25 +21,25 @@ class SteerLink extends Component {
   };
 
   render() {
-    const { render } = this.props;
+    const { to, exact, strict, ...props } = this.props;
+
     return (
       <Match
-        path={this.props.to}
-        exact={this.props.exact}
-        strict={this.props.strict}
-        props={{
-          ...this.props,
-          navigate: this.navigate,
-        }}
+        path={to}
+        exact={exact}
+        strict={strict}
       >
-        {match => render(match)}
+        {({ match }) => this.props.render({
+          to,
+          active: !!match,
+          navigate: this.navigate,
+          ...props,
+        })}
       </Match>
     );
   }
 }
 
 export default function createLink(render) {
-  return function Link(props) {
-    return <SteerLink {...props} render={render} />;
-  };
+  return withContext({ props: { render } })(Link);
 }

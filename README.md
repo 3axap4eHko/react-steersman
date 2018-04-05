@@ -1,6 +1,6 @@
 # React Steersman
 
-Lightweight React JS routing library with transitions
+Lightweight React JS 16.3 routing library with transitions
 
 <p align="center">
   <a href="https://pro-js.com/react-steersman/">

@@ -22,7 +22,7 @@ function getMatches(group, location, match) {
   return match;
 }
 
-@withContext
+@withContext()
 export default class Match extends Component {
 
   static propTypes = matchPropTypes;

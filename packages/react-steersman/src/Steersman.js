@@ -30,19 +30,27 @@ export default class Steersman extends Component {
   }
 }
 
-export function withContext(WrappedComponent) {
-  const componentName = WrappedComponent.displayName || WrappedComponent.name;
+export const Context = SteersmanContext.Consumer;
 
-  return class Context extends Component {
-    static displayName = `Context(${componentName})`;
-    static WrappedComponent = WrappedComponent;
+export function withContext(options) {
 
-    render() {
-      return (
-        <SteersmanContext.Consumer>
-          {steersman => <WrappedComponent {...this.props} steersman={steersman} />}
-        </SteersmanContext.Consumer>
-      );
-    }
+  const { props } = options || {};
+
+  return WrappedComponent => {
+
+    const componentName = WrappedComponent.displayName || WrappedComponent.name;
+
+    return class SteersmanContext extends Component {
+      static displayName = `Steersman(${componentName})`;
+      static WrappedComponent = WrappedComponent;
+
+      render() {
+        return (
+          <Context>
+            {steersman => <WrappedComponent {...props} {...this.props} steersman={steersman} />}
+          </Context>
+        );
+      }
+    };
   };
 }

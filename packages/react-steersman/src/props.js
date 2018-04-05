@@ -9,7 +9,7 @@ const mapProps = props => props;
 export const matchPropTypes = {
   children: func.isRequired,
   steersman: object.isRequired,
-  group: string,
+  group: any,
   path: string,
   exact: bool,
   strict: bool,
@@ -47,22 +47,6 @@ export const routeDefaultProps = {
   ...routeEventsDefaultProps,
 };
 
-export const routeGroupPropTypes = {
-  ...routePropTypes,
-  group: string,
-};
-
-export const routeGroupDefaultProps = {
-  ...routeDefaultProps,
-  group: 'default',
-};
-
-const screenFullPropTypes = shape({
-  component: func.isRequired,
-  props: object,
-  options: object,
-});
-
 export const steersmanPropTypes = {
   history: object.isRequired,
   SSR: bool,
@@ -77,9 +61,3 @@ export const steersmanDefaultProps = {
   mapProps,
   ...routeEventsDefaultProps,
 };
-
-const screenShortPropTypes = func;
-
-export const screenPropTypes = oneOfType([screenFullPropTypes, screenShortPropTypes]);
-
-export const screensPropTypes = objectOf(screenPropTypes);

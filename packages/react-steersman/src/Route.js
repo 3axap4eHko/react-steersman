@@ -6,7 +6,7 @@ import { routePropTypes, routeDefaultProps } from './props';
 import { withContext } from './Steersman';
 import Match from './Match';
 
-@withContext
+@withContext()
 export default class Route extends Component {
 
   static propTypes = routePropTypes;

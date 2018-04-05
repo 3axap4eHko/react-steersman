@@ -7,7 +7,6 @@ export default function withNav(Component) {
 
   const componentName = Component.displayName || Component.name;
 
-  @withContext
   class NavigatedComponent extends ReactComponent {
     static displayName = `Navigated(${componentName})`;
     static WrappedComponent = Component;
@@ -21,5 +20,5 @@ export default function withNav(Component) {
     }
   }
 
-  return NavigatedComponent;
+  return withContext()(NavigatedComponent);
 }

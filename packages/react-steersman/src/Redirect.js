@@ -3,7 +3,7 @@ import { string, object } from 'prop-types';
 import navigateTo from './navigateTo';
 import { withContext } from './Steersman';
 
-@withContext
+@withContext()
 export default class Redirect extends Component {
   static propTypes = {
     steersman: object.isRequired,

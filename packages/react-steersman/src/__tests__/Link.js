@@ -22,11 +22,11 @@ function merge(values, joiner = ' ') {
   });
 }
 
-const Link = createLink(({ to, title, className, activeClassName, style, activeStyle, navigate, match }) => (
+const Link = createLink(({ to, title, active, className, activeClassName, style, activeStyle, navigate }) => (
   <a
     href={to}
-    className={merge([className, match && activeClassName])}
-    style={merge([style, match && activeStyle])}
+    className={merge([className, active && activeClassName])}
+    style={merge([style, active && activeStyle])}
     title={title}
     onClick={navigate}
   >

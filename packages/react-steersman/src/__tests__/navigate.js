@@ -8,7 +8,7 @@ import navigate from '../navigate';
 
 const TEST_VALUE = 1;
 
-@withContext
+@withContext()
 class Test extends Component {
 
   @navigate('/test')
