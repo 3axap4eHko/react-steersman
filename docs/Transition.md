@@ -40,6 +40,12 @@ A flag that start transition on first mount.
 
 Default: `false`
 
+#### freezePropsOnExit: bool
+
+Prevent props changing on exit.
+
+Default: `false`
+
 #### force: any
 
 A value to force start transition, should be a different from a previous value.
@@ -82,6 +88,7 @@ JSS example
 ```javascript
 import React, { Component } from 'react';
 import withStyles from 'react-jss';
+import Transition from 'react-transistor/Transition';
 
 const styles = theme => ({
   'animation': {
@@ -131,6 +138,7 @@ export default class App extends Component {
 Style object example
 ```javascript
 import React, { Component } from 'react';
+import Transition from 'react-transistor/Transition';
 
 const styles = {
   'fade-enter-start': {
@@ -176,6 +184,7 @@ export default class App extends Component {
 ### React Native example
 ```javascript
 import React, { Component } from 'react';
+import Transition from 'react-transistor/Transition';
 import { Animated, Easing, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({

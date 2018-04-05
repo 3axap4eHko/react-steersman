@@ -22,6 +22,8 @@ Tiny fast and real cross-platform react navigation library
  - [createLink](https://github.com/3axap4eHko/react-steersman/blob/master/docs/createLink.md)
  - [navigate](https://github.com/3axap4eHko/react-steersman/blob/master/docs/navigate.md)
  - [withNav](https://github.com/3axap4eHko/react-steersman/blob/master/docs/withNav.md)
+ - [withMatch](https://github.com/3axap4eHko/react-steersman/blob/master/docs/withMatch.md)
+ - [withRoute](https://github.com/3axap4eHko/react-steersman/blob/master/docs/withRoute.md)
 
 ## Usage
 

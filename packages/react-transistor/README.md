@@ -11,6 +11,7 @@ Tiny react transition library
  - [constants](https://github.com/3axap4eHko/react-steersman/blob/master/docs/constants.md) - Values of state machine parameters
  - [Transition](https://github.com/3axap4eHko/react-steersman/blob/master/docs/Transition.md) - State machine that allows control transitions in an easiest way
  - [ContentTransition](https://github.com/3axap4eHko/react-steersman/blob/master/docs/ContentTransition.md) - State machine that allows control content transitions in an easiest way.
+ - [withTransition](https://github.com/3axap4eHko/react-steersman/blob/master/docs/withTransition.md) - HOC state machine that allows control transitions in an easiest way.
 
 ## License
 License [The MIT License](http://opensource.org/licenses/MIT)
