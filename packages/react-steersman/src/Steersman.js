@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
+import { func } from 'prop-types';
 import { steersmanDefaultProps, steersmanPropTypes } from './props';
-
-const SteersmanContext = React.createContext(steersmanDefaultProps);
 
 export default class Steersman extends Component {
 
   static propTypes = steersmanPropTypes;
 
   static defaultProps = steersmanDefaultProps;
+
+  static childContextTypes = {
+    isMounted: func,
+    ...steersmanPropTypes,
+  };
 
   mounted = false;
 
@@ -19,18 +23,43 @@ export default class Steersman extends Component {
     this.mounted = false;
   }
 
-  render() {
-    const { children, ...props } = this.props;
+  getChildContext() {
+    return {
+      isMounted: () => this.mounted,
+      history: this.props.history,
+      transitionTimeout: this.props.transitionTimeout,
+      mapProps: this.props.mapProps,
+      onUpdated: this.props.onUpdated,
+      onEnter: this.props.onEnter,
+      onEntering: this.props.onEntering,
+      onEntered: this.props.onEntered,
+      onExit: this.props.onExit,
+      onExiting: this.props.onExiting,
+      onExited: this.props.onExited,
+    };
+  }
 
-    return (
-      <SteersmanContext.Provider value={{ ...props, isMounted: () => this.mounted }}>
-        {children}
-      </SteersmanContext.Provider>
-    );
+  render() {
+    const { children } = this.props;
+    return children;
   }
 }
 
-export const Context = SteersmanContext.Consumer;
+export class Context extends Component {
+  static propTypes = {
+    children: func.isRequired,
+  };
+
+  static contextTypes = {
+    isMounted: func,
+    ...steersmanPropTypes,
+  };
+
+  render() {
+    const { children } = this.props;
+    return children(this.context);
+  }
+}
 
 export function withContext(options) {
 

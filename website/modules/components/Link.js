@@ -4,11 +4,11 @@ import createLink from 'react-steersman/createLink';
 import withStyles from 'react-jss';
 import Text from 'react-typographic';
 
-const Link = createLink(({ classes, className, to, title, navigate, match }) => (
+const Link = createLink(({ classes, className, to, title, navigate, active }) => (
   <Text
     type="link"
     href={to}
-    className={classNames(classes.root, match && classes.activeRoot, className)}
+    className={classNames(classes.root, active && classes.activeRoot, className)}
     onClick={e => {
       e.preventDefault();
       navigate(to);

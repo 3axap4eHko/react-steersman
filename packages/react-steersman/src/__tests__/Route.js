@@ -1,7 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { DIRECTION_ENTER, DIRECTION_EXIT, STATUS_START, STATUS_ACTIVE, STATUS_DONE } from 'react-transistor/constants';
-import createMemoryHistory from 'history/createMemoryHistory';
+import createMemoryHistory from '../createMemoryHistory';
+import createStaticHistory from '../createStaticHistory';
 import Route from '../Route';
 import Steersman from '../Steersman';
 
@@ -35,7 +36,7 @@ test('Steersman mapProps', () => {
 
 test('Steersman onRouteUpdated', done => {
   const context = {};
-  const history = createMemoryHistory();
+  const history = createStaticHistory({ location: '/' });
 
   function onExited({ match, location, path }) {
     expect(match).toBe(null);
@@ -57,8 +58,8 @@ test('Steersman onRouteUpdated', done => {
   }
 
   context.component = renderer.create(
-    <Steersman history={history} onEnter={onEnter} onEntered={onEntered} onExited={onExited}>
-      <Route path="/" children={() => null} />
+    <Steersman history={history}>
+      <Route path="/" children={() => null} onEnter={onEnter} onEntered={onEntered} onExited={onExited} />
     </Steersman>,
   );
   context.tree = context.component.toTree();
