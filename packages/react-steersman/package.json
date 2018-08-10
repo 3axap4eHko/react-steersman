@@ -1,6 +1,6 @@
 {
   "name": "react-steersman",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -18,8 +18,8 @@
   "dependencies": {
     "history": "^4.7.2",
     "prop-types": "^15.6.1",
-    "react-transistor": "^4.0.2",
-    "uriil": "^4.0.2"
+    "react-transistor": "^4.0.3",
+    "uriil": "^4.0.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0"

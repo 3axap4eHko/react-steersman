@@ -33,13 +33,13 @@ export default class ContentTransition extends Component {
     });
   }
 
-  onTransition = args => {
+  onTransition = async args => {
     const { direction, status } = args;
     const event = propsMap[direction][status];
     const rendered = direction !== DIRECTION_EXIT || status !== STATUS_DONE || this.props.display;
     this.setState({ rendered, timestamp: Date.now() });
     if (this.props[event]) {
-      this.props[event](args);
+      await this.props[event](args);
     }
   };
 
