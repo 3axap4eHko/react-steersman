@@ -90,6 +90,8 @@ import React, { Component } from 'react';
 import withStyles from 'react-jss';
 import Transition from 'react-transistor/Transition';
 
+const TIMEOUT=1000;
+
 const styles = theme => ({
   'animation': {
     transition: 'opacity 1s ease',
@@ -108,7 +110,7 @@ const styles = theme => ({
   },
 });
 
-function mapProps({ classes, timeout, direction, status }) {
+function mapProps({ classes, direction, status }, { timeout }) {
   return { 
     style: { transition: `opacity ${timeout}ms ease` },
     className: `${classes.animation} fade-${direction}-${status}`,
@@ -125,7 +127,7 @@ export default class App extends Component {
     const { classes } = this.props;
     
     return <Transition 
-       timeout={1000} 
+       timeout={TIMEOUT}
        props={{ classes }}
        mapProps={mapProps}
        children={DemoComponent}

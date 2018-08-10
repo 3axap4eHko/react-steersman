@@ -93,7 +93,7 @@ function buildRegexp(patternRegexp, options) {
  * const params = compiled.match(url);
  * console.log(params) // { userId: 4520 }
  */
-export default class Pattern {
+module.exports = class Pattern {
 
   constructor(ref) {
     if (ref !== selfRef) {
@@ -186,4 +186,4 @@ export default class Pattern {
     return () => listeners.remove(callback);
   }
 
-}
+};

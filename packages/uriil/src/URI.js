@@ -38,7 +38,7 @@ const HASH = 'HASH';
  * console.log(uri.toObject());
  */
 
-export default class URI {
+module.exports = class URI {
 
   static parse(url) {
     const matches = url.match(urlParseExpr);
